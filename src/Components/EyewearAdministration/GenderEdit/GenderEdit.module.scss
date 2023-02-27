@@ -1,0 +1,64 @@
+$green: #11A834;
+$thin-gray-border: 1px solid #F1F3F7;
+$light-beige-gray: #F1F3F7;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+$middle-gray: #D9D9D9;
+
+
+.genderEdit {
+    width: 40%;
+    margin: 30px auto 30px 20px;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    background: white;
+    color: $gray-fontcolor;
+    span {
+        padding-top: 8px;
+    }
+
+    h3 {
+        display: block;
+    }
+
+    label {
+        width: 24%;
+        position: relative;
+        display: inline-block;        
+    }
+    input {
+        display: inline-block;
+        visibility: hidden;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+.jaw, .chosenJaw {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border: $thin-gray-border;
+    height: 38px;
+    position: absolute;
+    background: white;
+    border-radius: 10px;
+    padding: 9px 4px;
+}
+.chosenJaw {
+    border-color: $gray-fontcolor;
+    background: $soft-blue
+}
+
+
+

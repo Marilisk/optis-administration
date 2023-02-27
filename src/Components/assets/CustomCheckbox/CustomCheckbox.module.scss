@@ -1,0 +1,53 @@
+$thin-gray-border: 1px solid #D8D1CA;
+$green: #11A834;
+$light-beige-gray: #D8D1CA;
+$fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #F1F3F7;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+
+
+.checkWrap,
+.checked {
+    height: 30px;
+    width: 30px;
+
+    input {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        margin-right: 6px;
+        position: relative;
+        visibility: hidden;
+        
+        &::before {
+            position: absolute;
+            content: '';
+            border: 1px solid #AAAAAA;
+            width: 20px;
+            height: 20px;
+            visibility: visible;
+            margin: 0;
+            margin-top: 2px;
+        }
+    }
+}
+
+.checked {
+    input {
+        &::before {
+            position: absolute;
+            content: '';
+            background-image: url('./check.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80% 80%;
+        }
+    }
+}

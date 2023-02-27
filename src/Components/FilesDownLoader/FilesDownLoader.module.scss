@@ -1,0 +1,96 @@
+$green: #11A834;
+$thin-gray-border: 1px solid #EAEEF6;
+$light-beige-gray: #F1F3F7;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+
+.downloader {
+    height: 620px;
+    max-width: 640px;
+    margin-left: 10px;
+    margin: 0 auto;
+    h2 {
+        font-size: 16px;
+        margin-left: 10px;
+        text-align: center;
+        border-bottom: $thin-gray-border;
+    }
+
+
+    &>div {
+        display: flex;
+        justify-content: space-between;
+        height: 180px;
+        width: 640px;
+
+    }
+    label {
+        width: 200px;
+        display: block;
+        height: 50%;
+        position: relative;
+        top: 38%;
+        left: 20px;
+        color: white;
+        
+        span {
+            background: white;
+            position: absolute;
+            top: 0;
+            left: -3px;
+            padding: 6px;
+            color: $gray-fontcolor;
+            cursor: pointer;
+            text-align: center;
+            padding: 10px;
+            border: $thin-gray-border;
+            border-radius: 10px;
+            width: 200px;
+
+        }
+    }
+
+    input {
+        width: 200px;
+    }
+    .imgWrapper {
+        width: auto;
+        max-width: 60%;
+        display: inline-block;
+        margin: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 90%;
+        margin: 16px auto;
+        display: block;
+
+    }
+
+}
+
+.btn {
+    font-size: 12px;
+    background: white;
+    border: 1px solid $lightBorderColor;
+    border-radius: 10px;
+    padding: 6px;
+    margin: 10px auto;
+    color: $gray-fontcolor;
+    cursor: pointer;
+}
+
+.loader {
+    font-size: 18px;
+}

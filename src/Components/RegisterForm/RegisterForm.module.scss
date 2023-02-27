@@ -1,0 +1,99 @@
+$thin-gray-border: 1px solid #D8D1CA;
+$green: #11A834;
+$light-beige-gray: #D8D1CA;
+$fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+$lightBorderColor: #F1F3F7;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+
+
+.wrap {
+    margin: 0 auto;
+    width: 96%;
+    position: relative;
+   
+    input {
+        margin: 0 auto;
+        margin-bottom: 1.6em;
+        width: 100%;
+        height: 50px;
+        border: $thin-gray-border;
+        font-style: italic;
+        font-weight: 500;
+        color: #999999;
+        padding-left: 20px;
+        box-sizing: padding-box;
+        font-size: 14px;
+        position: relative;
+
+        &:focus {
+            outline: none;
+            border: 1px solid $green;
+        }
+    }
+    .fullNameIcon, .emailIcon, .passwordIcon {
+        position: absolute;
+        top: 18px;
+        right: 16px;
+        width: 14px;
+    }
+    .emailIcon { top: 91px; }
+    .passwordIcon { top: 164px; }
+
+    button {
+        width: 100%;
+        background: $blue;
+        border: 2px solid $blue;
+        height: 50px;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 1.3em;
+        cursor: pointer;
+    }
+    .btnEnabled, &:disabled {
+        background: $gray-fontcolor;
+        border-color: $gray-fontcolor;
+        cursor: not-allowed;
+    }
+}
+
+.underBtn {
+    display: flex;
+    margin-bottom: 1.3em;
+    span {
+        font-style: italic;
+        color: $green;
+        font-size: 18px;
+    }
+    label {
+        margin: 0px auto auto 2px;
+        height: 2em;
+    }
+}
+
+
+.errorEmail,
+.errorPassword, .errorFullname {
+    font-size: $small-fontSize;
+    position: absolute;
+    top: 36px;
+    color: $blue;
+    left: 20px;
+}
+.errorEmail { top: 110px; }
+.errorPassword { top: 182px; }
+
+.alreadyRegisteredMsg {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
+    color: $blue ;
+}

@@ -1,0 +1,56 @@
+$green: #11A834;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+
+.wrap {
+    //position: absolute;
+    background-color: rgba(0, 0, 0, .5);
+    background-image: url(./preloader.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 10;
+}
+
+.miniWrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 20vw;
+
+    &>div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url(./preloader.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    @media (max-width: 533px) {
+     //border: 1px solid salmon; 
+     margin: 20px 0;
+        &>div {
+            width: 30px;
+            height: 30px;
+            margin: 0px auto;
+            //border: 1px solid gray;
+            background-size: contain;
+        }  
+    }
+}

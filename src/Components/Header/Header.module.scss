@@ -1,0 +1,20 @@
+$black: #121212;
+$lightBorderColor: #F1F3F7;
+$darkBorderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+
+
+.wrap {
+    /* border: 1px solid fuchsia;
+    width: 100%; */
+}
+.h1 {
+    font-size: 24px;
+    margin: 0;
+    margin-left: 60px;
+    padding: 0;
+    span {
+        display: block;
+        color: #4F2914;
+    }
+}
