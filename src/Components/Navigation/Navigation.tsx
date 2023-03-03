@@ -1,38 +1,58 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import c from './Navigation.module.scss';
-import { PlannerIcon } from '../assets/navigation_icons/PlannerIcon';
 import { BarCodeIcon } from '../assets/navigation_icons/BarCodeIcon';
-import { MapIcon } from '../assets/navigation_icons/MapIcon';
 import { NavLink } from 'react-router-dom';
+import { ClientsIcon } from '../assets/navigation_icons/ClientsIcon';
+import { CartIcon } from '../assets/navigation_icons/CartIcon';
+import { OrderIcon } from '../assets/navigation_icons/OrderIcon';
 
 
 export const Navigation: FC = () => {
 
     return <div className={c.wrapper}>
 
-        <NavLink to={'/orders'} className={({ isActive }) =>
+        <div className={c.btnsHeader}>
+            <OrderIcon fill={'#475B73'} />
+            <span>Заказы</span>
+        </div>
+        <NavLink to={'/'} className={({ isActive }) =>
             isActive ? c.activeItem : c.item}>
-            <div className={c.iconWrapper}>
-                <PlannerIcon fill={'#2953A4'} />
-            </div>
-            <span>Планировщик</span>
+            <span>Новые</span>
         </NavLink>
+        <NavLink to={'/orders/processed'} className={({ isActive }) =>
+            isActive ? c.activeItem : c.item}>
+            <span>В обработке</span>
+        </NavLink>
+
+        <div className={c.btnsHeader}>
+            <BarCodeIcon fill={'#475B73'} />
+            <span>Добавить товар</span>
+        </div>
 
 
         <NavLink to={'/manage'} className={({ isActive }) =>
             isActive ? c.activeItem : c.item}>
-            <div className={c.iconWrapper} id='clients'>
-                <BarCodeIcon fill={'#2953A4'} />
-            </div>
-            <span>Добавить оправу</span>
+            <span>Оправа</span>
         </NavLink>
 
         <NavLink to={'/managelenses'} className={({ isActive }) =>
             isActive ? c.activeItem : c.item}>
-            <div className={c.iconWrapper} id='map'>
-                <MapIcon fill={'#2953A4'} />
-            </div>
-            <span>Добавить линзы</span>
+            <span>Линзы</span>
+        </NavLink>
+
+        <div className={c.btnsHeader}>
+            <ClientsIcon fill={'#475B73'} />
+            <span>Клиенты</span>
+        </div>
+
+        <div className={c.btnsHeader}>
+            <CartIcon fill={'#475B73'} />
+            <span>Каталог</span>
+        </div>
+
+        <NavLink to={'/photo'} className={({ isActive }) =>
+            isActive ? c.activeItem : c.item}>
+            <span>Фото</span>
         </NavLink>
 
     </div>

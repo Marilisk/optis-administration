@@ -8,26 +8,30 @@ $soft-blue: #EAEEF6;
 
 .wrapper {
     margin-top: 20px;
+    font-weight: 600;
+    span {
+        margin-left: 8px;
+        display: block;
+    }
 }
 
 .item, .activeItem {
     color: $blue;
     width: 100%;
-    //font-size: 16px;
     height: 36px;
-    font-weight: 600;
-    margin: 0;
     margin-bottom: 4px;
     cursor: pointer;
-    padding: 0;
-    padding-top: 10px;
+    padding-left: 36px;
+    padding-top: 7px;
     display: flex;
+    font-weight: 400;
     span {
         margin-left: 12px;
     }
     img {
         width: 16px;
     }
+    
 }
 
 .activeItem {
@@ -35,6 +39,13 @@ $soft-blue: #EAEEF6;
     color: $activeBlue;
 }
 
-.iconWrapper {
-    margin-left: 20px;
+.btnsHeader {
+    display: block;
+    height: 36px;
+    padding-left: 10px;
+    padding-top: 7px;
+    display: flex;
+    width: 100%;
+    //border: 1px solid fuchsia;
+    color: $blue;
 }

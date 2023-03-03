@@ -1,0 +1,62 @@
+$green: #11A834;
+$thin-gray-border: 1px solid #F1F3F7;
+$light-beige-gray: #F1F3F7;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+$middle-gray: #D9D9D9;
+
+
+.header {
+    display: block;
+    border-bottom: $thin-gray-border;
+    height: 110px;
+    margin: 0;
+    div {
+        font-size: 22px;
+        position: relative;
+        display: inline-block;        
+        //border: 1px solid green;
+        margin: 40px auto auto 40px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 4px;
+            background: $blue;
+            top: 42px;
+            left: 0;
+        }
+    }
+
+    @media (max-width: 533px) {
+        height: 70px;
+        div {
+            font-size: 20px;
+            margin-top: 0px;
+        }
+    }
+}
+
+.wrapper {
+    width: 92%;
+    margin: 0 auto;
+}
+
+.card {
+    margin: 20px;
+}
+
+.deleteOrder {
+    text-decoration: underline;
+    cursor: pointer;
+}

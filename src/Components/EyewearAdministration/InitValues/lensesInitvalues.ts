@@ -1,6 +1,6 @@
 import { CurrentLensType, IImageUrl } from './../../../types/types';
 
-export const initValues = (editMode:boolean, currentProduct:CurrentLensType, images:IImageUrl) => {
+export const initValues = (currentProduct:CurrentLensType, images:IImageUrl) => {
     if (currentProduct.item) {
         return {
             category: currentProduct.item.category,

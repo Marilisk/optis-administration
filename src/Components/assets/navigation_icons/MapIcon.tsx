@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { INavIcon } from './PlannerIcon';
+import { IIconProps } from './BarCodeIcon';
 
 
 
-export const MapIcon:FC<INavIcon> = ({ fill }:INavIcon) => {
+export const MapIcon:FC<IIconProps> = ({ fill }:IIconProps) => {
 
     return <div >
 

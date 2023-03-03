@@ -86,9 +86,6 @@ const productsSlice = createSlice({
         })
             .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.products.items = action.payload;
-                /* state.products.items.forEach(product => {
-                    product.size = defineSize(product.frameWidth)
-                }); */
                 state.products.status = LoadingStatusEnum.loaded;
             })
             .addCase(fetchProducts.rejected, (state) => {

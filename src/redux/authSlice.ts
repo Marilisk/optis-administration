@@ -1,6 +1,5 @@
-import { createAppAsyncThunk } from './hooks';
 import { RootState } from './redux-store';
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AuthInitStateType, LoadingStatusEnum } from '../types/types';
 import instance, { API_URL } from './API/api';
@@ -69,14 +68,10 @@ const authSlice = createSlice({
             state.loginData.status = LoadingStatusEnum.loading
         })
             .addCase(fetchAuth.fulfilled, (state, action/* :PayloadAction<string[]> */) => {
-                console.log(action)
-
                 state.loginData.status = LoadingStatusEnum.loaded;
                 state.loginData.data = action.payload.data.user;
-                //localStorage.setItem('token', action.payload.data.accessToken)
             })
             .addCase(fetchAuth.rejected, (state, action) => {
-                console.log(action)
                 state.loginData.status = LoadingStatusEnum.error;
                 if (action.error.message === 'Request failed with status code 400') {
                     state.loginData.serverMessage = 'неверный логин или пароль' ;
@@ -123,9 +118,6 @@ const authSlice = createSlice({
                 state.loginData.data = null;
             })
 
-            
-  
-        
     },
 
 });

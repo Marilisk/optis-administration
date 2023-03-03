@@ -7,28 +7,29 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
 import { fetchProd } from '../../redux/productsSlice';
 import { initValues } from './InitValues/EyewearInitvalues';
-import { Preloader } from '../assets/Preloader/Preloader';
-import instance from '../../redux/API/api';
-import { FilesDownloader } from '../FilesDownLoader/FilesDownLoader';
+import instance, { CLIENT_URL } from '../../redux/API/api';
+import FilesDownloader from '../FilesDownLoader/FilesDownLoader';
 import { selectIsAuth } from '../../redux/authSlice';
 import GenderEdit from './GenderEdit/GenderEdit';
+import ChecksGroup from './ChecksGroup/ChecksGroup';
+import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 
-export const Administration: FC = () => {
+const Administration: FC = () => {
+    const [showDownloader, setShowDownloader] = useState(false)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const params = useParams()
     const editMode = Boolean(params.id);
-    const isAuth = useAppSelector(selectIsAuth)
+    const optionsAreLoading = useAppSelector(s => s.administrate.status === LoadingStatusEnum.loading)
+    const optionsArrays = useAppSelector(s => s.administrate.options) 
+    const colorsOptionsArray = optionsArrays.find(el => el.name === 'color')?.items
+    const shapeOptionsArray = optionsArrays.find(el => el.name === 'shape')?.items
+    const featuresOptionsArray = optionsArrays.find(el => el.name === 'features')?.items
+    const materialOptionsArray = optionsArrays.find(el => el.name === 'material')?.items
 
     const [successmsg, setSuccessMsg] = useState(null)
     const [images, setImages] = useState<IImageUrl>()
 
-    useEffect(() => {
-        if (!isAuth) {
-            navigate('/login')  // or better redirect? 
-        }
-    }, [isAuth, navigate])
     useEffect(() => {
         if (params.id) {
             const fetch = async () => {
@@ -46,18 +47,28 @@ export const Administration: FC = () => {
     }, [params.id, dispatch]);
 
     const currentProduct = useAppSelector(state => state.products.currentProduct);
-    //const editMode = Boolean(params.id);  
-
-    if (currentProduct.status === LoadingStatusEnum.loading || !images /* || !currentProduct.item */) {
-        return <div><Preloader minFormat={true} /></div>
+    
+    if (currentProduct.status === LoadingStatusEnum.loading || !images || optionsAreLoading) {
+        return <div><LoadingDotsPreloader /></div>
     }
 
     const initialValues = initValues({ currentProduct, images });
 
-    return <section>
+    let photoLength = 0;
+    Object.keys(images).forEach(el => {
+        if (el !== '') { photoLength += 1 }
+    })
+
+    return <section className={c.container}>
         <div className={c.header}>
             <h2>{editMode ? 'Редактирование товара' : 'Новый товар'}</h2>
         </div>
+
+        <h3 className={c.downloaderHead} 
+            onClick={() => setShowDownloader(!showDownloader)}
+            style={showDownloader ? {borderBottomColor: '#ffffff'} : {border: '2px solid #EAEEF6'}}>
+            Фото ({photoLength})
+        </h3>
 
         <div className={c.adminWrapper}>
             <div className={c.formikWrapper}>
@@ -67,14 +78,16 @@ export const Administration: FC = () => {
                         const genderArr = []
                         genderArr.push(values.gender)
                         actions.setFieldValue('gender', genderArr)
+                        //console.log(values)
                         try {
                             const { data } = editMode ?
                                 await instance.patch(`/products/${params.id}`, values)
                                 : await instance.post('/products', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            if (data._id || (editMode && data.success === true)) {
-                                navigate(`https://spboptis.ru/product/${params.id || id}`);
+                            if (data._id || (params.id && data.success === true)) {
+                                //window.location.replace(`${CLIENT_URL}/product/${params.id || id}`);
+                                alert('success! afraid to redirect')
                             }
                         } catch (error) {
                             console.warn(error);
@@ -88,7 +101,7 @@ export const Administration: FC = () => {
                         <Form>
                             <div>
                                 <FilesDownloader images={images} setImages={setImages}
-                                    setFieldValue={props.setFieldValue} />
+                                    setFieldValue={props.setFieldValue} showDownloader={showDownloader} />
 
                                 <div className={c.inputGroup}>
 
@@ -146,95 +159,107 @@ export const Administration: FC = () => {
                                     </div>
 
                                     <GenderEdit values={props.values.gender} />
-                                    
+
                                 </div>
 
-                                
-
-                                <CreateFieldArray name='features'
+                                <ChecksGroup name='features'
                                     array={props.values.features}
-                                    title={'Особенности'} />
+                                    title={'Особенности'}
+                                    optionsArray={featuresOptionsArray || []} />
 
                                 <CreateFieldArray name='options'
                                     array={props.values.options}
                                     title={'Опции'} />
 
-                                <CreateFieldArray name='shape'
+                                <ChecksGroup name='shape'
                                     array={props.values.shape}
-                                    title={'Форма'} />
+                                    title={'Форма'}
+                                    optionsArray={shapeOptionsArray || []} />
 
-                                <CreateFieldArray name='color'
+                                <ChecksGroup name='color'
                                     array={props.values.color}
-                                    title={'Цвет'} />
+                                    title={'Цвет'}
+                                    optionsArray={colorsOptionsArray || []} />
 
-                                <div className={c.numberInputGroup}>
+                                <div className={c.inputGroup}>
 
-                                    <div className={c.inputWrapper}>
-                                        <label>расстояние между зрачками
-                                            <Field name='pupillaryDistance' />
-                                        </label>
+                                    <h3>Размеры</h3>
+
+                                    <div className={c.inputsTwoColFlex}>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>расстояние между зрачками
+                                                <Field name='pupillaryDistance' />
+                                            </label>
+                                        </div>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>ширина оправы, мм
+                                                <Field type='number' name='frameWidth' />
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div className={c.inputsTwoColFlex}>
+                                        <div className={c.inputWrapper}>
+                                            <label>ширина переносицы, мм
+                                                <Field type='number' name='bridge' />
+                                            </label>
+                                        </div>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>длина дужки, мм
+                                                <Field type='number' name='templeLength' />
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <div className={c.inputWrapper}>
-                                        <label>ширина оправы, мм
-                                            <Field type='number' name='frameWidth' />
-                                        </label>
+                                    <div className={c.inputsTwoColFlex}>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>высота линзы, мм
+                                                <Field type='number' name='lensHeight' />
+                                            </label>
+                                        </div>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>вес, грамм
+                                                <Field type='number' name='weight' />
+                                            </label>
+                                        </div>
+
+                                        <div className={c.inputWrapper}>
+                                            <label>ширина линзы, мм
+                                                <Field type='number' name='lensWidth' />
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <div className={c.inputWrapper}>
-                                        <label>ширина линзы, мм
-                                            <Field type='number' name='lensWidth' />
-                                        </label>
-                                    </div>
+                                    <div className={c.inputsTwoColFlex}>
+                                        <div className={c.inputWrapper}>
+                                            <label>минимальные диоптрии
+                                                <Field type='text' name='prescriptionMin' />
+                                            </label>
+                                        </div>
 
-                                    <div className={c.inputWrapper}>
-                                        <label>ширина переносицы, мм
-                                            <Field type='number' name='bridge' />
-                                        </label>
-                                    </div>
-
-                                    <div className={c.inputWrapper}>
-                                        <label>длина дужки, мм
-                                            <Field type='number' name='templeLength' />
-                                        </label>
-                                    </div>
-
-                                    <div className={c.inputWrapper}>
-                                        <label>высота линзы, мм
-                                            <Field type='number' name='lensHeight' />
-                                        </label>
-                                    </div>
-
-                                    <div className={c.inputWrapper}>
-                                        <label>вес, грамм
-                                            <Field type='number' name='weight' />
-                                        </label>
-                                    </div>
-
-                                    <div className={c.inputWrapper}>
-                                        <label>минимальные диоптрии
-                                            <Field type='text' name='prescriptionMin' />
-                                        </label>
-                                    </div>
-
-                                    <div className={c.inputWrapper}>
-                                        <label>максимальные диоптрии
-                                            <Field type='text' name='prescriptionMax' />
-                                        </label>
+                                        <div className={c.inputWrapper}>
+                                            <label>максимальные диоптрии
+                                                <Field type='text' name='prescriptionMax' />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <CreateFieldArray name='material'
+                                <ChecksGroup name='material'
                                     array={props.values.material}
-                                    title={'Материал'} />
-
+                                    title={'Материал'}
+                                    optionsArray={materialOptionsArray || []} />
 
                                 <button className={c.submitBtn}
-                                    disabled={currentProduct.status === LoadingStatusEnum.loading}
+                                    disabled={currentProduct.status === LoadingStatusEnum.loading || images.main === ''}
                                     type='submit'>
                                     ОТПРАВИТЬ
                                 </button>
-
 
                                 {successmsg ?
                                     <Link to={`https://spboptis.ru/product/${successmsg}`}>
@@ -249,7 +274,8 @@ export const Administration: FC = () => {
 
             </div>
 
-
         </div>
     </section>
 }
+
+export default React.memo(Administration)

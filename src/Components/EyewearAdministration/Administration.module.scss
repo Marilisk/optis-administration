@@ -14,38 +14,51 @@ $blue: #475B73;
 $soft-blue: #EAEEF6;
 $middle-gray: #D9D9D9;
 
+.container {
+    max-width: 100%;
+}
 
 .header {
     margin: 40px auto;
     h2 {
         text-align: center;
+        font-size: 22px;
     }
 }
-
+.downloaderHead {
+    font-size: 16px;
+    background: white;
+    margin: 20px;
+    margin-bottom: 0;
+    text-align: center;
+    border: 2px solid $soft-blue;
+    padding: 1em;
+    cursor: pointer;
+}
 .adminWrapper {
     margin-bottom: 60px;
-    min-width: 768px;
+    max-width: 100%;
     font-size: 14px;
 
 }
 .formikWrapper {
-    width: 100%;
     margin: 0px auto;
 }
 
-.inputGroup, .numberInputGroup {
+.inputGroup {
     border: 2px solid $soft-blue;
     border-radius: 3px;
     background: white;
-    //border: 1px solid green;
     margin: 20px;
+    h3 {
+        margin: 20px;
+    }
 }
 
 .inputWrapper, .arrayWrapper {
     display: flex;
-    margin: 0 auto;
     padding: 2%;
-    //background: white;
+    max-width: 600px;
 
     label {
         display: flex;
@@ -76,31 +89,15 @@ $middle-gray: #D9D9D9;
     }
 }
 
-.numberInputGroup {
-    .inputWrapper {
-        label {
-            //border: 1px solid pink;
-            width: 50%;
-        }
-        
-    }
-    input {
-        max-width: 80px;
-    }
-}
-
 .inputsTwoColFlex {
     display: flex;
     .inputWrapper {
         width: 50%;
-        //border: 1px solid greenyellow;
     }
     label {
-        //border: 1px solid darkblue;
         width: 70%;
         margin: 0 auto;
         span {
-            //border: 1px solid gold;
             width: 68%;
             padding-top: 8px;
         }

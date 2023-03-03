@@ -1,22 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
 import { App } from './App';
-import { Administration } from "./Components/EyewearAdministration/Administration";
+import Administration from "./Components/EyewearAdministration/Administration";
+import { LensesAdministration } from "./Components/LensesAdministration/LensesAdministration";
 import { LoginPage } from "./Components/LoginPage/LoginPage";
+import { Orders } from "./Components/OrderAdministration/Orders";
+import { Photos } from "./Components/Photos/Photos";
 
-
-/* function createBrowserRouter(
-  routes: RouteObject [],
-  opts?: {
-    basename?: string;
-    window?: Window;
-  }
-): RemixRouter ; */
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "",
+        element: <Orders />,
+      },
+      {
+        path: "/orders/:step",
+        element: <Orders />,
+      },
+
       {
         path: "/login",
         element: <LoginPage />,
@@ -33,7 +37,7 @@ export const router = createBrowserRouter([
         ]
       },
 
-      /* {
+      {
         path: "/managelenses",
         element: <LensesAdministration />,
         children: [
@@ -42,11 +46,25 @@ export const router = createBrowserRouter([
             element: <LensesAdministration />,
           }
         ]
-      }, */
+      },
+
+
+      {
+        path: "//photo",
+        element: <Photos />,
+        /* children: [
+          {
+            path: "/managelenses/:id",
+            element: <LensesAdministration />,
+          }
+        ] */
+      },
+
+
+
 
     ],
   },
-
 ]
 )
 

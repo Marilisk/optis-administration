@@ -1,14 +1,17 @@
 import { Navigation } from './Components/Navigation/Navigation';
 import { Header } from './Components/Header/Header';
-import { Outlet, redirect } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { checkAuth, selectIsAuth } from './redux/authSlice';
 import c from './App.module.scss'
+import { fetchFilterOptions } from './redux/administrateSlice';
+import { LoadingDotsPreloader } from './Components/assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 export function App() {
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -18,10 +21,20 @@ export function App() {
 
   useEffect(() => {
     if (!isAuth) {
-      redirect('/login')
+      navigate('/login')
     }
+  }, [isAuth, navigate])
 
-  })
+  useEffect(() => {
+    dispatch(fetchFilterOptions('features'));
+    dispatch(fetchFilterOptions('color'));
+    dispatch(fetchFilterOptions('shape'));
+    dispatch(fetchFilterOptions('material'));
+  }, [dispatch])
+
+  if (localStorage.getItem('token') && !isAuth) {
+    return <LoadingDotsPreloader />
+  }
 
   return <>
     <div className={c.appWrap}>
@@ -34,12 +47,9 @@ export function App() {
         </div>
       }
 
-
       <div className={c.desktopWrap}>
         <Outlet />
       </div>
-
-
 
     </div>
   </>

@@ -174,3 +174,23 @@ export type CurrentLensType = {
     item: ILensProduct | null
     status: LoadingStatusEnum
 }
+
+export interface IFileFromList {
+    name: string
+    owner?: IProduct[] | ILensProduct[] | null
+}
+
+export interface IOrder {
+    _id?: string
+    cart: Array<ICartItemWithSum>
+    address: string
+    phoneNumber: string
+    paymentMade: boolean
+    paymentWay: string
+    user?: object 
+    userId: string
+    condition?: string
+    createdAt?: Date
+    updatedAt?: Date
+    additionalInfo?: string
+}

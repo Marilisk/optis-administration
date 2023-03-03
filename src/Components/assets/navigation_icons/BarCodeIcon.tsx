@@ -1,8 +1,10 @@
 import { FC } from 'react';
-import { INavIcon } from './PlannerIcon';
 
+export interface IIconProps {
+    fill: string
+}
 
-export const BarCodeIcon:FC<INavIcon> = ({ fill }:INavIcon) => {
+export const BarCodeIcon:FC<IIconProps> = ({ fill }:IIconProps) => {
 
     return <div >
         <svg fill={fill} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="14" height="14">

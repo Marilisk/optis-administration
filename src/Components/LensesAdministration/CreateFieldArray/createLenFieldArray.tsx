@@ -1,47 +1,38 @@
 import { FieldArray, Field } from 'formik';
 import c from './CreateFieldArr.module.scss';
-import React, { FC } from 'react';
-import { DeleteCrossIcon } from '../assets/navigation_icons/DeleteCrossIcon';
 
-interface ICreateFieldArrayProps {
+interface ICreateLenFieldArrayProps {
     name: string
-    array: string[]
+    array: string[] | number[]
     title: string
 }
 
-const CreateFieldArray: FC<ICreateFieldArrayProps> = ({ name, array, title, }: ICreateFieldArrayProps) => {
-
+export const CreateLenFieldArray = ({ name, array, title}:ICreateLenFieldArrayProps) => {
 
     return <div className={c.arrayWrapper}>
-
         <FieldArray name={name}>
 
             {({ insert, remove, push }) => (
                 <div>
-                    <div className={c.flexHead}>
-                        <h3>{title}</h3>
-                        <button className={c.addBtn} type="button" onClick={() => push('')}>
-                            добавить поле
-                        </button>
-                    </div>
+                    <span>{title}</span>
                     {array.length > 0 &&
                         array.map((elem, index) => (
                             <div key={index} className={c.line}>
-
                                 <label className={c.arrayLabel}>
-                                    <Field name={`${name}.${index}`} type="text" value={elem} />
+                                    <Field name={`${name}.${index}`} type="text" />
                                 </label>
                                 <button type="button" className={c.btn} onClick={() => remove(index)}>
-                                    <DeleteCrossIcon fill='#666666' />
+                                    удалить
                                 </button>
                             </div>
                         ))}
-
+                    <button className={c.btn} type="button" onClick={() => push('')}>добавить поле</button>
                 </div>
             )}
 
         </FieldArray>
-    </div>
-}
 
-export default React.memo(CreateFieldArray)
+
+    </div>
+
+}

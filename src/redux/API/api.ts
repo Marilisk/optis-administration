@@ -1,7 +1,9 @@
 import axios from "axios";
 
-export const API_URL = 'https://backend-optics-production.up.railway.app'
+export const CLIENT_URL = 'https://spboptis.ru'
+//export const API_URL = 'https://backend-optics-production.up.railway.app'
 //export const API_URL = 'http://localhost:5555'
+export const API_URL = 'https://api.spboptis.ru'
 
 const instance = axios.create({  
     baseURL: API_URL,  
@@ -13,7 +15,6 @@ instance.interceptors.request.use( (config) => {
     return config;
 })
 
-
 instance.interceptors.response.use( (config) => {
     return config;
 }, async (error) => {
@@ -22,8 +23,7 @@ instance.interceptors.response.use( (config) => {
             && error.config && !error.config._isRetry ) { 
         originalRequest._isRetry = true;
         try {
-            //const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
-            const response = await axios.get(`https://backend-optics-production.up.railway.app/auth/refresh`, { withCredentials: true });
+            const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
             localStorage.setItem('token', response.data.tokens.accessToken);  
             return instance.request(originalRequest); 
         } catch (error) {
