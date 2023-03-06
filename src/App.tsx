@@ -3,14 +3,16 @@ import { Header } from './Components/Header/Header';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { checkAuth, selectIsAuth } from './redux/authSlice';
+import { checkAuth, selectIsAuth, selectIsManager } from './redux/authSlice';
 import c from './App.module.scss'
 import { fetchFilterOptions } from './redux/administrateSlice';
 import { LoadingDotsPreloader } from './Components/assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 export function App() {
+
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth)
+  const isManager = useAppSelector(selectIsManager)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,6 +20,12 @@ export function App() {
       dispatch(checkAuth());
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isManager) {
+      navigate('/noadminerror')
+    }
+  }, [isManager, navigate])
 
   useEffect(() => {
     if (!isAuth) {

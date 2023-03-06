@@ -14,6 +14,7 @@ export interface IOption {
 export interface IAdministrateSlice {
     options: IOption[]
     status: LoadingStatusEnum
+    imagesAmount: number
 }
 
 const initialState:IAdministrateSlice = {
@@ -28,17 +29,7 @@ const initialState:IAdministrateSlice = {
         },
         {
             name: 'features',
-            items: [/* 'детские', 'строгие', 'офисные', 'new Look', 'для чтения', 'безоправные', 'полностью оправленные', 'подростковые',
-            'праздничные',
-            'легкие',
-            'для овального лица',
-            'для круглого лица',
-            'для квадратного лица',
-            'для прямоугольного лица',
-            'для лица в форме алмаза',
-            'для лица в форме сердца',
-            'для вытянутого лица',
-            'для треугольного лица', */],
+            items: [],
         },
         {
             name: 'material',
@@ -47,6 +38,7 @@ const initialState:IAdministrateSlice = {
     ],
 
     status: LoadingStatusEnum.loaded,
+    imagesAmount: 0,
     
 }
 
@@ -59,8 +51,10 @@ const administrateSlice = createSlice({
             const option = state.options.find(el => el.name === action.payload.name)
             option?.items.push(action.payload.value)
         },
-
-        
+        setImagesAmount(state, action) {
+            //console.log(action)
+            state.imagesAmount = action.payload
+        },        
     },
     extraReducers: (builder) => {
                 builder.addCase(fetchFilterOptions.pending, (state) => {
@@ -82,6 +76,7 @@ const administrateSlice = createSlice({
 
 export const {
     addNewOption,
+    setImagesAmount,
 } = administrateSlice.actions;
 
 export default administrateSlice.reducer;

@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const CLIENT_URL = 'https://spboptis.ru'
 //export const API_URL = 'https://backend-optics-production.up.railway.app'
-//export const API_URL = 'http://localhost:5555'
-export const API_URL = 'https://api.spboptis.ru'
+export const API_URL = 'http://localhost:5555'
+//export const API_URL = 'https://api.spboptis.ru'
 
 const instance = axios.create({  
     baseURL: API_URL,  

@@ -1,0 +1,46 @@
+$green: #11A834;
+$thin-gray-border: 1px solid #F1F3F7;
+$light-beige-gray: #F1F3F7;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+$middle-gray: #D9D9D9;
+
+
+.wrap {
+    
+}
+
+
+
+
+
+
+.imgWrapper {
+    border: 1px solid $middle-gray;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    background: $soft-blue;
+    position: relative;
+    cursor: pointer;
+
+    img, svg {
+        //border: 1px solid blue;
+        width: 36px;
+        overflow: hidden;
+        margin: 10%;
+    }
+
+}
+
+
+

@@ -1,7 +1,7 @@
 import c from './LoginForm.module.scss';
 import { Field, Form, Formik } from 'formik';
 import { validateEmail, validatePassword } from './loginValidate';
-import { useState, FC, useEffect } from 'react';
+import { FC } from 'react';
 import { LoadingStatusEnum } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchAuth } from '../../redux/authSlice';
@@ -25,17 +25,7 @@ export const LoginForm: FC<ILoginForm> = ({ isLoading }: ILoginForm) => {
     return <Formik initialValues={initialValues}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
-            const data = await dispatch(fetchAuth(payload));
-            console.log(data)
-            
-            /* if (!data.payload && data.error.message === 'Request failed with status code 400') {
-                setInvalidMsg('неверный логин или пароль')
-                actions.resetForm()
-            } else if ('accessToken' in data.payload.data) {
-                if (values.rememberMe) { localStorage.setItem('email', values.email) }
-                actions.resetForm()
-                
-            }  */
+            await dispatch(fetchAuth(payload));
         }}
     >
 

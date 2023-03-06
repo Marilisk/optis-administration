@@ -2,31 +2,22 @@ import c from './OrderCard.module.scss';
 import { useEffect, FC, useState } from 'react';
 import instance from '../../../redux/API/api';
 import { useAppDispatch } from '../../../redux/hooks';
-import { OrderType } from '../../../types/types';
+import { IOrder } from '../../../types/types';
 import { LoadingDots } from '../../assets/Preloader/LoadingDots/LoadingDots';
 
 
 interface IOrderCard {
-    orderId: string
+    order: IOrder
 }
 
-export const fetchOrder = async (orderId:string, setOrder:(arg: OrderType) => void) => {
-    try {
-        const response = await instance.get(`/order/${orderId}`)
-        //console.log(response.data)
-        setOrder(response.data)
-    } catch (error) {
-        console.log(error)
-    }
-}
-export const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
+export const OrderCard: FC<IOrderCard> = ({ order }: IOrderCard) => {
     const dispatch = useAppDispatch()
 
-    const [order, setOrder] = useState<OrderType>()    
+    
 
     useEffect(() => {
         //fetchOrder(orderId, setOrder)
-    }, [orderId])
+    }, [])
 
     
     if (!order) {

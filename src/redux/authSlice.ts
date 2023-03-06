@@ -1,7 +1,7 @@
 import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AuthInitStateType, LoadingStatusEnum } from '../types/types';
+import { AdminRequestValuesType, AuthInitStateType, LoadingStatusEnum } from '../types/types';
 import instance, { API_URL } from './API/api';
 
 export type AuthValuesType = {
@@ -14,7 +14,7 @@ export type RegisterValuesType = {
     fullName: string
 }
 
-export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params:AuthValuesType) => {
+export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params: AuthValuesType) => {
     let response = await instance.post('/auth/login', params);
     localStorage.setItem('token', response.data.accessToken)
     return response;
@@ -36,11 +36,24 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
     }
 })
 
-export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params:RegisterValuesType) => {
+export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: RegisterValuesType) => {
     let response = await instance.post('/auth/register', params);
     localStorage.setItem('token', response.data.accessToken)
-    localStorage.setItem('loginData', JSON.stringify(params))
+    //localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
+})
+
+export const fetchAdminRequest = createAsyncThunk('auth/fetchAdminRequest',
+    async (params: AdminRequestValuesType) => {
+        let response = await instance.post('/auth/adminrequest', params);
+        return response;
+    })
+
+
+export const fetchEditAvatar = createAsyncThunk('auth/fetchEditAvatar', async(url: string) => {
+    let response = await instance.post('/auth/editavatar', {url})
+    console.log(response)
+    return response.data
 })
 
 const initialState: AuthInitStateType = {
@@ -49,18 +62,13 @@ const initialState: AuthInitStateType = {
         status: LoadingStatusEnum.loaded,
         serverMessage: '',
     },
-    subscribeData: {
-        email: '',
-        responseMsg: '',
-    },
-    totalCartSum: {},
+    
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        
 
     },
     extraReducers: (builder) => {
@@ -74,9 +82,9 @@ const authSlice = createSlice({
             .addCase(fetchAuth.rejected, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.error;
                 if (action.error.message === 'Request failed with status code 400') {
-                    state.loginData.serverMessage = 'неверный логин или пароль' ;
+                    state.loginData.serverMessage = 'неверный логин или пароль';
                 } else {
-                    state.loginData.serverMessage = 'сервис недоступен' ;
+                    state.loginData.serverMessage = 'сервис недоступен';
                 }
             })
 
@@ -117,6 +125,37 @@ const authSlice = createSlice({
                 state.loginData.status = LoadingStatusEnum.error;
                 state.loginData.data = null;
             })
+
+            .addCase(fetchAdminRequest.pending, (state) => {
+                state.loginData.status = LoadingStatusEnum.loading;
+            })
+            .addCase(fetchAdminRequest.fulfilled, (state, action) => {
+                console.log(action.payload)
+                state.loginData.status = LoadingStatusEnum.loaded;
+                state.loginData.serverMessage = 'Запрос направлен.'
+            })
+            .addCase(fetchAdminRequest.rejected, (state) => {
+                state.loginData.status = LoadingStatusEnum.error;
+            })
+
+            .addCase(fetchEditAvatar.pending, (state) => {
+                state.loginData.status = LoadingStatusEnum.loading;
+            })
+            .addCase(fetchEditAvatar.fulfilled, (state, action) => {
+                state.loginData.status = LoadingStatusEnum.loaded;
+                if (state.loginData.data) {
+                    state.loginData.data.avatarUrl = action.payload
+                }
+            })
+            .addCase(fetchEditAvatar.rejected, (state) => {
+                state.loginData.status = LoadingStatusEnum.error;
+            })
+
+
+
+
+
+            
 
     },
 

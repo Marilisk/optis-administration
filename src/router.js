@@ -3,6 +3,7 @@ import { App } from './App';
 import Administration from "./Components/EyewearAdministration/Administration";
 import { LensesAdministration } from "./Components/LensesAdministration/LensesAdministration";
 import { LoginPage } from "./Components/LoginPage/LoginPage";
+import { NoAdminPage } from "./Components/NoAdminPage/NoAdminPage";
 import { Orders } from "./Components/OrderAdministration/Orders";
 import { Photos } from "./Components/Photos/Photos";
 
@@ -48,20 +49,15 @@ export const router = createBrowserRouter([
         ]
       },
 
-
       {
         path: "//photo",
         element: <Photos />,
-        /* children: [
-          {
-            path: "/managelenses/:id",
-            element: <LensesAdministration />,
-          }
-        ] */
       },
 
-
-
+      {
+        path: "/noadminerror",
+        element: <NoAdminPage />,
+      },
 
     ],
   },

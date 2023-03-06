@@ -14,7 +14,7 @@ interface IRegisterForm {
     isLoading: LoadingStatusEnum
     navigate: (arg: number) => void
 }
-export const RegisterForm:FC<IRegisterForm> = ({ isLoading, navigate }:IRegisterForm) => {
+export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegisterForm) => {
     const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState<string | null>(null)
     const dispatch = useAppDispatch()
 
@@ -47,15 +47,17 @@ export const RegisterForm:FC<IRegisterForm> = ({ isLoading, navigate }:IRegister
                 <div className={c.wrap}>
 
                     <Field id='fullName' name='fullName' placeholder='Ваше полное имя' validate={validateFullName}
-                        style={errors.fullName && { borderColor: '#95009C', color: '#95009C' }} />
-                    {errors.fullName && touched.fullName && <p className={c.errorFullname}>{errors.fullName}</p>}
+                        style={errors.fullName && { borderColor: '#ff0000', color: '#ff0000' }} />
+                    {errors.fullName && touched.fullName && <p className={c.errorFullname}>
+                        {errors.fullName}
+                    </p>}
                     <img alt=''
                         src={errors.fullName && touched.fullName ? errorInput :
                             touched.fullName ? check : snowFlake}
                         className={c.fullNameIcon} />
 
                     <Field id='email' name='email' placeholder='email' validate={validateEmail}
-                        style={errors.email && { borderColor: '#95009C', color: '#95009C' }} />
+                        style={errors.email && { borderColor: '#ff0000', color: '#ff0000' }} />
                     {errors.email && touched.email && <p className={c.errorEmail}>{errors.email}</p>}
                     <img alt=''
                         src={errors.email && touched.email ? errorInput :
@@ -63,7 +65,7 @@ export const RegisterForm:FC<IRegisterForm> = ({ isLoading, navigate }:IRegister
                         className={c.emailIcon} />
 
                     <Field id="password" type="password" name="password" placeholder='пароль' validate={validatePassword}
-                        style={errors.password && { borderColor: '#95009C', color: '#95009C' }} />
+                        style={errors.password && { borderColor: '#ff0000', color: '#ff0000' }} />
                     {errors.password && touched.password && <p className={c.errorPassword}>{errors.password}</p>}
                     <img alt=''
                         src={errors.password && touched.password ? errorInput :

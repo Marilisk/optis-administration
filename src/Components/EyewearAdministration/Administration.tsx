@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import CreateFieldArray from './createFieldArray';
 import c from './Administration.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -9,10 +9,10 @@ import { fetchProd } from '../../redux/productsSlice';
 import { initValues } from './InitValues/EyewearInitvalues';
 import instance, { CLIENT_URL } from '../../redux/API/api';
 import FilesDownloader from '../FilesDownLoader/FilesDownLoader';
-import { selectIsAuth } from '../../redux/authSlice';
 import GenderEdit from './GenderEdit/GenderEdit';
 import ChecksGroup from './ChecksGroup/ChecksGroup';
 import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
+import FieldLine from './FieldLine/FieldLine.';
 
 
 const Administration: FC = () => {
@@ -21,11 +21,12 @@ const Administration: FC = () => {
     const params = useParams()
     const editMode = Boolean(params.id);
     const optionsAreLoading = useAppSelector(s => s.administrate.status === LoadingStatusEnum.loading)
-    const optionsArrays = useAppSelector(s => s.administrate.options) 
+    const optionsArrays = useAppSelector(s => s.administrate.options)
     const colorsOptionsArray = optionsArrays.find(el => el.name === 'color')?.items
     const shapeOptionsArray = optionsArrays.find(el => el.name === 'shape')?.items
     const featuresOptionsArray = optionsArrays.find(el => el.name === 'features')?.items
     const materialOptionsArray = optionsArrays.find(el => el.name === 'material')?.items
+    const photoLength = useAppSelector(s => s.administrate.imagesAmount)
 
     const [successmsg, setSuccessMsg] = useState(null)
     const [images, setImages] = useState<IImageUrl>()
@@ -47,26 +48,22 @@ const Administration: FC = () => {
     }, [params.id, dispatch]);
 
     const currentProduct = useAppSelector(state => state.products.currentProduct);
-    
+
     if (currentProduct.status === LoadingStatusEnum.loading || !images || optionsAreLoading) {
         return <div><LoadingDotsPreloader /></div>
     }
 
     const initialValues = initValues({ currentProduct, images });
 
-    let photoLength = 0;
-    Object.keys(images).forEach(el => {
-        if (el !== '') { photoLength += 1 }
-    })
 
     return <section className={c.container}>
         <div className={c.header}>
             <h2>{editMode ? 'Редактирование товара' : 'Новый товар'}</h2>
         </div>
 
-        <h3 className={c.downloaderHead} 
+        <h3 className={c.downloaderHead}
             onClick={() => setShowDownloader(!showDownloader)}
-            style={showDownloader ? {borderBottomColor: '#ffffff'} : {border: '2px solid #EAEEF6'}}>
+            style={showDownloader ? { borderBottomColor: '#ffffff' } : { border: '2px solid #EAEEF6' }}>
             Фото ({photoLength})
         </h3>
 
@@ -101,61 +98,23 @@ const Administration: FC = () => {
                         <Form>
                             <div>
                                 <FilesDownloader images={images} setImages={setImages}
-                                    setFieldValue={props.setFieldValue} showDownloader={showDownloader} />
+                                    setFieldValue={props.setFieldValue} showDownloader={showDownloader}
+                                    dispatch={dispatch} />
 
                                 <div className={c.inputGroup}>
 
-                                    <div className={c.inputWrapper}>
-                                        <label>
-                                            <span>категория</span>
-                                            <Field id='category' name='category' />
-                                        </label>
-                                    </div>
-                                    <div className={c.inputWrapper}>
-                                        <label>
-                                            <span>наименование</span>
-                                            <Field id='name' name='name' />
-                                        </label>
-                                    </div>
+                                    <FieldLine label={'категория'} name={'category'} />
+                                    <FieldLine label={'наименование'} name={'name'} />
+                                    <FieldLine label={'описание'} name={'description'} />
 
-
-                                    <div className={c.inputWrapper}>
-                                        <label>
-                                            <span>описание</span>
-                                            <Field id='description' name='description' />
-                                        </label>
+                                    <div className={c.inputsTwoColFlex}>
+                                        <FieldLine label={'артикул'} name={'code'} />
+                                        <FieldLine label={'цена'} name={'price'} />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>
-                                                <span>артикул</span>
-                                                <Field id='code' name='code' />
-                                            </label>
-                                        </div>
-                                        <div className={c.inputWrapper}>
-                                            <label>
-                                                <span>цена</span>
-                                                <Field id='price' name='price' />
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div className={c.inputsTwoColFlex}>
-                                        <div className={c.inputWrapper}>
-                                            <label>
-                                                <span>количество просмотров</span>
-                                                <Field type='number' name='viewsCount' />
-                                            </label>
-                                        </div>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>
-                                                <span>количество покупок</span>
-                                                <Field type='number' name='buyCount' />
-                                            </label>
-                                        </div>
+                                        <FieldLine label={'количество просмотров'} name={'viewsCount'} type='number' />
+                                        <FieldLine label={'количество покупок'} name={'buyCount'} type='number' />
                                     </div>
 
                                     <GenderEdit values={props.values.gender} />
@@ -186,67 +145,24 @@ const Administration: FC = () => {
                                     <h3>Размеры</h3>
 
                                     <div className={c.inputsTwoColFlex}>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>расстояние между зрачками
-                                                <Field name='pupillaryDistance' />
-                                            </label>
-                                        </div>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>ширина оправы, мм
-                                                <Field type='number' name='frameWidth' />
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                    <div className={c.inputsTwoColFlex}>
-                                        <div className={c.inputWrapper}>
-                                            <label>ширина переносицы, мм
-                                                <Field type='number' name='bridge' />
-                                            </label>
-                                        </div>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>длина дужки, мм
-                                                <Field type='number' name='templeLength' />
-                                            </label>
-                                        </div>
+                                        <FieldLine label='расстояние между зрачками' name='pupillaryDistance' type='pupillaryDistance' />
+                                        <FieldLine label='ширина оправы, мм' name='frameWidth' type='number' />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>высота линзы, мм
-                                                <Field type='number' name='lensHeight' />
-                                            </label>
-                                        </div>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>вес, грамм
-                                                <Field type='number' name='weight' />
-                                            </label>
-                                        </div>
-
-                                        <div className={c.inputWrapper}>
-                                            <label>ширина линзы, мм
-                                                <Field type='number' name='lensWidth' />
-                                            </label>
-                                        </div>
+                                        <FieldLine label='ширина переносицы, мм' name='bridge' type='number' />
+                                        <FieldLine label='длина дужки, мм' name='templeLength' type='number' />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-                                        <div className={c.inputWrapper}>
-                                            <label>минимальные диоптрии
-                                                <Field type='text' name='prescriptionMin' />
-                                            </label>
-                                        </div>
+                                        <FieldLine label='высота линзы, мм' name='lensHeight' type='number' />
+                                        <FieldLine label='вес, грамм' name='weight' type='number' />
+                                        <FieldLine label='ширина линзы, мм' name='lensWidth' type='number' />
+                                    </div>
 
-                                        <div className={c.inputWrapper}>
-                                            <label>максимальные диоптрии
-                                                <Field type='text' name='prescriptionMax' />
-                                            </label>
-                                        </div>
+                                    <div className={c.inputsTwoColFlex}>
+                                        <FieldLine label='минимальные диоптрии' name='prescriptionMin' type='number' />
+                                        <FieldLine label='максимальные диоптрии' name='prescriptionMax' type='number' />
                                     </div>
                                 </div>
 

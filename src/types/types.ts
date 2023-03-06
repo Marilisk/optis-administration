@@ -9,19 +9,20 @@ export type ISubscribeData = {
 }
 
 export type IUser = {
-    activationLink: string,
-    _id: string,
-    cart: Array<ICartItem>,
-    createdAt: string,
-    email: string,
-    favourites: string[],
-    fullName: string,
+    activationLink: string
+    _id: string
+    cart: Array<ICartItem>
+    createdAt: string
+    email: string
+    favourites: string[]
+    fullName: string
+    avatarUrl?: string
     orders: string[]
-    isActivated: boolean,
-    password: string,
-    role: string,
-    updatedAt: string,
-    __v: number,
+    isActivated: boolean
+    password: string
+    role: string
+    updatedAt: string
+    __v: number
 };
 
 
@@ -33,30 +34,30 @@ export interface IImageUrl {
 
 
 export interface IProduct {
-    _id: string,
-    category: string,
-    name: string,
-    code: number,
-    description: string,
-    price: number,
-    gender: string[],
-    features: string[],
-    options: string[],
-    viewsCount: number,
-    buyCount: number,
-    shape: string[],
-    color: string[],
-    pupillaryDistance: string,
-    frameWidth: number,
-    lensWidth: number,
-    bridge: number,
-    templeLength: number,
-    lensHeight: number,
-    weight: number,
-    material: string[],
-    prescriptionMin: string,
-    prescriptionMax: string,
-    imageUrl: IImageUrl /* | null */
+    _id: string
+    category: string
+    name: string
+    code: number
+    description: string
+    price: number
+    gender: string[]
+    features: string[]
+    options: string[]
+    viewsCount: number
+    buyCount: number
+    shape: string[]
+    color: string[]
+    pupillaryDistance: string
+    frameWidth: number
+    lensWidth: number
+    bridge: number
+    templeLength: number
+    lensHeight: number
+    weight: number
+    material: string[]
+    prescriptionMin: string
+    prescriptionMax: string
+    imageUrl: IImageUrl 
     size?:string
 
 }
@@ -92,7 +93,6 @@ export type ICartItem = {
     leftLens: number
     rightLens: number
     cat: CatEnum
-    //lens: number
 }
 export type ICartItemWithSum = {
     productId: string
@@ -119,8 +119,6 @@ export enum CatEnum {
 }
 export type AuthInitStateType = {
     loginData: ILData
-    subscribeData: ISubscribeData
-    totalCartSum: object,
 }
 
 export type ProdInitialStateType = {
@@ -145,23 +143,10 @@ type CartItemWithSumType = {
     status: LoadingStatusEnum
 }
 type ProcessedOrderType = {
-    order: OrderType | null
+    order: IOrder | null
     status: LoadingStatusEnum
 }
-export type OrderType = {
-    _id?: string
-    cart: Array<ICartItemWithSum>
-    address: string
-    phoneNumber: string
-    paymentMade: boolean
-    paymentWay: string
-    user?: object 
-    userId: string
-    condition?: string
-    createdAt?: Date
-    updatedAt?: Date
-    additionalInfo?: string
-}
+
 export type LensesInitialStateType = {
     products: LensProductsType
     currentProduct: CurrentLensType
@@ -193,4 +178,10 @@ export interface IOrder {
     createdAt?: Date
     updatedAt?: Date
     additionalInfo?: string
+}
+
+export type AdminRequestValuesType = {
+    email: string
+    fullName: string
+    role: string
 }
