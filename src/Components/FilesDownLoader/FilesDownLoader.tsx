@@ -14,7 +14,7 @@ interface IFilesDownloaderProps {
 }
 
 const countPhotos = (images: any) => {
-    console.log('in countPhotos function')
+    //console.log('in countPhotos function')
     let number = 0;
     let keysArray = Object.keys(images)
     for (let el of keysArray) {
@@ -60,16 +60,19 @@ const FilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImages, setFiel
 
             <FilesDownLoadField handleChangeFile={handleChangeFile}
                 image={images.main}
+                name='main'
                 downloadStatus={downloadStatus.main}
                 label='главное фото' />
 
             <FilesDownLoadField handleChangeFile={handleChangeFile}
                 image={images.side}
+                name='side'
                 downloadStatus={downloadStatus.side}
                 label='фото сбоку' />
 
             <FilesDownLoadField handleChangeFile={handleChangeFile}
                 image={images.perspective}
+                name='perspective'
                 downloadStatus={downloadStatus.perspective}
                 label='фото в перспективе' />
 

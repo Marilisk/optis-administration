@@ -23,12 +23,12 @@ export const AvatarDownloader: FC<IAvatarDownloaderProps> = ({ avatarUrl }: IAva
                 formData.append('image', file);
                 setDownloadStatus(true)
                 const { data } = await instance.post('/upload', formData);
-                console.log(data)
                 if (data.url) {
                     setNewAvatar(data.url)
                     dispatch(fetchEditAvatar(data.url))
                 }
                 setDownloadStatus(false)
+                
             }
         } catch (error) {
             console.warn(error);
@@ -37,9 +37,11 @@ export const AvatarDownloader: FC<IAvatarDownloaderProps> = ({ avatarUrl }: IAva
         }
     }
 
-    return <div >
+
+    return <div className={c.wrap}>
 
         <input type='file' onChange={(e) => handleChangeFile(e)} />
+        <div className={c.fakeInputBtn} />
 
         {
             newAvatar &&
@@ -52,7 +54,6 @@ export const AvatarDownloader: FC<IAvatarDownloaderProps> = ({ avatarUrl }: IAva
             downloadStatus &&
             <LoadingDots />
         }
-
 
     </div>
 }

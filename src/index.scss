@@ -28,6 +28,7 @@ h2, h3, h4 {
 input, button, textarea {
   font-family: 'Manrope', sans-serif;
   transition: all 300ms;
+  outline: none;
 }
 button {
   cursor: pointer;

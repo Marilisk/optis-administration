@@ -6,37 +6,44 @@ import { AvatarDownloader } from './AvatarDownloader/AvatarDownloader';
 
 interface IAvatarEditorProps {
     avatarUrl: string | undefined
-    isAvatarHovered: boolean
-    setAvatarIsHovered: (arg: boolean) => void
+    editWindowShown: string
+    setEditWindowShown: (arg: string) => void
 }
 
 export const AvatarEditor: FC<IAvatarEditorProps> =
-    ({ avatarUrl, isAvatarHovered, setAvatarIsHovered }: IAvatarEditorProps) => {
+    ({ avatarUrl, editWindowShown, setEditWindowShown }: IAvatarEditorProps) => {
 
         const [isInputShown, setInputShown] = useState(false)
 
+        return <>
+            <div className={c.avatarWrap} onMouseEnter={() => setEditWindowShown('avatar')} >
 
-        return <div className={c.avatarWrap}
-            onMouseEnter={() => setAvatarIsHovered(true)} >
+                {avatarUrl ?
+                    <img alt='avatar' src={`${API_URL}${avatarUrl}`} />
+                    :
+                    <AvatarIcon fill='#475B73' />
+                }
 
-            {avatarUrl ?
-                <img alt='avatar' src={`${API_URL}${avatarUrl}`} />
-                :
-                <AvatarIcon fill='#475B73' />
-            } 
+            </div>
 
-            {isAvatarHovered &&
-                <div className={c.accordeon} onMouseLeave={() => setAvatarIsHovered(false)}>
+            {editWindowShown === 'avatar' &&
+                <div className={c.accordeon} onMouseLeave={() => setEditWindowShown('')}>
+                    
+                    <div className={c.container}>
 
-                    <button type='button' onClick={() => setInputShown(true)}>
-                        Изменить фото
-                    </button>
+                        <button type='button' onClick={() => {
+                            setInputShown(true)
+                            console.log(isInputShown)
+                        } }>
+                            Изменить фото
+                        </button>
 
-                    {isInputShown &&
-                        <AvatarDownloader avatarUrl={avatarUrl} />
-                    }
+                        {isInputShown &&
+                            <AvatarDownloader avatarUrl={avatarUrl} />
+                        }
+
+                    </div>
                 </div>
             }
-
-        </div>
+        </>
     }

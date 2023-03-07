@@ -6,10 +6,11 @@ import { CreateLenFieldArray } from './CreateFieldArray/createLenFieldArray';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
 import { Preloader } from '../assets/Preloader/Preloader';
-import instance from '../../redux/API/api';
+import instance, { CLIENT_URL } from '../../redux/API/api';
 import { fetchLens } from '../../redux/lensesSlice';
 import { FilesDownloader } from './FilesDownLoader/LensFilesDownLoader';
 import { initValues } from '../EyewearAdministration/InitValues/lensesInitvalues';
+import LensFieldLine from './LensFieldLine/LensFieldLine';
 
 export const LensesAdministration: FC = () => {
     const navigate = useNavigate()
@@ -47,7 +48,7 @@ export const LensesAdministration: FC = () => {
 
     const initialValues = initValues(currentProduct, images);
 
-    return <section>
+    return <section className={c.container}>
         <div className={c.header}>
             <h2>{editMode ? 'Редактирование товара' : 'Новый товар'}</h2>
         </div>
@@ -57,11 +58,10 @@ export const LensesAdministration: FC = () => {
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
                     onSubmit={async (values, actions) => {
-                        //console.log('presubmit', values)
                         try {
-                            //props.values.imageUrl = images
+
                             console.log('submit', values)
-                            const { data } = editMode ?
+                            /* const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
                                 : await instance.post('/lenses', values);
                             const id = data._id;
@@ -70,7 +70,7 @@ export const LensesAdministration: FC = () => {
                             if (data.success === true || (editMode && data._id)) {
                                 alert('успешно!');
                                 navigate(`/lenses/${params.id || id}`);
-                            }
+                            } */
                         } catch (error) {
                             console.warn(error);
                             alert('ошибка при загрузке товара');
@@ -78,47 +78,36 @@ export const LensesAdministration: FC = () => {
                     }}
                 >
 
-                    {/* {({ values }) => ( */}
+
                     {props => (
                         <Form>
                             <div className={c.form}>
-                                <div className={c.inputWrapper}>
-                                    <label>категория
-                                        <Field id='category' name='category' />
-                                    </label>
-                                </div>
-                                <div className={c.inputWrapper}>
-                                    <label>марка (бренд)
-                                        <Field id='brand' name='brand' />
-                                    </label>
-                                </div>
-                                <div className={c.inputWrapper}>
-                                    <label>производитель
-                                        <Field id='manufacturer' name='manufacturer' />
-                                    </label>
-                                </div>
-                                <div className={c.inputWrapper}>
-                                    <label>страна производитства
-                                        <Field id='manufacturerCountry' name='manufacturerCountry' />
-                                    </label>
-                                </div>
-                                <div className={c.inputWrapper}>
-                                    <label>артикул
-                                        <Field id='code' name='code' />
-                                    </label>
-                                </div>
 
-                                <div className={c.descriptionInputWrapper}>
-                                    <label>описание
-                                        <Field component="textarea" id='description' name='description' />
-                                        {/* <textarea id='description' name='description' /> */}
-                                    </label>
-                                </div>
+                                <div className={c.inputGroup}>
 
-                                <div className={c.inputWrapper}>
-                                    <label>цена
-                                        <Field id='price' name='price' />
-                                    </label>
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='категория' name='category' />
+                                        <LensFieldLine label='бренд' name='brand' />
+                                    </div>
+
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='производитель' name='manufacturer' />
+                                        <LensFieldLine label='страна производитства' name='manufacturerCountry' />
+                                    </div>
+
+
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='артикул' name='code' />
+                                        <LensFieldLine label='цена' name='price' />
+                                    </div>
+
+                                    <div className={c.descriptionInputWrapper}>
+                                        <label>
+                                            <div>описание</div>
+                                            <Field component="textarea" id='description' name='description' />
+                                        </label>
+                                    </div>
+
                                 </div>
 
                                 <div className={c.prescriptionArr}>
@@ -126,7 +115,6 @@ export const LensesAdministration: FC = () => {
                                         array={props.values.prescription}
                                         title={'Оптическая сила'} />
                                 </div>
-
 
                                 <CreateLenFieldArray name='BC'
                                     array={props.values.BC}
@@ -189,20 +177,20 @@ export const LensesAdministration: FC = () => {
 
                                 <button className={c.submitBtn}
                                     disabled={currentProduct.status === LoadingStatusEnum.loading
-                                        || images.main === ''}
+                                        /* || images.main === '' */}
                                     type='submit'>ОТПРАВИТЬ</button>
 
-                                <button className={c.resetBtn}
+                                {/* <button className={c.resetBtn}
                                     disabled={currentProduct.status === LoadingStatusEnum.loading
                                         || images.main === ''}
                                     type='button'
                                     onClick={() => props.resetForm()} >
                                     ОЧИСТИТЬ
-                                </button>
+                                </button> */}
 
 
                                 {successmsg ?
-                                    <NavLink to={`/lenses/${successmsg}`}>
+                                    <NavLink to={`${CLIENT_URL}/lenses/${successmsg}`}>
                                         <p className={c.successLink}>перейти на страницу товара</p>
                                     </NavLink>
                                     : null}

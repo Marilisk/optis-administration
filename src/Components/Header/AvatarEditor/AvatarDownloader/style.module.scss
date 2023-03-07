@@ -16,28 +16,53 @@ $middle-gray: #D9D9D9;
 
 
 .wrap {
-    
+    margin: 10px;
+    width: 130px;
+    overflow: hidden;
+    //border: 1px solid darkblue;
+    display: flex;
+    min-height: 40px;
+
+    input {
+        background: transparent;
+        opacity: 0;
+        height: 64px;
+        position: absolute;
+        pointer-events: all;
+        max-width: 140px;
+    }
 }
 
-
-
-
+.fakeInputBtn {
+    background: url('./../../../assets/clipIcon.svg') no-repeat;
+    background-size: 60%;
+    background-position: center center;
+    width: 30%;
+    height: auto;
+    border-radius: 3px;
+    cursor: pointer;
+    top: -10px;
+    left: 0px;
+    visibility: visible;
+    display: block;
+}
 
 
 .imgWrapper {
     border: 1px solid $middle-gray;
-    height: 42px;
-    width: 42px;
+    height: 62px;
+    width: 62px;
     border-radius: 50%;
     background: $soft-blue;
-    position: relative;
+    //position: relative;
     cursor: pointer;
+    overflow: hidden;
+    margin: 0px auto;
+
 
     img, svg {
-        //border: 1px solid blue;
-        width: 36px;
-        overflow: hidden;
-        margin: 10%;
+        width: auto;
+        height: 100%;
     }
 
 }

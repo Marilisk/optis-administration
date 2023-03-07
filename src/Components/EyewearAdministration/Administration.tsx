@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CreateFieldArray from './createFieldArray';
@@ -55,7 +55,6 @@ const Administration: FC = () => {
 
     const initialValues = initValues({ currentProduct, images });
 
-
     return <section className={c.container}>
         <div className={c.header}>
             <h2>{editMode ? 'Редактирование товара' : 'Новый товар'}</h2>
@@ -103,9 +102,14 @@ const Administration: FC = () => {
 
                                 <div className={c.inputGroup}>
 
-                                    <FieldLine label={'категория'} name={'category'} />
-                                    <FieldLine label={'наименование'} name={'name'} />
-                                    <FieldLine label={'описание'} name={'description'} />
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <FieldLine label={'наименование'} name={'name'} />
+                                        <FieldLine label={'категория'} name={'category'} />
+                                    </div>
+
+                                    <div className={c.descriptionInputWrapper}>
+                                        <FieldLine label={'описание'} name={'description'} />
+                                    </div>
 
                                     <div className={c.inputsTwoColFlex}>
                                         <FieldLine label={'артикул'} name={'code'} />

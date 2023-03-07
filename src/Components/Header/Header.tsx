@@ -6,6 +6,7 @@ import { LogoutIcon } from '../assets/navigation_icons/LogoutIcon';
 import { AvatarEditor } from './AvatarEditor/AvatarEditor';
 import c from './Header.module.scss';
 import { NameEditor } from './NameEditor/NameEditor';
+import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 
 export const Header = () => {
@@ -13,9 +14,13 @@ export const Header = () => {
     const avatarUrl = useAppSelector(s => s.auth.loginData.data?.avatarUrl)
     const dispatch = useAppDispatch()
 
-    const [isAvatarHovered, setAvatarIsHovered] = useState(false)
+    const [editWindowShown, setEditWindowShown] = useState('')
 
-    return <div className={c.wrap} /* onMouseLeave={() => setAvatarIsHovered(false)} */>
+    if (!name) {
+        return <LoadingDotsPreloader />
+    }
+
+    return <div className={c.wrap} onMouseLeave={() => setEditWindowShown('')}>
         <div>
             <Link to='/'>
                 <h1 className={c.h1}>
@@ -23,21 +28,20 @@ export const Header = () => {
                 </h1>
             </Link>
         </div>
-        {name &&
-            <div className={c.name}>
 
-                <AvatarEditor avatarUrl={avatarUrl} isAvatarHovered={isAvatarHovered} setAvatarIsHovered={setAvatarIsHovered} />
+        <div className={c.name}>
+
+            <AvatarEditor avatarUrl={avatarUrl} editWindowShown={editWindowShown} setEditWindowShown={setEditWindowShown} />
+
+            <NameEditor name={name} editWindowShown={editWindowShown} setEditWindowShown={setEditWindowShown} />
+
+            <div className={c.iconWrapper} onClick={() => dispatch(fetchLogout())}>
                 
-                <NameEditor name={name} />
-
-                <div className={c.iconWrapper} onClick={() => dispatch(fetchLogout())}>
-                    <span>выйти</span>
-                    <div>
-                        <LogoutIcon fill={'#475B73'} />
-                    </div>
+                <div>
+                    <LogoutIcon fill={'#475B73'} />
                 </div>
             </div>
-        }
+        </div>
 
     </div>
 

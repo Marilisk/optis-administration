@@ -45,7 +45,7 @@ $middle-gray: #D9D9D9;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 260px;
+    width: 280px;
 }
 
 .iconWrapper {
@@ -53,27 +53,24 @@ $middle-gray: #D9D9D9;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    //border: 1px solid fuchsia;
-
-    span {
-        padding-top: 14px;
-        margin-right: 10px;
-    }
+    margin-left: 20px;
 
     svg {
         height: 42px;
         width: 22px;
         padding-top: 6px;
+        transition: 300ms;
     }
-    transition: 300ms;
 
     &:hover {
-        transform: scale(105%);
-        font-weight: 600;
-    }
-    
-}
+        transform: scale(102%);
 
+        svg {
+            fill: $activeBlue;
+        }
+    }
+
+}
 
 .avatarWrap {
     border: 1px solid $middle-gray;
@@ -83,39 +80,30 @@ $middle-gray: #D9D9D9;
     background: $soft-blue;
     position: relative;
     cursor: pointer;
-    //border: 1px solid fuchsia;
     overflow: hidden;
 
-
-    img, svg {
-
-    }
     img {
-        width: 100%;
+        width: auto;
         height: 100%;
     }
-
 }
-
-
 
 .accordeon {
     position: absolute;
     background: white;
-    border: 1px solid $middle-gray;
     border-radius: 3px;
-    top: 60px;
+    top: 64px;
 
     button {
         margin: 10px;
         color: $activeBlue;
         border: none;
         background: transparent;
+        font-weight: 600;
+    }
 
-
-        &:hover {
-            font-weight: 600;
-        }
+    .container {
+        border: 1px solid $soft-blue;
+        box-shadow: 2px 2px 12px 3px $soft-blue;
     }
 }
-

@@ -29,6 +29,7 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
         const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
+        console.log('refresh', response.data.user)
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
     } catch (error) {
@@ -52,7 +53,13 @@ export const fetchAdminRequest = createAsyncThunk('auth/fetchAdminRequest',
 
 export const fetchEditAvatar = createAsyncThunk('auth/fetchEditAvatar', async(url: string) => {
     let response = await instance.post('/auth/editavatar', {url})
-    console.log(response)
+    //console.log(response)
+    return response.data
+})
+
+export const fetchEditName = createAsyncThunk('auth/fetchEditName', async(fullName: string) => {
+    let response = await instance.post('/auth/editfullname', {fullName})
+    //console.log(response)
     return response.data
 })
 
@@ -62,7 +69,6 @@ const initialState: AuthInitStateType = {
         status: LoadingStatusEnum.loaded,
         serverMessage: '',
     },
-    
 }
 
 const authSlice = createSlice({
@@ -144,18 +150,25 @@ const authSlice = createSlice({
             .addCase(fetchEditAvatar.fulfilled, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.loaded;
                 if (state.loginData.data) {
-                    state.loginData.data.avatarUrl = action.payload
+                    state.loginData.data.avatarUrl = action.payload.url
                 }
             })
             .addCase(fetchEditAvatar.rejected, (state) => {
                 state.loginData.status = LoadingStatusEnum.error;
             })
 
-
-
-
-
-            
+            .addCase(fetchEditName.pending, (state) => {
+                state.loginData.status = LoadingStatusEnum.loading;
+            })
+            .addCase(fetchEditName.fulfilled, (state, action) => {
+                state.loginData.status = LoadingStatusEnum.loaded;
+                if (state.loginData.data) {
+                    state.loginData.data.fullName = action.payload.fullName
+                }
+            })
+            .addCase(fetchEditName.rejected, (state) => {
+                state.loginData.status = LoadingStatusEnum.error;
+            })
 
     },
 

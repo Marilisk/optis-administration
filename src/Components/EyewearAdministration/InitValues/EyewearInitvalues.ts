@@ -35,9 +35,9 @@ export const initValues = ({ currentProduct, images}:IinitValues) => {
     } else {
         return {
             category: 'eyewear',
-            name: 'Siresto',
+            name: 'Occasion',
             code: 125954,
-            description: 'новинка',
+            description: '',
             price: 0,
             gender: /* [] */ 'Мужские',
             features: [],
@@ -56,7 +56,7 @@ export const initValues = ({ currentProduct, images}:IinitValues) => {
             material: [],
             prescriptionMin: '-20.00',
             prescriptionMax: '12.00',
-            imageUrl: null,  // or images?
+            imageUrl: null, 
         }
     }
 }
