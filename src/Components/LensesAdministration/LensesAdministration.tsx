@@ -127,66 +127,32 @@ export const LensesAdministration: FC = () => {
                                     array={props.values.AX}
                                     title={'AX'} />
 
-                                <div className={c.inputWrapper}>
-                                    <label>период замены
-                                        <Field id='changePeriod' name='changePeriod' />
-                                    </label>
-                                </div>
+                                <div className={c.inputGroup}>
 
-                                <div className={c.inputWrapper}>
-                                    <label>цветность
-                                        <Field name='color' />
-                                    </label>
-                                </div>
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='период замены' name='changePeriod' />
+                                        <LensFieldLine label='цветность' name='color' />
+                                    </div>
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='UVFilter' name='UVFilter' />
+                                        <LensFieldLine label='дизайн' name='design' />
+                                    </div>
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='влажность' name='moisture' type='number' />
+                                        <LensFieldLine label='штук в упаковке' name='amountInPack' type='number' />
+                                    </div>
+                                    <div className={c.longInputsTwoColFlex}>
+                                        <LensFieldLine label='проницаемость кислорода' name='oxygen' type='number' />
+                                        <LensFieldLine label='материал' name='material' />
+                                    </div>
 
-                                <div className={c.inputWrapper}>
-                                    <label>UVFilter
-                                        <Field name='UVFilter' />
-                                    </label>
-                                </div>
 
-                                <div className={c.inputWrapper}>
-                                    <label>дизайн
-                                        <Field id='design' name='design' />
-                                    </label>
-                                </div>
-
-                                <div className={c.inputWrapper}>
-                                    <label>влажность
-                                        <Field type='number' name='moisture' />
-                                    </label>
-                                </div>
-
-                                <div className={c.inputWrapper}>
-                                    <label>штук в упаковке
-                                        <Field type='number' name='amountInPack' />
-                                    </label>
-                                </div>
-
-                                <div className={c.inputWrapper}>
-                                    <label>кислородопроницаемость
-                                        <Field type='number' name='oxygen' />
-                                    </label>
-                                </div>
-
-                                <div className={c.inputWrapper}>
-                                    <label>материал
-                                        <Field type='text' name='material' />
-                                    </label>
                                 </div>
 
                                 <button className={c.submitBtn}
                                     disabled={currentProduct.status === LoadingStatusEnum.loading
                                         /* || images.main === '' */}
                                     type='submit'>ОТПРАВИТЬ</button>
-
-                                {/* <button className={c.resetBtn}
-                                    disabled={currentProduct.status === LoadingStatusEnum.loading
-                                        || images.main === ''}
-                                    type='button'
-                                    onClick={() => props.resetForm()} >
-                                    ОЧИСТИТЬ
-                                </button> */}
 
 
                                 {successmsg ?

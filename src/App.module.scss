@@ -15,31 +15,24 @@ $soft-blue: #EAEEF6;
 
 .appWrap {
     display: grid;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 220px auto;
     grid-template-rows: 76px auto;
     grid-template-areas:
         'h h'
         'n a';
-    grid-row-gap: 1px;
-    //grid-column-gap: 4px;
+    grid-row-gap: 4px;
     min-height: 100vh;
     > div {
         padding: 4px;
     }
-    //min-width: 1180px;
-    //width: 100vw;
     max-width: 100vw;
-    //border: 1px solid darkcyan;
-
 }
 
 .headerWrap {
     grid-area: h;
     width: 100vw;
-    //min-width: 768px;
     background: white;
     border: 1px solid $lightBorderColor;
-    //border-color: pink;
     margin: 0 auto;
 }
 
@@ -47,16 +40,9 @@ $soft-blue: #EAEEF6;
     grid-area: n;
     background: white;
     border: 1px solid $lightBorderColor;
-    //border: 1px solid blueviolet;
 }
 
 .desktopWrap {
     grid-area: a;
-    //width: 100%;
-    //max-width: auto;
-    //margin: 0 auto;
-    //border: 1px solid darkblue;
     min-width: 768px;
-
-
 }

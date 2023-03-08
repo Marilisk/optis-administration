@@ -16,12 +16,14 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
     const orders = useAppSelector(s => s.orders.orders.items)
     const dispatch = useAppDispatch()
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(fetchAllOrders())
     }, [dispatch])
-    
-    if (authIsLoading === LoadingStatusEnum.loading || !orders ) {
-        return <div><h2>{userName}, у вас пока нет заказов...</h2></div>;
+
+    if (authIsLoading === LoadingStatusEnum.loading || !orders) {
+        return <div>
+            <h2>{userName}, у вас пока нет заказов...</h2>
+        </div>;
     }
 
     const elements = orders.map((order, i) => {
@@ -38,7 +40,7 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
         <div >
             {elements}
         </div>
-        
+
     </div>
 
 

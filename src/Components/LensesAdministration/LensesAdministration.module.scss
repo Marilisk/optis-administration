@@ -54,7 +54,6 @@ $middle-gray: #D9D9D9;
 .descriptionInputWrapper {
     display: flex;
     padding: 2%;
-    //max-width: 600px;
 
     label {
         display: flex;
@@ -64,16 +63,6 @@ $middle-gray: #D9D9D9;
         font-size: 14px;
         width: 100%;
     }
-
-    /* & > div {
-        //padding-top: 8px;
-        border: 1px solid #11A834;
-        //display: inline;
-        text-align: center;
-        height: 1em;
-        
-        //margin-top: 8px;
-    } */
 
     .arrayLabel {
         display: inline-block;
@@ -98,7 +87,6 @@ $middle-gray: #D9D9D9;
 .longInputsTwoColFlex {
     display: flex;
     justify-content: space-around;
-    //border: 1px solid rebeccapurple;
     .inputWrapper {
         width: 42%;
     }
@@ -113,28 +101,23 @@ $middle-gray: #D9D9D9;
 .descriptionInputWrapper {
     width: 84%;
     margin: 0 auto;
-    //padding: 2%;
     div {
-        width: 50%;
-        width: 50%;
+        width: 32%;
+        //border: 1px solid blue;
     }
     label {
-        //display: block;
         width: 100%;
         max-width: none;
-
     }
 
     textarea {
-        //border: 1px solid $middle-gray;
         height: 5em;
-        width: 50%;
+        width: 68%;
         padding: 4px 14px;
         resize: none;
 
         &:focus {
             height: 8em;
-
         }
     }
 }
