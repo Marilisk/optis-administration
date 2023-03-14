@@ -2,7 +2,7 @@ import c from './Orders.module.scss';
 import { useEffect, FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { LoadingStatusEnum } from '../../types/types';
-import { fetchAllOrders, fetchDeleteAllOrders } from '../../redux/ordersSlice';
+import { fetchAllOrders } from '../../redux/ordersSlice';
 import { OrderRows } from './OrderRows/OrderRows';
 import { HeadCells } from './HeadCells/HeadCells';
 interface IOrdersProps {
@@ -15,7 +15,7 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
     const orders = useAppSelector(s => s.orders.orders.items)
     const dispatch = useAppDispatch()
 
-    console.log(orders)
+    //console.log(orders)
 
     useEffect(() => {
         dispatch(fetchAllOrders())
@@ -31,10 +31,10 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
 
     return <div className={c.wrapper}>
 
-        <button type='button' 
+        {/* <button type='button' 
             onClick={() => dispatch(fetchDeleteAllOrders())}>
             удалить все заказы
-        </button>
+        </button> */}
 
         <table className={c.table}>
         

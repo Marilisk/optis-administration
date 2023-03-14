@@ -12,11 +12,10 @@ export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', asyn
     return {...response.data, orderId}; 
 })
 
-export const fetchDeleteAllOrders = createAsyncThunk('orders/fetchDeleteAllOrders', async () => {  
+/* export const fetchDeleteAllOrders = createAsyncThunk('orders/fetchDeleteAllOrders', async () => {  
     const response = await instance.delete(`/orders`);
-    //console.log(response)
     return response.data; 
-})
+}) */
 
 
 
@@ -69,7 +68,7 @@ const ordersSlice = createSlice({
                 state.deleteOrderMessage = 'Ошибка удаления'
             })
 
-            .addCase(fetchDeleteAllOrders.pending, (state) => {
+            /* .addCase(fetchDeleteAllOrders.pending, (state) => {
                 state.orders.status = LoadingStatusEnum.loading;
             })
             .addCase(fetchDeleteAllOrders.fulfilled, (state, action) => {
@@ -79,7 +78,7 @@ const ordersSlice = createSlice({
             .addCase(fetchDeleteAllOrders.rejected, (state) => {
                 state.orders.status = LoadingStatusEnum.error;
                 state.deleteOrderMessage = 'Ошибка удаления'
-            })
+            }) */
 
 
 

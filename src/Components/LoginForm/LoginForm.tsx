@@ -20,8 +20,6 @@ export const LoginForm: FC<ILoginForm> = ({ isLoading }: ILoginForm) => {
     const initialValues = emailInLS ? { email: emailInLS, password: '', rememberMe: true }
         : { email: '', password: '', rememberMe: true, }
 
-        
-
     return <Formik initialValues={initialValues}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
