@@ -1,22 +1,24 @@
 $green: #11A834;
-$violet: #95009C;
-$dark-violet: #57005C;
-$thin-gray-border: 1px solid #D8D1CA;
-$light-beige-gray: #D8D1CA;
+$thin-gray-border: 1px solid #F1F3F7;
+$light-beige-gray: #F1F3F7;
 $dark-fontcolor: #333333;
 $gray-fontcolor: #666666;
 $small-fontSize: 14px;
 $light-background: #FAFAFA;
-$serif-font-family: 'Playfair Display SC', serif;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+$middle-gray: #D9D9D9;
 
 
 .downloader {
-    height: 620px;
-    max-width: 640px;
-    margin-left: 10px;
-    margin: 0 auto;
-    //display: flex;
-    //border: 1px solid paleturquoise;
+    margin: 20px;
+    padding: 2%;
+    border: 3px dashed $soft-blue;
     h2 {
         font-size: 16px;
         margin-left: 10px;
@@ -24,65 +26,56 @@ $serif-font-family: 'Playfair Display SC', serif;
         border-bottom: $thin-gray-border;
     }
 
-
     &>div {
-        //padding: 1em;
         display: flex;
-        justify-content: space-between;
-        //border: 1px solid goldenrod;
+        justify-content: flex-start;
+        align-items: center;
         height: 180px;
-        width: 640px;
-
     }
     label {
         width: 200px;
         display: block;
-        height: 50%;
-        //border: 1px solid blue;
+        height: fit-content;
         position: relative;
-        top: 38%;
-        left: 20px;
         color: white;
         
         span {
             background: white;
             position: absolute;
-            top: 0;
-            //right: 0px;
-            left: -3px;
+            top: -4px;
+            right: 1px;
             padding: 6px;
             color: $gray-fontcolor;
             cursor: pointer;
-            //width: 120%;
             text-align: center;
             padding: 10px;
-            border: $thin-gray-border;
+            border: 1px solid $middle-gray;
             border-radius: 10px;
             width: 200px;
-
         }
-        //display: inline-block;
     }
 
     input {
         width: 200px;
     }
     .imgWrapper {
-        width: auto;
+        height: 100%;
         max-width: 60%;
         display: inline-block;
         margin: 10px;
-        //box-shadow: 0 0 4px 0 rgb(0 0 0 / 20%);
-        border-radius: 10px;
+        //border-radius: 10px;
         overflow: hidden;
+        //background: white;
+        //border: 1px solid orange;
     }
 
     img {
-        max-width: 90%;
-        //border: $thin-gray-border;
+        //max-width: 90%;
+        //border: 1px solid red;
+        height: 100%;
+        width: auto;
         margin: 16px auto;
         display: block;
-
     }
 
 }
@@ -98,6 +91,11 @@ $serif-font-family: 'Playfair Display SC', serif;
     cursor: pointer;
 }
 
-.loader {
-    font-size: 18px;
+.preloaderContainer {
+    &>div {
+        margin: 0;
+        margin-top: 12px;
+
+    }
+
 }

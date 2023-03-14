@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react';
-import instance, { API_URL } from '../../../redux/API/api';
+import instance from '../../../redux/API/api';
 import { IImageUrl } from '../../../types/types';
-import { LoadingDots } from '../../assets/Preloader/LoadingDots/LoadingDots';
+import { LenDownloaderField } from './DowmloaderField/LenDownloaderField';
 import c from './FilesDownLoader.module.scss';
 
 interface IFilesDownloaderProps {
@@ -10,12 +10,11 @@ interface IFilesDownloaderProps {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
 }
 
-export const FilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImages, /* editMode, currentProduct, */ setFieldValue }: IFilesDownloaderProps) => {
+export const LenFilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImages, /* editMode, currentProduct, */ setFieldValue }: IFilesDownloaderProps) => {
 
     const [downloadStatus, setDownloadStatus] = useState({ main: null, side: null, perspective: null })
 
     const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>, currentImg: string) => {
-
         try {
             const formData = new FormData();
             if (e.target.files) {
@@ -28,7 +27,6 @@ export const FilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImages, 
                 setDownloadStatus({ ...downloadStatus, [currentImg]: null })
                 setFieldValue('imageUrl', { ...images, [currentImg]: data.url })
             }
-
         } catch (error) {
             console.warn(error);
             alert('не получилось загрузить фото')
@@ -37,52 +35,25 @@ export const FilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImages, 
     }
 
 
-
     return <div className={c.downloader}>
 
-        <div>
-            <label>
-                <span>главное фото</span>
-                <input type='file' id='imageUrl' name='imageUrl'
-                    onChange={(e) => handleChangeFile(e, 'main')} />
+        <LenDownloaderField handleChangeFile={handleChangeFile}
+            title='главное фото'
+            downloadStatus={downloadStatus.main}
+            currentImg={images.main}
+            name='main' />
 
-            </label>
+        <LenDownloaderField handleChangeFile={handleChangeFile}
+            title='фото сбоку'
+            downloadStatus={downloadStatus.side}
+            currentImg={images.side}
+            name='side' />
 
-            {images.main && <div className={c.imgWrapper}>
-                <img src={`${API_URL}${images.main}`} alt='' />
-            </div>}
-            {downloadStatus.main ? <LoadingDots /> : null}
+        <LenDownloaderField handleChangeFile={handleChangeFile}
+            title='фото в перспективе'
+            downloadStatus={downloadStatus.perspective}
+            currentImg={images.perspective}
+            name='perspective' />
 
-        </div>
-
-        <div>
-            <label>
-                <span>фото сбоку</span>
-                <input type='file' id='imageUrl' name='imageUrl'
-                    onChange={(e) => handleChangeFile(e, 'side')} />
-            </label>
-
-            {images.side && <div className={c.imgWrapper}>
-                <img src={`${API_URL}${images.side}`} alt='' />
-            </div>}
-
-            {downloadStatus.side ? <LoadingDots /> : null}
-
-
-        </div>
-
-        <div>
-            <label>
-                <span>фото в перспективе</span>
-                <input type='file' id='imageUrl' name='imageUrl'
-                    onChange={(e) => handleChangeFile(e, 'perspective')} />
-            </label>
-
-            {images.perspective && <div className={c.imgWrapper}>
-                <img src={`${API_URL}${images.perspective}`} alt='' />
-            </div>}
-            {downloadStatus.perspective ? <LoadingDots /> : null}
-
-        </div>
     </div>
 } 

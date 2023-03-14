@@ -1,3 +1,5 @@
+import { type } from "os"
+
 export type ILData = {
     data?: IUser | null
     status: LoadingStatusEnum
@@ -165,8 +167,25 @@ export interface IFileFromList {
     owner?: IProduct[] | ILensProduct[] | null
 }
 
+/* export enum OrderConditionsEnum {
+    created = 'created',
+    confirmed = 'confirmed',
+    assemblied = 'assemblied',
+    manufacturing = 'manufacturing',
+    sendToManufactory = 'send to manufactory',
+    processedManufactory = 'processed manufactory',
+    readyForCourier = 'ready for courier',
+    inDelivery = 'in delivery',
+    deleted = 'deleted',
+    delivered = 'delivered',
+} */
+
+export type OrderConditionsType = 'created' | 'confirmed' | 'assemblied' | 'manufacturing' | 'send to manufactory' |
+'processed manufactory' | 'ready for courier' | 'in delivery' | 'deleted' | 'delivered';
+
+
 export interface IOrder {
-    _id?: string
+    _id: string
     cart: Array<ICartItemWithSum>
     address: string
     phoneNumber: string
@@ -174,8 +193,8 @@ export interface IOrder {
     paymentWay: string
     user?: object 
     userId: string
-    condition?: string
-    createdAt?: Date
+    condition: OrderConditionsType
+    createdAt: Date
     updatedAt?: Date
     additionalInfo?: string
 }

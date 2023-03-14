@@ -1,20 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IFileFromList, IOrder, LoadingStatusEnum } from "../types/types";
+import { IOrder, LoadingStatusEnum } from "../types/types";
 import instance from "./API/api";
-
-
 
 export const fetchAllOrders = createAsyncThunk('orders/fetchAllOrders', async () => {
     const response = await instance.get<IOrder[]>('/orders')
     return response.data;
 });
 
-
 export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', async (orderId:string) => {  
     const response = await instance.delete(`/order/${orderId}`);
-    console.log(response)
     return {...response.data, orderId}; 
 })
+
+export const fetchDeleteAllOrders = createAsyncThunk('orders/fetchDeleteAllOrders', async () => {  
+    const response = await instance.delete(`/orders`);
+    //console.log(response)
+    return response.data; 
+})
+
 
 
 export interface IOrdersInitialState {
@@ -22,7 +25,7 @@ export interface IOrdersInitialState {
         items: IOrder [],
         status: LoadingStatusEnum
     }
-    deleteImgMessage: string
+    deleteOrderMessage: string
 }
 
 const initialState: IOrdersInitialState = {
@@ -30,7 +33,7 @@ const initialState: IOrdersInitialState = {
         items: [],
         status: LoadingStatusEnum.loaded,
     },
-    deleteImgMessage: '',
+    deleteOrderMessage: '',
 }
 
 const ordersSlice = createSlice({
@@ -53,25 +56,34 @@ const ordersSlice = createSlice({
                 state.orders.status = LoadingStatusEnum.error;
             })
 
-
-
-
             .addCase(fetchDeleteOrder.pending, (state) => {
                 state.orders.status = LoadingStatusEnum.loading;
             })
             .addCase(fetchDeleteOrder.fulfilled, (state, action) => {
                 state.orders.items = state.orders.items.filter(el => el._id !== action.payload)
                 state.orders.status = LoadingStatusEnum.loaded;
-                state.deleteImgMessage = 'Изображение удалено'
+                state.deleteOrderMessage = 'заказ удалён'
             })
             .addCase(fetchDeleteOrder.rejected, (state) => {
                 state.orders.status = LoadingStatusEnum.error;
-                state.deleteImgMessage = 'Ошибка удаления'
+                state.deleteOrderMessage = 'Ошибка удаления'
+            })
+
+            .addCase(fetchDeleteAllOrders.pending, (state) => {
+                state.orders.status = LoadingStatusEnum.loading;
+            })
+            .addCase(fetchDeleteAllOrders.fulfilled, (state, action) => {
+                state.orders.items = []
+                state.orders.status = LoadingStatusEnum.loaded;
+            })
+            .addCase(fetchDeleteAllOrders.rejected, (state) => {
+                state.orders.status = LoadingStatusEnum.error;
+                state.deleteOrderMessage = 'Ошибка удаления'
             })
 
 
 
-
+            
     },
 })
 

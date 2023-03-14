@@ -17,7 +17,7 @@ export type RegisterValuesType = {
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params: AuthValuesType) => {
     let response = await instance.post('/auth/login', params);
     localStorage.setItem('token', response.data.accessToken)
-    return response;
+    return response.data.user;
 })
 
 export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
@@ -29,7 +29,6 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
         const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
-        console.log('refresh', response.data.user)
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
     } catch (error) {
@@ -40,7 +39,6 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: RegisterValuesType) => {
     let response = await instance.post('/auth/register', params);
     localStorage.setItem('token', response.data.accessToken)
-    //localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
 })
 
@@ -83,7 +81,7 @@ const authSlice = createSlice({
         })
             .addCase(fetchAuth.fulfilled, (state, action/* :PayloadAction<string[]> */) => {
                 state.loginData.status = LoadingStatusEnum.loaded;
-                state.loginData.data = action.payload.data.user;
+                state.loginData.data = action.payload;
             })
             .addCase(fetchAuth.rejected, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.error;

@@ -1,67 +1,71 @@
-import c from './OrderCard.module.scss';
-import { useEffect, FC, useState } from 'react';
-import instance from '../../../redux/API/api';
-import { useAppDispatch } from '../../../redux/hooks';
-import { IOrder } from '../../../types/types';
-import { LoadingDots } from '../../assets/Preloader/LoadingDots/LoadingDots';
+import { FC } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppSelector } from "../../../redux/hooks";
+import { IOrder } from "../../../types/types";
+import { determinateDate, determinateCondition } from "../OrderRows/functions";
+import { OrderUser } from "../OrderRows/OrderUser/OrderUser";
+import c from './OrderCard.module.scss'
+import { StatusChange } from "./StatusChange/StatusChange";
 
 
 interface IOrderCard {
-    order: IOrder
+
 }
+export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
 
-export const OrderCard: FC<IOrderCard> = ({ order }: IOrderCard) => {
-    const dispatch = useAppDispatch()
+    const params = useParams()
+    const orderId = params.id
+    const navigate = useNavigate()
+    const order = useAppSelector(s => s.orders.orders.items.find(el => el._id === orderId))
 
-    
+    const changeStatus = () => {
 
-    useEffect(() => {
-        //fetchOrder(orderId, setOrder)
-    }, [])
+    }
 
-    
     if (!order) {
-        return <LoadingDots />
+        return <div>заказ не найден</div>
     }
 
-    //const date = new Date(order.createdAt)
-    //const createDate = date.toLocaleDateString('ru-RU')
+    const conditionText = determinateCondition(order.condition)
 
-    let condition = '';
-    switch (order.condition) {
-        case 'created':
-            condition = 'Создан';
-            break;
-        case 'confirmed':
-            condition = 'Подтверждён';
-            break;
-        case 'deleted':
-            condition = 'Отменён';
-            break;
-        case 'processed':
-            condition = 'в обработке у менеджера';
-            break;
-    }
+    return <div className={c.wrapper} onClick={() => navigate(-1)}>
+
+        <div className={c.window}>
+            <h2>Заказ создан {determinateDate(order.createdAt)}</h2>            
+
+            <OrderUser userId={order.userId} phone={order.phoneNumber} />
+
+            <button type='button' onClick={() => changeStatus()}>
+                изменить статус
+
+            </button>
+
+            <StatusChange changeStatus={changeStatus} conditionText={conditionText} />
+
+            {/* {order?.updatedAt &&
+                <div>обновлено: {order.updatedAt}</div>} */}
 
 
-    return <div className={c.card}>
-        <div>
-            Заказ от {/* {createDate} */} г.
-            {/* Доставка по адресу {order.address} */}
-        </div>
+            <div>
+                сообщение клиенту
+            </div>
 
-        <div>
-            {condition}
-        </div>
+            <div>
+                заметка для мастера
+            </div>
 
-        <div>
-            {order.paymentMade? 'Оплачен' : 'Не оплачен'}
-        </div>
+            <div>
+                ответственный менеджер
+            </div>
 
-        <div className={c.deleteOrder}
-            /* onClick={() => dispatch(fetchDeleteOrder(orderId))} */>
-            Отменить заказ
+            <div>
+                планируемая дата доставки
+            </div>
+
+            <div>
+                заметка для курьера
+            </div>
         </div>
     </div>
-}
 
+}

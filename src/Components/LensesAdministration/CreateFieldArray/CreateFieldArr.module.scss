@@ -21,11 +21,9 @@ $middle-gray: #D9D9D9;
     background: white;
     border: 2px solid $soft-blue;
     border-radius: 3px;
-
 }
 
-
-.header, .smallHeader {
+.header {
     cursor: pointer;
     display: flex;
     align-items: stretch;
@@ -44,7 +42,7 @@ $middle-gray: #D9D9D9;
     display: grid;
     grid-template-columns: repeat(auto-fit, 100px);
     gap: 8px;
-    transition: all 300ms linear;
+    transition: all 100ms linear;
     transition-delay: 0s;
     max-height: 1000px;
     overflow: hidden;
@@ -57,7 +55,6 @@ $middle-gray: #D9D9D9;
 .line {
     display: flex;
     width: 80px;
-    //border: 1px solid darkcyan;
 }
 
 .arrayLabel {
@@ -85,8 +82,6 @@ $middle-gray: #D9D9D9;
         }
     }
 }
-
-
 
 .btn, .hiddenBtn {
     background: white;

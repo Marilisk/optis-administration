@@ -15,6 +15,7 @@ interface IRegisterForm {
     navigate: (arg: number) => void
 }
 export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegisterForm) => {
+    
     const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState<string | null>(null)
     const dispatch = useAppDispatch()
 
@@ -28,7 +29,7 @@ export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegist
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload))
             console.log(response)
-            /* if (response.requestStatus === "Request failed with status code 400") {
+            if (response.meta.requestStatus === 'rejected' /* === "Request failed with status code 400" */) {
                 console.log('response', response)
                 setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
                 actions.resetForm();
@@ -38,7 +39,7 @@ export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegist
                 navigate(-1)
             } else {
                 console.log(response);
-            } */
+            }
         }}
     >
 

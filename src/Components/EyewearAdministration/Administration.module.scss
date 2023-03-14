@@ -15,7 +15,7 @@ $soft-blue: #EAEEF6;
 $middle-gray: #D9D9D9;
 
 .container {
-    max-width: 100%;
+    //max-width: 100%;
 }
 
 .header {
@@ -106,6 +106,32 @@ $middle-gray: #D9D9D9;
             width: 32%;
         }
     }
+    @media screen and (max-width: 1024px) {
+        //border: 1px solid fuchsia;
+        label {
+            width: 90%;
+            span {
+                width: 62%;
+            }
+            input {
+                width: 38%;
+            }
+        }
+    }
+    @media screen and (max-width: 500px) {
+        //border: 1px solid fuchsia;
+        label {
+            width: 96%;
+            span {
+                width: 50%;
+            }
+            input {
+                width: 50%;
+                padding: 0px 4px;
+
+            }
+        }
+    }
 }
 .longInputsTwoColFlex {
     display: flex;
@@ -116,6 +142,7 @@ $middle-gray: #D9D9D9;
     input {
         width: 68%;
     }
+   
 }
 .descriptionInputWrapper {
     //border: 1px solid pink;

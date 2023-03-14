@@ -22,7 +22,7 @@ $middle-gray: #D9D9D9;
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 .h1 {
@@ -41,7 +41,6 @@ $middle-gray: #D9D9D9;
     font-weight: 500;
     margin-right: 20px;
     color: $blue;
-    //border: 1px solid hotpink;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +63,6 @@ $middle-gray: #D9D9D9;
 
     &:hover {
         transform: scale(102%);
-
         svg {
             fill: $activeBlue;
         }

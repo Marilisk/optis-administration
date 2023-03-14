@@ -1,11 +1,10 @@
 import c from './Orders.module.scss';
 import { useEffect, FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useNavigate } from 'react-router-dom';
-import { OrderCard } from './OrderCard/OrderCard';
 import { LoadingStatusEnum } from '../../types/types';
-import { fetchAllOrders } from '../../redux/ordersSlice';
-
+import { fetchAllOrders, fetchDeleteAllOrders } from '../../redux/ordersSlice';
+import { OrderRows } from './OrderRows/OrderRows';
+import { HeadCells } from './HeadCells/HeadCells';
 interface IOrdersProps {
     authIsLoading: string
     isAuth: boolean
@@ -15,6 +14,8 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
     const orders = useAppSelector(s => s.orders.orders.items)
     const dispatch = useAppDispatch()
+
+    console.log(orders)
 
     useEffect(() => {
         dispatch(fetchAllOrders())
@@ -26,20 +27,31 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
         </div>;
     }
 
-    const elements = orders.map((order, i) => {
-        return <OrderCard key={i} order={order} />
-    })
 
 
     return <div className={c.wrapper}>
 
-        <h1 className={c.header}>
-            Заказы
-        </h1>
+        <button type='button' 
+            onClick={() => dispatch(fetchDeleteAllOrders())}>
+            удалить все заказы
+        </button>
 
-        <div >
-            {elements}
-        </div>
+        <table className={c.table}>
+        
+            <thead>
+                <HeadCells />
+            </thead>
+            
+
+
+            <tbody>
+                <OrderRows orders={orders} />
+            </tbody>
+        </table>
+
+        
+
+
 
     </div>
 

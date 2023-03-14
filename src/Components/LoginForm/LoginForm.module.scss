@@ -80,13 +80,12 @@ $blue: #475B73;
 .error, .errorPassword {
     font-size: $small-fontSize;
     position: absolute;
-    top: 36px;
+    top: 48px;
     color: #FF0000;
     left: 20px;
 }
 .errorPassword {
-    top: 104px;
-    
+    top: 116px;
 }
 
 .alreadyRegisteredMsg {

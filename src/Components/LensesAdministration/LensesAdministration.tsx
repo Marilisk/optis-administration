@@ -5,12 +5,12 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { CreateLenFieldArray } from './CreateFieldArray/createLenFieldArray';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
-import { Preloader } from '../assets/Preloader/Preloader';
 import instance, { CLIENT_URL } from '../../redux/API/api';
 import { fetchLens } from '../../redux/lensesSlice';
-import { FilesDownloader } from './FilesDownLoader/LensFilesDownLoader';
+import { LenFilesDownloader } from './FilesDownLoader/LensFilesDownLoader';
 import { initValues } from '../EyewearAdministration/InitValues/lensesInitvalues';
 import LensFieldLine from './LensFieldLine/LensFieldLine';
+import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 export const LensesAdministration: FC = () => {
     const navigate = useNavigate()
@@ -18,7 +18,6 @@ export const LensesAdministration: FC = () => {
     const [successmsg, setSuccessMsg] = useState(null);
     const dispatch = useAppDispatch()
     const [images, setImages] = useState<IImageUrl>();
-
 
     useEffect(() => {
         if (params.id) {
@@ -41,9 +40,8 @@ export const LensesAdministration: FC = () => {
     const currentProduct = useAppSelector(state => state.lenses.currentProduct);
     const editMode = Boolean(params.id);
 
-
     if (currentProduct.status === LoadingStatusEnum.loading || !images) {
-        return <div><Preloader minFormat={true} /></div>
+        return <div><LoadingDotsPreloader /></div>
     }
 
     const initialValues = initValues(currentProduct, images);
@@ -59,9 +57,8 @@ export const LensesAdministration: FC = () => {
                     enableReinitialize={true}
                     onSubmit={async (values, actions) => {
                         try {
-
                             console.log('submit', values)
-                            /* const { data } = editMode ?
+                            const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
                                 : await instance.post('/lenses', values);
                             const id = data._id;
@@ -70,14 +67,13 @@ export const LensesAdministration: FC = () => {
                             if (data.success === true || (editMode && data._id)) {
                                 alert('успешно!');
                                 navigate(`/lenses/${params.id || id}`);
-                            } */
+                            }
                         } catch (error) {
                             console.warn(error);
                             alert('ошибка при загрузке товара');
                         }
                     }}
                 >
-
 
                     {props => (
                         <Form>
@@ -94,7 +90,6 @@ export const LensesAdministration: FC = () => {
                                         <LensFieldLine label='производитель' name='manufacturer' />
                                         <LensFieldLine label='страна производитства' name='manufacturerCountry' />
                                     </div>
-
 
                                     <div className={c.longInputsTwoColFlex}>
                                         <LensFieldLine label='артикул' name='code' />
@@ -146,12 +141,13 @@ export const LensesAdministration: FC = () => {
                                         <LensFieldLine label='материал' name='material' />
                                     </div>
 
-
                                 </div>
+
+                                <LenFilesDownloader images={images} setImages={setImages} setFieldValue={props.setFieldValue} />
 
                                 <button className={c.submitBtn}
                                     disabled={currentProduct.status === LoadingStatusEnum.loading
-                                        /* || images.main === '' */}
+                                        || images.main === ''}
                                     type='submit'>ОТПРАВИТЬ</button>
 
 
@@ -162,18 +158,13 @@ export const LensesAdministration: FC = () => {
                                     : null}
                             </div>
 
-
-                            <FilesDownloader images={images} setImages={setImages} setFieldValue={props.setFieldValue} />
                         </Form>
                     )}
                 </Formik>
 
             </div>
 
-
-
         </div>
-
 
     </section>
 }

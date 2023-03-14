@@ -13,50 +13,41 @@ $activeBlue: #2953A4;
 $blue: #475B73;
 $soft-blue: #EAEEF6;
 $middle-gray: #D9D9D9;
-
-
-.header {
-    display: block;
-    border-bottom: $thin-gray-border;
-    height: 110px;
-    margin: 0;
-    div {
-        font-size: 22px;
-        position: relative;
-        display: inline-block;        
-        //border: 1px solid green;
-        margin: 40px auto auto 40px;
-
-        &::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 4px;
-            background: $blue;
-            top: 42px;
-            left: 0;
-        }
-    }
-
-    @media (max-width: 533px) {
-        height: 70px;
-        div {
-            font-size: 20px;
-            margin-top: 0px;
-        }
-    }
-}
+$lightBlue: #EDF1F8;
 
 .wrapper {
-    width: 92%;
-    margin: 0 auto;
+    padding: 2%;
+    background: white;
+    border-radius: 3px;
+    border: 2px solid $soft-blue;
+
+    table {
+        font-size: $small-fontSize;
+        border-spacing: 0px;
+        border-collapse: collapse;
+
+        td {
+            padding: 10px;
+            padding-right: 38px;
+            box-sizing: border-box;
+            //border: 1px solid #11A834;
+        }
+    }
 }
 
-.card {
-    margin: 20px;
+
+.table {
+    background: white;
+
+    tr {
+        border-bottom: 1px solid $lightBlue;
+    }
 }
 
-.deleteOrder {
-    text-decoration: underline;
+.iconWrapper {
     cursor: pointer;
+    svg {
+        max-height: 14px;
+    }
+
 }

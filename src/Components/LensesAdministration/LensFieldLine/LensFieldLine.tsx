@@ -10,7 +10,6 @@ interface IFieldLineProps {
 
 const LensFieldLine: FC<IFieldLineProps> = ({label, name, type}:IFieldLineProps) => {
 
-    console.log('in LensFieldLine')
     
     return <div className={c.inputWrapper}>
         <label>

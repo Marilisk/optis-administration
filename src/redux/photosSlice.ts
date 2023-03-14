@@ -19,7 +19,7 @@ export const fetchImgOwner = createAsyncThunk('photos/fetchImgOwner', async (nam
 
 export const fetchDeletePhoto = createAsyncThunk('photos/fetchDeletePhoto', async (name: string) => {
     const response = await instance.delete(`/photos/${name}`)
-    console.log(response);
+    //console.log(response);
     return name
 });
 
@@ -68,8 +68,7 @@ const photosSlice = createSlice({
                 const index = state.imgs.items.findIndex(el => el.name === action.payload.name)
                 if (index) {
                     const item: IFileFromList = { name: action.payload.name, owner: action.payload.product }
-                    state.imgs.items[index] = item;
-                    console.log(state.imgs.items[index])
+                    state.imgs.items[index] = item
                 }
                 state.imgs.status = LoadingStatusEnum.loaded;
             })
