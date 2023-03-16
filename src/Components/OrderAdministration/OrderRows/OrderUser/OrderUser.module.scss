@@ -16,21 +16,17 @@ $middle-gray: #D9D9D9;
 $lightBlue: #EDF1F8;
 
 .wrapper {
-    
+    font-size: $small-fontSize;
 
-    
-}
-
-
-
-.preloaderWrap {
-    div {
-        margin: 0;
-        //padding: 0;
+    h2 {
+        font-size: 18px;
     }
+
     span {
-        width: 4px;
-        height: 4px;
-        margin: 0;
+
     }
+
+    
 }
+
+

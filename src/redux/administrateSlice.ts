@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoadingStatusEnum } from "../types/types";
 import instance from "./API/api";
 
-export const fetchFilterOptions = createAsyncThunk('administrate/fetchOptions', async (filterName:string) => {
+export const fetchFilterOptions = createAsyncThunk('administrate/fetchOptions', async (filterName: string) => {
     const { data } = await instance.get(`/${filterName}`);
-    return {data, filterName};
+    return { data, filterName };
 })
 
 export interface IOption {
@@ -17,7 +17,7 @@ export interface IAdministrateSlice {
     imagesAmount: number
 }
 
-const initialState:IAdministrateSlice = {
+const initialState: IAdministrateSlice = {
     options: [
         {
             name: 'color',
@@ -39,7 +39,7 @@ const initialState:IAdministrateSlice = {
 
     status: LoadingStatusEnum.loaded,
     imagesAmount: 0,
-    
+
 }
 
 
@@ -52,13 +52,12 @@ const administrateSlice = createSlice({
             option?.items.push(action.payload.value)
         },
         setImagesAmount(state, action) {
-            //console.log(action)
             state.imagesAmount = action.payload
-        },        
+        },
     },
     extraReducers: (builder) => {
-                builder.addCase(fetchFilterOptions.pending, (state) => {
-                state.status = LoadingStatusEnum.loading;
+        builder.addCase(fetchFilterOptions.pending, (state) => {
+            state.status = LoadingStatusEnum.loading;
         })
             .addCase(fetchFilterOptions.fulfilled, (state, action) => {
                 const option = state.options.find(el => el.name === action.payload.filterName)

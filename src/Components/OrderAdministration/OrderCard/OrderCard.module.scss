@@ -26,7 +26,7 @@ $lightBlue: #EDF1F8;
     bottom: 0;
     z-index: 10;
     height: 100%;
-
+    
 }
 
 .window {
@@ -45,6 +45,10 @@ $lightBlue: #EDF1F8;
 
     h2 {
         color: $blue;
+    }
+    & > div {
+        margin: 20px 0;
+    
     }
 }
 

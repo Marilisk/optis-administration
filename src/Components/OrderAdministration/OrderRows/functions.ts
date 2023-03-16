@@ -44,7 +44,7 @@ export const determinateCondition = (ordercondition: string) => {
             condition = 'готов для курьера';
             break;
         case 'in delivery':
-            condition = 'в доставке у курьера';
+            condition = 'у курьера';
             break;
         case 'deleted':
             condition = 'отменён';

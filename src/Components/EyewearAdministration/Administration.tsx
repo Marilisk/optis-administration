@@ -74,7 +74,6 @@ const Administration: FC = () => {
                         const genderArr = []
                         genderArr.push(values.gender)
                         actions.setFieldValue('gender', genderArr)
-                        //console.log(values)
                         try {
                             const { data } = editMode ?
                                 await instance.patch(`/products/${params.id}`, values)
@@ -82,8 +81,7 @@ const Administration: FC = () => {
                             const id = data._id;
                             setSuccessMsg(id);
                             if (data._id || (params.id && data.success === true)) {
-                                //window.location.replace(`${CLIENT_URL}/product/${params.id || id}`);
-                                alert('success! afraid to redirect')
+                                window.location.replace(`${CLIENT_URL}/product/${params.id || id}`);
                             }
                         } catch (error) {
                             console.warn(error);
@@ -96,6 +94,7 @@ const Administration: FC = () => {
 
                         <Form>
                             <div>
+
                                 <FilesDownloader images={images} setImages={setImages}
                                     setFieldValue={props.setFieldValue} showDownloader={showDownloader}
                                     dispatch={dispatch} />

@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import c from './LensesAdministration.module.scss';
 import { FC, useEffect, useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { CreateLenFieldArray } from './CreateFieldArray/createLenFieldArray';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
@@ -13,7 +13,6 @@ import LensFieldLine from './LensFieldLine/LensFieldLine';
 import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 
 export const LensesAdministration: FC = () => {
-    const navigate = useNavigate()
     const params = useParams();
     const [successmsg, setSuccessMsg] = useState(null);
     const dispatch = useAppDispatch()
@@ -32,7 +31,6 @@ export const LensesAdministration: FC = () => {
             }
             fetch()
         } else {
-
             setImages({ main: '', side: '', perspective: '' })
         }
     }, [params.id, dispatch]);
@@ -55,18 +53,15 @@ export const LensesAdministration: FC = () => {
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
-                    onSubmit={async (values, actions) => {
+                    onSubmit={async (values) => {
                         try {
-                            console.log('submit', values)
                             const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
                                 : await instance.post('/lenses', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            console.log('response ', data);
                             if (data.success === true || (editMode && data._id)) {
-                                alert('успешно!');
-                                navigate(`/lenses/${params.id || id}`);
+                                window.location.replace(`${CLIENT_URL}/lenses/${params.id || id}`);
                             }
                         } catch (error) {
                             console.warn(error);

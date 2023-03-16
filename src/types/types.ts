@@ -197,6 +197,7 @@ export interface IOrder {
     createdAt: Date
     updatedAt?: Date
     additionalInfo?: string
+    manager?: string
 }
 
 export type AdminRequestValuesType = {

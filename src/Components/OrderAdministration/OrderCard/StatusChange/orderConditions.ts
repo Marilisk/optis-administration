@@ -3,11 +3,11 @@ export const OrderConditions = {
     created: 'created',
     confirmed: 'confirmed',
     assemblied: 'assemblied',
-    manufacturing: 'manufacturing',
     sendToManufactory: 'send to manufactory',
+    manufacturing: 'manufacturing',
     processedManufactory: 'processed manufactory',
     readyForCourier: 'ready for courier',
     inDelivery: 'in delivery',
-    deleted: 'deleted',
     delivered: 'delivered',
+    deleted: 'deleted',
 }

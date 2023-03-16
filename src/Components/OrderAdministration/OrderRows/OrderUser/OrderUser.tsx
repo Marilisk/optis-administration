@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import instance from "../../../../redux/API/api";
+import { getUser } from "../../../../redux/API/fetchers/getUser";
 import { IUser } from "../../../../types/types";
 import { LoadingDots } from "../../../assets/Preloader/LoadingDots/LoadingDots";
 import c from './OrderUser.module.scss'
@@ -9,14 +9,6 @@ interface IOrderUserProps {
     phone: string
 }
 
-
-export async function getUser(userId: string, setUser: (arg: IUser) => void) {
-    const response = await instance.get(`/user/${userId}`)
-    console.log(response)
-    if (response.data) {
-        setUser(response.data)
-    }
-}
 export const OrderUser: FC<IOrderUserProps> = ({ userId, phone }: IOrderUserProps) => {
     const [user, setUser] = useState<IUser>()
 
@@ -30,12 +22,19 @@ export const OrderUser: FC<IOrderUserProps> = ({ userId, phone }: IOrderUserProp
     }
 
 
-    return <div>
+    return <div className={c.wrapper}>
+        <span>клиент</span>
         <div>
             {user.fullName}
         </div>
+        
+        <span>контакты:</span>
         <div>
-            {phone}
+            <p>{phone}</p>
+            <p>почта {user.email}, {user.isActivated ? 'подтверждена' : 'не подтверждена'}</p>
+        </div>
+        <div>
+            
         </div>
     </div>
 }

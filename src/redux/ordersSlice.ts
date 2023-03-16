@@ -7,9 +7,9 @@ export const fetchAllOrders = createAsyncThunk('orders/fetchAllOrders', async ()
     return response.data;
 });
 
-export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', async (orderId:string) => {  
+export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', async (orderId: string) => {
     const response = await instance.delete(`/order/${orderId}`);
-    return {...response.data, orderId}; 
+    return { ...response.data, orderId };
 })
 
 /* export const fetchDeleteAllOrders = createAsyncThunk('orders/fetchDeleteAllOrders', async () => {  
@@ -17,11 +17,17 @@ export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', asyn
     return response.data; 
 }) */
 
+export const fetchEditOrder = createAsyncThunk('auth/fetchEditOrder',
+    async (order: IOrder) => {
+        const response = await instance.patch(`/adminorder`, order);
+        return response.data;
+    })
+
 
 
 export interface IOrdersInitialState {
     orders: {
-        items: IOrder [],
+        items: IOrder[],
         status: LoadingStatusEnum
     }
     deleteOrderMessage: string
@@ -39,7 +45,7 @@ const ordersSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
-        
+
 
     },
     extraReducers: (builder) => {
@@ -81,8 +87,25 @@ const ordersSlice = createSlice({
             }) */
 
 
+            .addCase(fetchEditOrder.pending, (state) => {
+                state.orders.status = LoadingStatusEnum.loading;
+            })
+            .addCase(fetchEditOrder.fulfilled, (state, action) => {
+                let editedItem = state.orders.items.find(el => el._id === action.payload._id)
+                if (editedItem) {
+                    editedItem = action.payload
+                }
+                state.orders.status = LoadingStatusEnum.loaded;
+            })
+            .addCase(fetchEditOrder.rejected, (state) => {
+                state.orders.status = LoadingStatusEnum.error;
+                state.deleteOrderMessage = 'Ошибка изменения статуса'
+            })
 
-            
+
+
+
+
     },
 })
 
