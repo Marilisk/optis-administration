@@ -42,16 +42,11 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
                 <HeadCells />
             </thead>
             
-
-
             <tbody>
                 <OrderRows orders={orders} />
             </tbody>
+            
         </table>
-
-        
-
-
 
     </div>
 

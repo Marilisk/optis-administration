@@ -4,6 +4,7 @@ import { AngleUp } from '../navigation_icons/AngleUp';
 
 
 export const BackToTopButton = () => {
+    
     const [btnNeeded, setBtnNeeded] = useState(false)
 
     useEffect(() => {

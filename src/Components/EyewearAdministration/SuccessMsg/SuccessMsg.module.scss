@@ -1,0 +1,29 @@
+@use './../../../vars.scss' as *; 
+
+.container {
+    margin: 20px;
+    color: $blue;
+    font-weight: 600;
+
+    p {
+        text-align: center;
+        font-size: 16px;
+    }
+    & > div {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 20px;
+    }
+    button {
+        background: white;
+        padding: .5em;
+        display: block;
+        border-radius: 4px;
+        border: 2px solid $blue;
+        width: 30%;
+        &:hover {
+            background: $soft-blue;
+        }
+        
+    }
+}

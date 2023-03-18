@@ -11,6 +11,7 @@ import { LenFilesDownloader } from './FilesDownLoader/LensFilesDownLoader';
 import { initValues } from '../EyewearAdministration/InitValues/lensesInitvalues';
 import LensFieldLine from './LensFieldLine/LensFieldLine';
 import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
+import SubmitButton from '../EyewearAdministration/SubmitButton/SubmitButton';
 
 export const LensesAdministration: FC = () => {
     const params = useParams();
@@ -140,10 +141,13 @@ export const LensesAdministration: FC = () => {
 
                                 <LenFilesDownloader images={images} setImages={setImages} setFieldValue={props.setFieldValue} />
 
-                                <button className={c.submitBtn}
+                                {/* <button className={c.submitBtn}
                                     disabled={currentProduct.status === LoadingStatusEnum.loading
                                         || images.main === ''}
-                                    type='submit'>ОТПРАВИТЬ</button>
+                                    type='submit'>ОТПРАВИТЬ</button> */}
+
+                                <SubmitButton status={currentProduct.status}
+                                    imagesMainLength={images.main.length} />
 
 
                                 {successmsg ?

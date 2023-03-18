@@ -1,11 +1,11 @@
 import { Form, Formik } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CreateFieldArray from './createFieldArray';
 import c from './Administration.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
-import { fetchProd } from '../../redux/productsSlice';
+import { fetchProd, setLoadingStatus } from '../../redux/productsSlice';
 import { initValues } from './InitValues/EyewearInitvalues';
 import instance, { CLIENT_URL } from '../../redux/API/api';
 import FilesDownloader from '../FilesDownLoader/FilesDownLoader';
@@ -13,6 +13,8 @@ import GenderEdit from './GenderEdit/GenderEdit';
 import ChecksGroup from './ChecksGroup/ChecksGroup';
 import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 import FieldLine from './FieldLine/FieldLine.';
+import SuccessMsg from './SuccessMsg/SuccessMsg';
+import SubmitButton from './SubmitButton/SubmitButton';
 
 
 const Administration: FC = () => {
@@ -45,7 +47,7 @@ const Administration: FC = () => {
         } else {
             setImages({ main: '', side: '', perspective: '' })
         }
-    }, [params.id, dispatch]);
+    }, [params.id, dispatch, successmsg]);
 
     const currentProduct = useAppSelector(state => state.products.currentProduct);
 
@@ -55,7 +57,7 @@ const Administration: FC = () => {
 
     const initialValues = initValues({ currentProduct, images });
 
-    return <section className={c.container}>
+    return <section>
         <div className={c.header}>
             <h2>{editMode ? 'Редактирование товара' : 'Новый товар'}</h2>
         </div>
@@ -69,29 +71,32 @@ const Administration: FC = () => {
         <div className={c.adminWrapper}>
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
-                    enableReinitialize={true}
+                    enableReinitialize={false}
                     onSubmit={async (values, actions) => {
                         const genderArr = []
                         genderArr.push(values.gender)
                         actions.setFieldValue('gender', genderArr)
                         try {
+                            dispatch(setLoadingStatus(LoadingStatusEnum.loading))
                             const { data } = editMode ?
                                 await instance.patch(`/products/${params.id}`, values)
                                 : await instance.post('/products', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            if (data._id || (params.id && data.success === true)) {
-                                window.location.replace(`${CLIENT_URL}/product/${params.id || id}`);
+                            if (params.id && data.success === true) {
+                                window.location.replace(`${CLIENT_URL}/product/${params.id /* || id */}`);
                             }
+                            dispatch(setLoadingStatus(LoadingStatusEnum.loaded))
                         } catch (error) {
                             console.warn(error);
                             alert('ошибка при загрузке товара');
+                            dispatch(setLoadingStatus(LoadingStatusEnum.loaded))
                         }
-                    }}
+                    }
+                    }
                 >
 
                     {props => (
-
                         <Form>
                             <div>
 
@@ -174,25 +179,19 @@ const Administration: FC = () => {
                                     title={'Материал'}
                                     optionsArray={materialOptionsArray || []} />
 
-                                <button className={c.submitBtn}
-                                    disabled={currentProduct.status === LoadingStatusEnum.loading || images.main === ''}
-                                    type='submit'>
-                                    ОТПРАВИТЬ
-                                </button>
-
-                                {successmsg ?
-                                    <Link to={`https://spboptis.ru/product/${successmsg}`}>
-                                        <p className={c.successLink}>перейти на страницу товара</p>
-                                    </Link>
-                                    : null}
+                                <SuccessMsg successmsg={successmsg} 
+                                    handleReset={props.handleReset}
+                                    setSuccessMsg={setSuccessMsg} />
+                                
+                                <SubmitButton status={currentProduct.status} 
+                                    imagesMainLength={images.main.length} />
+                                
                             </div>
 
                         </Form>
                     )}
                 </Formik>
-
             </div>
-
         </div>
     </section>
 }

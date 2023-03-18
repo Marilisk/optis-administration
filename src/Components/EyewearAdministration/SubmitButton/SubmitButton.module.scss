@@ -1,0 +1,24 @@
+@use './../../../vars.scss' as *; 
+
+
+.submitBtn {
+    border: 3px solid $soft-blue;
+    color: $blue;
+    font-weight: 600;
+    letter-spacing: .5px;
+    font-size: 18px;
+    background: white;
+    padding: .6em;
+    cursor: pointer;
+    transition: 300ms;
+    margin: 40px 20px;
+    display: block;
+    width: 100%;
+    &:hover {
+        border-color: $blue;
+    }
+    &:disabled {
+        color: #D8D1CA;
+        border-color: $light-beige-gray;
+    }
+}

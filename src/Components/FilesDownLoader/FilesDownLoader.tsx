@@ -14,7 +14,6 @@ interface IFilesDownloaderProps {
 }
 
 const countPhotos = (images: any) => {
-    //console.log('in countPhotos function')
     let number = 0;
     let keysArray = Object.keys(images)
     for (let el of keysArray) {

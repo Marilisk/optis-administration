@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchEditOrder } from "../../../redux/ordersSlice";
@@ -19,6 +19,11 @@ export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
     const navigate = useNavigate()
     const order = useAppSelector(s => s.orders.orders.items.find(el => el._id === orderId))
 
+    useEffect( () => {
+        if (!order) {
+            navigate('/')
+        }
+    })
     
 
     if (!order) {
@@ -28,8 +33,10 @@ export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
         dispatch(fetchEditOrder({...order, condition: condition}))
     }
     const conditionText = determinateCondition(order.condition)
+    const updateDate = order.updatedAt ? determinateDate(order.updatedAt) : ''
 
-    return <div className={c.wrapper} /* onClick={() => navigate('/')} */>
+    return <>
+        <div className={c.darkBack} onClick={() => navigate('/')} />
 
         <div className={c.window}>
             <h2>Заказ создан {determinateDate(order.createdAt)}</h2>            
@@ -37,13 +44,14 @@ export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
             <OrderUser userId={order.userId} phone={order.phoneNumber} />
 
             <StatusChange changeStatus={changeStatus} conditionText={conditionText} condition={order.condition} />
+            
+            <div className={c.row}>
+                обновлено: {updateDate}
+            </div>
 
-            {/* {order?.updatedAt &&
-                <div>обновлено: {order.updatedAt}</div>} */}
-
-
-            <div>
-                сообщение клиенту
+            <div className={c.row}>
+                <div>сообщение клиенту</div>
+                
             </div>
 
             <div>
@@ -62,6 +70,6 @@ export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
                 заметка для курьера
             </div>
         </div>
-    </div>
+    </>
 
 }

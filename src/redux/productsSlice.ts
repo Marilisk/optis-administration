@@ -66,19 +66,23 @@ const productsSlice = createSlice({
             state.currentProduct.status = LoadingStatusEnum.loaded
         },
 
-        clearSearchResults(state) {
+        setLoadingStatus(state, action) {
+            state.currentProduct.status = action.payload
+        },
+
+        /* clearSearchResults(state) {
             state.searchResult.items = [];
             state.searchResult.status = LoadingStatusEnum.loaded;
-        },
+        }, */
 
-        setProcessedOrder(state, action) {
+        /* setProcessedOrder(state, action) {
             state.processedOrder.order = action.payload
             state.processedOrder.status = LoadingStatusEnum.loaded
-        },
+        }, */
 
-        setCartInLSLength(state, action) {
+        /* setCartInLSLength(state, action) {
             state.cartInLSLength = action.payload
-        },
+        }, */
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
@@ -137,9 +141,10 @@ const productsSlice = createSlice({
 
 export const {
     setCurrentProd,
+    setLoadingStatus,/* 
     clearSearchResults,
     setProcessedOrder,
-    setCartInLSLength,
+    setCartInLSLength, */
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
