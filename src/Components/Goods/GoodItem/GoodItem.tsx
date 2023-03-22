@@ -19,7 +19,7 @@ interface IGoodItemProps {
 export const GoodItem: FC<IGoodItemProps> = ({ imageUrl, loading, name, productId, price, quantity }: IGoodItemProps) => {
     const dispatch = useAppDispatch()
     const [isHovered, setIsHovered] = useState(false)
-    const [areShowBtnsVisible, setShowBtnsVisible] = useState(true)
+    const [areShowBtnsVisible, setShowBtnsVisible] = useState(false)
     const navigate = useNavigate()
 
     return <div className={c.line}

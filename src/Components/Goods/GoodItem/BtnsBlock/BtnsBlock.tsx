@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import c from './GoodItem.module.scss';
+import c from './BtnsBlock.module.scss';
 
 interface IBtnsBlockProps {
     productId: string
