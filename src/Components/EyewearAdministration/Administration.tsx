@@ -84,7 +84,7 @@ const Administration: FC = () => {
                             const id = data._id;
                             setSuccessMsg(id);
                             if (params.id && data.success === true) {
-                                window.location.replace(`${CLIENT_URL}/product/${params.id /* || id */}`);
+                                window.location.replace(`${CLIENT_URL}/product/${params.id}`);
                             }
                             dispatch(setLoadingStatus(LoadingStatusEnum.loaded))
                         } catch (error) {
@@ -92,9 +92,7 @@ const Administration: FC = () => {
                             alert('ошибка при загрузке товара');
                             dispatch(setLoadingStatus(LoadingStatusEnum.loaded))
                         }
-                    }
-                    }
-                >
+                    }}>
 
                     {props => (
                         <Form>
@@ -107,22 +105,24 @@ const Administration: FC = () => {
                                 <div className={c.inputGroup}>
 
                                     <div className={c.longInputsTwoColFlex}>
-                                        <FieldLine label={'наименование'} name={'name'} />
-                                        <FieldLine label={'категория'} name={'category'} />
+                                        <FieldLine error={props.errors.name} label={'наименование'} name={'name'} />
+                                        <FieldLine error={props.errors.category} label={'категория'} name={'category'} />
                                     </div>
 
                                     <div className={c.descriptionInputWrapper}>
-                                        <FieldLine label={'описание'} name={'description'} />
+                                        <FieldLine error={props.errors.description} label={'описание'} name={'description'} />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-                                        <FieldLine label={'артикул'} name={'code'} />
-                                        <FieldLine label={'цена'} name={'price'} />
+                                        <FieldLine error={props.errors.code} label={'артикул'} name={'code'} />
+                                        <FieldLine error={props.errors.price} label={'цена'} name={'price'} />
+                                        
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-                                        <FieldLine label={'количество просмотров'} name={'viewsCount'} type='number' />
-                                        <FieldLine label={'количество покупок'} name={'buyCount'} type='number' />
+                                        <FieldLine error={props.errors.viewsCount} label={'количество просмотров'} name={'viewsCount'} type='number' />
+                                        <FieldLine error={props.errors.buyCount} label={'количество покупок'} name={'buyCount'} type='number' />
+                                        <FieldLine error={props.errors.inStockQuantity} label={'в наличии'} name={'inStockQuantity'} type='number' />
                                     </div>
 
                                     <GenderEdit values={props.values.gender} />
@@ -179,13 +179,15 @@ const Administration: FC = () => {
                                     title={'Материал'}
                                     optionsArray={materialOptionsArray || []} />
 
-                                <SuccessMsg successmsg={successmsg} 
+                                <SuccessMsg successmsg={successmsg}
                                     handleReset={props.handleReset}
-                                    setSuccessMsg={setSuccessMsg} />
-                                
-                                <SubmitButton status={currentProduct.status} 
-                                    imagesMainLength={images.main.length} />
-                                
+                                    setSuccessMsg={setSuccessMsg}
+                                    categoryUrl={'product'} />
+
+                                <SubmitButton status={currentProduct.status}
+                                    imagesMainLength={images.main.length}
+                                    errors={props.errors} />
+
                             </div>
 
                         </Form>

@@ -25,16 +25,16 @@ export function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isManager) {
-      navigate('/noadminerror')
-    }
-  }, [isManager, navigate])
-
-  useEffect(() => {
     if (!isAuth) {
       navigate('/login')
     }
   }, [isAuth, navigate])
+
+  useEffect(() => {
+    if (!isManager) {
+      navigate('/noadminerror')
+    }
+  }, [isManager, navigate])
 
   useEffect(() => {
     dispatch(fetchFilterOptions('features'));
@@ -68,15 +68,13 @@ export function App() {
         </button>
       }
 
-
       <div className={navClassName}
         onMouseLeave={() => setShowNav(false)}
         onClick={() => setShowNav(false)}>
         <Navigation />
       </div>
 
-
-      <div className={isAuth ? c.desktopWrap : c.plainDesktopWrap }>
+      <div className={isAuth ? c.desktopWrap : c.plainDesktopWrap}>
         <Outlet />
       </div>
 

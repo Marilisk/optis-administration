@@ -1,5 +1,3 @@
-import { OrderConditionsType } from "../../../types/types"
-
 export const determinateDate = (createdAt: Date) => {
     const date = new Date(createdAt)
 

@@ -61,7 +61,7 @@ export interface IProduct {
     prescriptionMax: string
     imageUrl: IImageUrl 
     size?:string
-
+    inStockQuantity?: number
 }
 
 export interface ILensProduct {
@@ -87,6 +87,7 @@ export interface ILensProduct {
     material: string
     user?: object
     imageUrl: IImageUrl
+    inStockQuantity?: number
 }
 
 export type ICartItem = {

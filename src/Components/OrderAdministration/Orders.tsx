@@ -5,6 +5,7 @@ import { LoadingStatusEnum } from '../../types/types';
 import { fetchAllOrders } from '../../redux/ordersSlice';
 import { OrderRows } from './OrderRows/OrderRows';
 import { HeadCells } from './HeadCells/HeadCells';
+
 interface IOrdersProps {
     authIsLoading: string
     isAuth: boolean
@@ -14,8 +15,6 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
     const orders = useAppSelector(s => s.orders.orders.items)
     const dispatch = useAppDispatch()
-
-    //console.log(orders)
 
     useEffect(() => {
         dispatch(fetchAllOrders())
@@ -27,14 +26,7 @@ export const Orders: FC<IOrdersProps> = ({ authIsLoading, isAuth }: IOrdersProps
         </div>;
     }
 
-
-
     return <div className={c.wrapper}>
-
-        {/* <button type='button' 
-            onClick={() => dispatch(fetchDeleteAllOrders())}>
-            удалить все заказы
-        </button> */}
 
         <table className={c.table}>
         

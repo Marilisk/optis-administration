@@ -5,10 +5,10 @@ interface ISuccessMsgProps {
     successmsg: string | null
     handleReset: () => void
     setSuccessMsg: (arg: null) => void
+    categoryUrl: string
 }
 
-const SuccessMsg: FC<ISuccessMsgProps> = ({ successmsg, handleReset, setSuccessMsg }: ISuccessMsgProps) => {
-
+const SuccessMsg: FC<ISuccessMsgProps> = ({ successmsg, handleReset, setSuccessMsg, categoryUrl }: ISuccessMsgProps) => {
 
     if (!successmsg) {
         return null
@@ -19,7 +19,7 @@ const SuccessMsg: FC<ISuccessMsgProps> = ({ successmsg, handleReset, setSuccessM
         <p>товар успешно создан</p>
         <div>
             <button type='button'
-                onClick={() => window.open(`https://spboptis.ru/product/${successmsg}`, '_blank')}>
+                onClick={() => window.open(`https://spboptis.ru/${categoryUrl}/${successmsg}`, '_blank')}>
                 перейти на страницу товара
             </button>
             <button type='button'

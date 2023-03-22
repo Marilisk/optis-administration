@@ -8,13 +8,10 @@ import { useAppSelector } from "../../../../redux/hooks";
 
 interface IStatusChangeProps {
     changeStatus: (arg: OrderConditionsType) => void
-    conditionText: string
     condition: string
-
 }
 
-
-export const StatusChange: FC<IStatusChangeProps> = ({ changeStatus, conditionText, condition }: IStatusChangeProps) => {
+export const StatusChange: FC<IStatusChangeProps> = ({ changeStatus, condition }: IStatusChangeProps) => {
 
     const loadingStatus = useAppSelector(s => s.orders.orders.status)
     const variants = Object.values(OrderConditions)
@@ -23,25 +20,23 @@ export const StatusChange: FC<IStatusChangeProps> = ({ changeStatus, conditionTe
         condition: condition as OrderConditionsType
     }
 
-    return <div className={c.wrapper}>
+    return <div>
 
         <Formik initialValues={initialValues}
-            enableReinitialize={true}
-            onSubmit={async (values, actions) => {
-                console.log(values)
+            onSubmit={async (values) => {
                 changeStatus(values.condition)
-            }}
-        >
+            }}>
+
             {props => (
                 <Form>
                     <div className={c.radiosContainer}>
                         {variants.map(el => {
-                            const condition = determinateCondition(el)
+                            const variantCondition = determinateCondition(el)
                             return <div key={el}
-                                className={conditionText === condition ? c.chosen : c.plain}>
+                                className={el === props.values.condition ? c.chosen : c.plain}>
 
                                 <label>
-                                    {condition}
+                                    {variantCondition}
                                     <input disabled={loadingStatus === LoadingStatusEnum.loading}
                                         name='condition' type='radio' value={el}
                                         onChange={(e: React.ChangeEvent<any>) => {

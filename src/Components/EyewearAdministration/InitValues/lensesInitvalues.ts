@@ -23,6 +23,7 @@ export const initValues = (currentProduct:CurrentLensType, images:IImageUrl) => 
             oxygen: currentProduct.item.oxygen,
             material: currentProduct.item.material,
             imageUrl: images,
+            inStockQuantity: currentProduct.item.inStockQuantity,
         }
     } else {
         return {
@@ -47,6 +48,7 @@ export const initValues = (currentProduct:CurrentLensType, images:IImageUrl) => 
             oxygen: 135,
             material: 'cиликон-гидрогелевые',
             imageUrl: images,
+            inStockQuantity: 1,
         }
     }
 }

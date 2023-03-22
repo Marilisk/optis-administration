@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import c from './LensesAdministration.module.scss';
 import { FC, useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CreateLenFieldArray } from './CreateFieldArray/createLenFieldArray';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../types/types';
@@ -12,6 +12,7 @@ import { initValues } from '../EyewearAdministration/InitValues/lensesInitvalues
 import LensFieldLine from './LensFieldLine/LensFieldLine';
 import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDotsPreloader';
 import SubmitButton from '../EyewearAdministration/SubmitButton/SubmitButton';
+import SuccessMsg from '../EyewearAdministration/SuccessMsg/SuccessMsg';
 
 export const LensesAdministration: FC = () => {
     const params = useParams();
@@ -53,8 +54,8 @@ export const LensesAdministration: FC = () => {
         <div className={c.adminWrapper}>
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
-                    enableReinitialize={true}
                     onSubmit={async (values) => {
+                        //console.log(values)
                         try {
                             const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
@@ -78,18 +79,19 @@ export const LensesAdministration: FC = () => {
                                 <div className={c.inputGroup}>
 
                                     <div className={c.longInputsTwoColFlex}>
-                                        <LensFieldLine label='категория' name='category' />
-                                        <LensFieldLine label='бренд' name='brand' />
+                                        <LensFieldLine error={props.errors.category} label='категория' name='category' />
+                                        <LensFieldLine error={props.errors.brand} label='бренд' name='brand' />
                                     </div>
 
                                     <div className={c.longInputsTwoColFlex}>
-                                        <LensFieldLine label='производитель' name='manufacturer' />
-                                        <LensFieldLine label='страна производитства' name='manufacturerCountry' />
+                                        <LensFieldLine error={props.errors.manufacturer} label='производитель' name={'manufacturer'} />
+                                        <LensFieldLine error={props.errors.manufacturerCountry} label='страна' name={'manufacturerCountry'} />
                                     </div>
 
                                     <div className={c.longInputsTwoColFlex}>
-                                        <LensFieldLine label='артикул' name='code' />
-                                        <LensFieldLine label='цена' name='price' />
+                                        <LensFieldLine error={props.errors.code} label='артикул' name='code' />
+                                        <LensFieldLine error={props.errors.price} label='цена' name='price' />
+                                        <LensFieldLine error={props.errors.inStockQuantity} label='цена' name='inStockQuantity' />
                                     </div>
 
                                     <div className={c.descriptionInputWrapper}>
@@ -121,7 +123,7 @@ export const LensesAdministration: FC = () => {
                                 <div className={c.inputGroup}>
 
                                     <div className={c.longInputsTwoColFlex}>
-                                        <LensFieldLine label='период замены' name='changePeriod' />
+                                        <LensFieldLine error={props.errors.changePeriod} label='период замены' name='changePeriod' />
                                         <LensFieldLine label='цветность' name='color' />
                                     </div>
                                     <div className={c.longInputsTwoColFlex}>
@@ -130,40 +132,31 @@ export const LensesAdministration: FC = () => {
                                     </div>
                                     <div className={c.longInputsTwoColFlex}>
                                         <LensFieldLine label='влажность' name='moisture' type='number' />
-                                        <LensFieldLine label='штук в упаковке' name='amountInPack' type='number' />
+                                        <LensFieldLine error={props.errors.amountInPack} label='штук в упаковке' name='amountInPack' type='number' />
                                     </div>
                                     <div className={c.longInputsTwoColFlex}>
-                                        <LensFieldLine label='проницаемость кислорода' name='oxygen' type='number' />
-                                        <LensFieldLine label='материал' name='material' />
+                                        <LensFieldLine error={props.errors.oxygen} label='проницаемость кислорода' name='oxygen' type='number' />
+                                        <LensFieldLine error={props.errors.material} label='материал' name='material' />
                                     </div>
 
                                 </div>
 
                                 <LenFilesDownloader images={images} setImages={setImages} setFieldValue={props.setFieldValue} />
 
-                                {/* <button className={c.submitBtn}
-                                    disabled={currentProduct.status === LoadingStatusEnum.loading
-                                        || images.main === ''}
-                                    type='submit'>ОТПРАВИТЬ</button> */}
+                                <SuccessMsg successmsg={successmsg} 
+                                    handleReset={props.handleReset}
+                                    setSuccessMsg={setSuccessMsg}
+                                    categoryUrl={'lenses'} />
 
                                 <SubmitButton status={currentProduct.status}
-                                    imagesMainLength={images.main.length} />
+                                    imagesMainLength={images.main.length}
+                                    errors={props.errors} />
 
-
-                                {successmsg ?
-                                    <NavLink to={`${CLIENT_URL}/lenses/${successmsg}`}>
-                                        <p className={c.successLink}>перейти на страницу товара</p>
-                                    </NavLink>
-                                    : null}
                             </div>
-
                         </Form>
                     )}
                 </Formik>
-
             </div>
-
         </div>
-
     </section>
 }

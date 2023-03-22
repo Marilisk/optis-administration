@@ -1,6 +1,6 @@
 
 
-export function validateEmail(value) {
+export function validateEmail(value:string) {
     let error;
     if (!value) {
         error = 'введите email';
@@ -10,7 +10,7 @@ export function validateEmail(value) {
     return error;
 };
 
-export function validatePassword(value) {
+export function validatePassword(value:string) {
     let error;
     if (value.length < 6) {
         error = 'пароль не может быть короче 5 символов';
@@ -18,7 +18,7 @@ export function validatePassword(value) {
     return error;
 }
 
-export function validateFullName(value) {
+export function validateFullName(value:string) {
     let error;
     if (value.length < 3) {
         error = 'введите имя длиннее 3 символов';

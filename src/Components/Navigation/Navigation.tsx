@@ -55,6 +55,16 @@ export const Navigation: FC = () => {
             <span>Фото</span>
         </NavLink>
 
+        <NavLink to={'/goods/eyewears'} className={({ isActive }) =>
+            isActive ? c.activeItem : c.item}>
+            <span>Оправы</span>
+        </NavLink>
+
+        <NavLink to={'/goods/lenses'} className={({ isActive }) =>
+            isActive ? c.activeItem : c.item}>
+            <span>Линзы</span>
+        </NavLink>
+
     </div>
 
 }

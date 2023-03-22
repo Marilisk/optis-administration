@@ -23,18 +23,23 @@ export const OrderUser: FC<IOrderUserProps> = ({ userId, phone }: IOrderUserProp
 
 
     return <div className={c.wrapper}>
-        <span>клиент</span>
+
         <div>
-            {user.fullName}
+            <span>клиент</span>
+            <p className={c.bold}>
+                {user.fullName}
+            </p>
         </div>
-        
-        <span>контакты:</span>
+
         <div>
-            <p>{phone}</p>
-            <p>почта {user.email}, {user.isActivated ? 'подтверждена' : 'не подтверждена'}</p>
-        </div>
-        <div>
-            
+            <span>контакты</span>
+            <div>
+                <p className={c.bold}>{phone}</p>
+                <p className={c.bold}>{user.email}, {user.isActivated ? 'подтверждена' : 'не подтверждена'}</p>
+            </div>
+            <div>
+            </div>
+
         </div>
     </div>
 }

@@ -1,29 +1,31 @@
-@use './../../../vars.scss' as *; 
+@use './../../../vars.scss' as *;
 
 .container {
     margin: 20px;
     color: $blue;
     font-weight: 600;
+    font-size: 18px;
+    text-align: center;
 
-    p {
-        text-align: center;
-        font-size: 16px;
-    }
-    & > div {
+    &>div {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         margin-top: 20px;
     }
+
     button {
         background: white;
         padding: .5em;
         display: block;
-        border-radius: 4px;
         border: 2px solid $blue;
-        width: 30%;
+        width: 48%;
+        color: $blue;
+        font-weight: inherit;
+        font-size: inherit;
+
         &:hover {
             background: $soft-blue;
         }
-        
+
     }
 }

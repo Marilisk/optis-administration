@@ -38,7 +38,7 @@ export const LenFilesDownloader: FC<IFilesDownloaderProps> = ({ images, setImage
     return <div className={c.downloader}>
 
         <LenDownloaderField handleChangeFile={handleChangeFile}
-            title='главное фото'
+            title='главное фото *'
             downloadStatus={downloadStatus.main}
             currentImg={images.main}
             name='main' />

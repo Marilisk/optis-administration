@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { App } from './App';
 import Administration from "./Components/EyewearAdministration/Administration";
+import { Eyewears } from "./Components/Goods/Eyewears";
 import { LensesAdministration } from "./Components/LensesAdministration/LensesAdministration";
 import { LoginPage } from "./Components/LoginPage/LoginPage";
 import { NoAdminPage } from "./Components/NoAdminPage/NoAdminPage";
@@ -55,8 +56,18 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "//photo",
+        path: "/photo",
         element: <Photos />,
+      },
+
+      {
+        path: "goods/eyewears",
+        element: <Eyewears />,
+      },
+
+      {
+        path: "goods/lenses",
+        element: <Eyewears />,
       },
 
       {

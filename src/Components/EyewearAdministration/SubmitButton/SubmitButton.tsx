@@ -4,16 +4,16 @@ import { LoadingStatusEnum } from '../../../types/types';
 
 interface ISubmitButtonProps {
     status: LoadingStatusEnum
-    imagesMainLength: number 
+    imagesMainLength: number
+    errors: object
 }
 
-const SubmitButton: FC<ISubmitButtonProps> = ({ status, imagesMainLength }: ISubmitButtonProps) => {
-
-
-
+const SubmitButton: FC<ISubmitButtonProps> = ({ status, imagesMainLength, errors }: ISubmitButtonProps) => {
 
     return <button className={c.submitBtn}
-        disabled={status === LoadingStatusEnum.loading || !Boolean(imagesMainLength)}
+        disabled={status === LoadingStatusEnum.loading
+            || !Boolean(imagesMainLength)
+            || Boolean(Object.keys(errors))}
         type='submit'>
         ОТПРАВИТЬ
     </button>

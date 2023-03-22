@@ -1,74 +1,106 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchEditOrder } from "../../../redux/ordersSlice";
 import { OrderConditionsType } from "../../../types/types";
-import { determinateDate, determinateCondition } from "../OrderRows/functions";
+import { determinateDate } from "../OrderRows/functions";
 import { OrderUser } from "../OrderRows/OrderUser/OrderUser";
+import { Manager } from "./Manager/Manager";
 import c from './OrderCard.module.scss'
+import { OrderNavBar } from "./OrderNavBar/OrderNavBar";
 import { StatusChange } from "./StatusChange/StatusChange";
 
+export type OrderTabType = 'user' | 'status' | 'updateDate' | 'notes' | 'responsibleManager' | 
+    'deliveryDate' | 'courierNote'
 
-interface IOrderCard {
-
-}
-export const OrderCard: FC<IOrderCard> = ({ }: IOrderCard) => {
+export const OrderCard: FC = () => {
     const dispatch = useAppDispatch()
     const params = useParams()
     const orderId = params.id
     const navigate = useNavigate()
     const order = useAppSelector(s => s.orders.orders.items.find(el => el._id === orderId))
+    const [activeTab, setActiveTab] = useState<OrderTabType>('user')
 
-    useEffect( () => {
+    useEffect(() => {
         if (!order) {
             navigate('/')
         }
     })
-    
 
     if (!order) {
         return <div>заказ не найден</div>
     }
     const changeStatus = (condition: OrderConditionsType) => {
-        dispatch(fetchEditOrder({...order, condition: condition}))
+        dispatch(fetchEditOrder({ ...order, condition: condition }))
     }
-    const conditionText = determinateCondition(order.condition)
+
     const updateDate = order.updatedAt ? determinateDate(order.updatedAt) : ''
 
     return <>
         <div className={c.darkBack} onClick={() => navigate('/')} />
 
         <div className={c.window}>
-            <h2>Заказ создан {determinateDate(order.createdAt)}</h2>            
 
-            <OrderUser userId={order.userId} phone={order.phoneNumber} />
+            <h2>Заказ создан {determinateDate(order.createdAt)}</h2>
 
-            <StatusChange changeStatus={changeStatus} conditionText={conditionText} condition={order.condition} />
-            
-            <div className={c.row}>
-                обновлено: {updateDate}
-            </div>
+            <OrderNavBar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            <div className={c.row}>
-                <div>сообщение клиенту</div>
-                
-            </div>
+            {
+                activeTab === 'user'
+                &&
+                <div>
+                    <OrderUser userId={order.userId} phone={order.phoneNumber} />
+                </div>
+            }
 
-            <div>
-                заметка для мастера
-            </div>
+            {
+                activeTab === 'status'
+                &&
+                <div>
+                    <StatusChange changeStatus={changeStatus} condition={order.condition} />
+                </div>
+            }
 
-            <div>
-                ответственный менеджер
-            </div>
+            {
+                activeTab === 'updateDate' &&
+                <div className={c.row}>
+                    обновлено: {updateDate}
+                </div>
+            }
 
-            <div>
-                планируемая дата доставки
-            </div>
+            {
+                activeTab === 'notes'
+                &&
+                <div>
+                    примечания
+                </div>
+            }
 
-            <div>
-                заметка для курьера
-            </div>
+            {
+                activeTab === 'responsibleManager'
+                &&
+                <div>
+                    <Manager manager={order.manager} />
+                </div>
+            }
+
+
+            {
+                activeTab === 'deliveryDate'
+                &&
+                <div>
+                    планируемая дата доставки
+                </div>
+            }
+
+            {
+                activeTab === 'courierNote'
+                &&
+                <div>
+                    примечание для курьера
+                </div>
+            }
+
         </div>
     </>
 

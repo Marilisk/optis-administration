@@ -31,6 +31,7 @@ export const initValues = ({ currentProduct, images}:IinitValues) => {
             prescriptionMin: currentProduct.item.prescriptionMin,
             prescriptionMax: currentProduct.item.prescriptionMax,
             imageUrl: images,
+            inStockQuantity: currentProduct.item.inStockQuantity,
         }
     } else {
         return {
@@ -57,6 +58,7 @@ export const initValues = ({ currentProduct, images}:IinitValues) => {
             prescriptionMin: '-20.00',
             prescriptionMax: '12.00',
             imageUrl: null, 
+            inStockQuantity: 1,
         }
     }
 }

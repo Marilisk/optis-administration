@@ -1,0 +1,41 @@
+@use './../../../../vars.scss' as *;
+
+
+.navBar {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid $soft-blue;
+}
+
+.tab, .activeTab {
+    font-size: $small-fontSize;
+    width: 90px;
+    color: $blue;
+    padding-bottom: 10px;
+    cursor: pointer;    
+    text-align: center;
+
+    svg {
+        border: 2px solid $blue;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        fill: $blue;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+.activeTab {
+    border-bottom: 4px solid $blue;
+
+    svg {
+        background: $blue;
+        fill: white;
+    }
+}
+
+
+
+
+

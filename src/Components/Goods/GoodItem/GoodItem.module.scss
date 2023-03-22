@@ -1,0 +1,118 @@
+$green: #11A834;
+$thin-gray-border: 1px solid #F1F3F7;
+$light-beige-gray: #F1F3F7;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$lightBorderColor: #ececec;
+$black: #121212;
+$orderColor: #1F1F1F;
+$commonBorderRadius: 12px;
+$activeBlue: #2953A4;
+$blue: #475B73;
+$soft-blue: #EAEEF6;
+$middle-gray: #D9D9D9;
+
+
+.line {
+    min-height: 100px;
+    height: max-content;
+    border-bottom: 1px solid $middle-gray;
+    display: flex;
+    align-items: center;
+    font-size: $small-fontSize;
+    color: $blue;
+    width: 100%;
+    a {
+        width: 100%;
+    }
+}
+
+.flexContainer {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.dotsWrap {
+    svg {
+        fill: $blue;
+        height: 30px;
+        width: 30px;
+        //border: 1px solid fuchsia;
+    }
+}
+
+.nameWrapper {
+    display: flex;
+    font-weight: 600;
+    color: inherit;
+    width: 20%;
+    align-items: center;
+
+    img {
+        width: 100px;
+        display: block;
+        margin-right: 20px;
+    }
+}
+
+.priceWrapper {
+    width: 15%;
+}
+
+
+/* .ok, .ok a {
+    color: white;
+    font-size: $small-fontSize;
+    cursor: pointer;
+}
+.ok {
+    padding: .5em;
+    border-radius: 3px;
+    background: $green;
+} */
+
+.error {
+    color: red;
+    font-weight: 600;
+}
+
+.showBtn, .delBtn, .hiddenBtn {
+    background: $blue;
+    color: white;
+    outline: none;
+    border: none;
+    padding: .5em;
+    border-radius: 3px;
+
+    &:hover {
+        background: $activeBlue;
+    }
+    &:disabled {
+        background: $soft-blue;
+    }
+}
+
+.showBtn, .hiddenBtn {
+    margin: 0 60px;
+}
+
+
+.delBtn {
+    
+    &:hover {
+        background: red;
+    }
+}
+
+.hiddenBtn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+
+
