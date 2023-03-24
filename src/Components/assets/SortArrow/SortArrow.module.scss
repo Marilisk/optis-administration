@@ -1,0 +1,17 @@
+@use './../../../vars.scss' as *;
+
+.sortArrow, .upSortArrow {
+    border: solid $blue;
+    border-width: 0 0 2px 2px;
+    width: 6px;
+    height: 6px;
+    transform: rotate(-45deg);
+    margin-left: 6px;
+}
+.upSortArrow {
+    transform: rotate(135deg);
+}
+
+.hiddenSortArrow {
+    display: hidden;
+}

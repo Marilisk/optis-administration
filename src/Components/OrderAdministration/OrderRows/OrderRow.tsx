@@ -1,8 +1,6 @@
 import { AngleDown } from "../../assets/navigation_icons/AngleDown";
-import { AngleUp } from "../../assets/navigation_icons/AngleUp";
 import { FC } from "react";
 import c from './../Orders.module.scss'
-import { OrderUser } from "./OrderUser/OrderUser";
 import { useNavigate } from "react-router-dom";
 
 
@@ -18,8 +16,6 @@ export const OrderRow: FC<IOrderRowProps> = ({ date, condition, sum, userId, pho
 
     const navigate = useNavigate()
 
-
-
     return <tr onClick={() => navigate(`/order/${orderId}`)}>
         <td>{condition}</td>
         <td>{date}</td>
@@ -29,15 +25,7 @@ export const OrderRow: FC<IOrderRowProps> = ({ date, condition, sum, userId, pho
         <td>
             <div className={c.iconWrapper}>
                 <AngleDown fill='#121212' /> 
-                {/* <AngleUp fill='#121212' /> */}
-
             </div>
         </td>
-
-
     </tr>
-
-
-
-
 }

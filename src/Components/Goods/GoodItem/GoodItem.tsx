@@ -1,7 +1,5 @@
 import { FC, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { API_URL, CLIENT_URL } from '../../../redux/API/api';
-import { useAppDispatch } from '../../../redux/hooks';
 import { IImageUrl } from '../../../types/types';
 import { ThreeDotsIcon } from '../../assets/ThreeDotsIcon';
 import { BtnsBlock } from './BtnsBlock/BtnsBlock';
@@ -17,19 +15,13 @@ interface IGoodItemProps {
 }
 
 export const GoodItem: FC<IGoodItemProps> = ({ imageUrl, loading, name, productId, price, quantity }: IGoodItemProps) => {
-    const dispatch = useAppDispatch()
-    const [isHovered, setIsHovered] = useState(false)
+    
     const [areShowBtnsVisible, setShowBtnsVisible] = useState(false)
-    const navigate = useNavigate()
 
-    return <div className={c.line}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)} >
+    return <div className={c.line} >
 
-        <a target={"_blank"} rel="noreferrer" href={`${CLIENT_URL}/product/${productId}`}>
-
-            <div className={c.flexContainer}>
-
+        <div className={c.flexContainer}>
+            <a target={"_blank"} rel="noreferrer" href={`${CLIENT_URL}/product/${productId}`}>
                 <div className={c.nameWrapper}>
                     {imageUrl ?
                         <img src={`${API_URL}${imageUrl.main}`} alt='' />
@@ -37,35 +29,27 @@ export const GoodItem: FC<IGoodItemProps> = ({ imageUrl, loading, name, productI
                         <div className={c.error}>нет фото</div>}
                     <div>{name}</div>
                 </div>
-
-                <div>
-                    {quantity}
-                </div>
+                </a>
 
                 <div className={c.priceWrapper}>
                     {price}
                 </div>
 
-                <div>
+                <div  className={c.quantityWrapper}>
                     {quantity}
                 </div>
 
-                {/* {isHovered && 
-                <button type='button'>
-                    удалить
-                </button>} */}
-
-                <div className={c.dotsWrap}
-                    onClick={() => setShowBtnsVisible(!areShowBtnsVisible)}>
+            <div className={c.dotsWrap}
+                onClick={() => setShowBtnsVisible(!areShowBtnsVisible)}>
+                
+                {areShowBtnsVisible ?
+                    <BtnsBlock productId={productId} loading={loading} /> :
                     <ThreeDotsIcon />
-                    {areShowBtnsVisible &&
-                        <BtnsBlock productId={productId} />
-                    }
-                </div>
-
+                }
             </div>
 
-        </a>
+        </div>
+
     </div >
 
 }

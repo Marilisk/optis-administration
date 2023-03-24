@@ -28,7 +28,6 @@ export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegist
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload))
-            console.log(response)
             if (response.meta.requestStatus === 'rejected' /* === "Request failed with status code 400" */) {
                 console.log('response', response)
                 setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')

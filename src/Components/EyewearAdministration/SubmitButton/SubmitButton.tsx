@@ -9,11 +9,11 @@ interface ISubmitButtonProps {
 }
 
 const SubmitButton: FC<ISubmitButtonProps> = ({ status, imagesMainLength, errors }: ISubmitButtonProps) => {
-
+    
     return <button className={c.submitBtn}
         disabled={status === LoadingStatusEnum.loading
             || !Boolean(imagesMainLength)
-            || Boolean(Object.keys(errors))}
+            || !Boolean(Object.keys(errors))}
         type='submit'>
         ОТПРАВИТЬ
     </button>

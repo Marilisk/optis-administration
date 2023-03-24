@@ -28,13 +28,12 @@ export const AvatarEditor: FC<IAvatarEditorProps> =
 
             {editWindowShown === 'avatar' &&
                 <div className={c.accordeon} onMouseLeave={() => setEditWindowShown('')}>
-                    
+
                     <div className={c.container}>
 
                         <button type='button' onClick={() => {
                             setInputShown(true)
-                            console.log(isInputShown)
-                        } }>
+                        }}>
                             Изменить фото
                         </button>
 

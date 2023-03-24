@@ -3,18 +3,18 @@ import { Header } from './Components/Header/Header';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { checkAuth, selectIsAuth, selectIsManager } from './redux/authSlice';
+import { checkAuth, selectIsAuth } from './redux/authSlice';
 import c from './App.module.scss'
 import { fetchFilterOptions } from './redux/administrateSlice';
 import { LoadingDotsPreloader } from './Components/assets/Preloader/LoadingDots/LoadingDotsPreloader';
 import { BackToTopButton } from './Components/assets/BackToTopButton/BackToTopButton';
 import { MapIcon } from './Components/assets/navigation_icons/MapIcon';
+import { AlarmWindow } from './Components/assets/AlarmWindow/AlarmWindow';
 
 export function App() {
 
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth)
-  const isManager = useAppSelector(selectIsManager)
   const navigate = useNavigate()
   const [showNav, setShowNav] = useState(false)
 
@@ -27,16 +27,11 @@ export function App() {
   useEffect(() => {
     if (!isAuth) {
       navigate('/login')
-    }
+    } 
   }, [isAuth, navigate])
 
   useEffect(() => {
-    if (!isManager) {
-      navigate('/noadminerror')
-    }
-  }, [isManager, navigate])
-
-  useEffect(() => {
+    // загружаем всевозможные опции и признаки товаров
     dispatch(fetchFilterOptions('features'));
     dispatch(fetchFilterOptions('color'));
     dispatch(fetchFilterOptions('shape'));
@@ -79,6 +74,8 @@ export function App() {
       </div>
 
       <BackToTopButton />
+
+      <AlarmWindow />
 
     </div>
   </>

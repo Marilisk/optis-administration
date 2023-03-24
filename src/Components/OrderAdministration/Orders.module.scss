@@ -1,19 +1,4 @@
-$green: #11A834;
-$thin-gray-border: 1px solid #F1F3F7;
-$light-beige-gray: #F1F3F7;
-$dark-fontcolor: #333333;
-$gray-fontcolor: #666666;
-$small-fontSize: 14px;
-$light-background: #FAFAFA;
-$lightBorderColor: #ececec;
-$black: #121212;
-$orderColor: #1F1F1F;
-$commonBorderRadius: 12px;
-$activeBlue: #2953A4;
-$blue: #475B73;
-$soft-blue: #EAEEF6;
-$middle-gray: #D9D9D9;
-$lightBlue: #EDF1F8;
+@use './../../vars.scss' as *;
 
 .wrapper {
     padding: 2%;
@@ -25,22 +10,35 @@ $lightBlue: #EDF1F8;
         font-size: $small-fontSize;
         border-spacing: 0px;
         border-collapse: collapse;
+        width: 100%;
 
         td {
             padding: 10px;
             padding-right: 38px;
             box-sizing: border-box;
-            //border: 1px solid #11A834;
         }
     }
 }
 
-
 .table {
-    background: white;
 
     tr {
-        border-bottom: 1px solid $lightBlue;
+        border-bottom: 1px solid $light-beige-gray;
+        height: 60px;
+        cursor: pointer;
+        transition: 100ms linear;
+        &:hover {
+            color: $activeBlue;
+            .iconWrapper {
+                svg {
+                    fill: $activeBlue;
+                }
+            }
+        }
+    }
+
+    th {
+        text-align: left;
     }
 }
 
@@ -49,5 +47,4 @@ $lightBlue: #EDF1F8;
     svg {
         max-height: 14px;
     }
-
 }

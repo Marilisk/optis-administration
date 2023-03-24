@@ -1,0 +1,74 @@
+@use './../../../vars.scss' as *;
+
+
+.wrap {
+    font-size: $small-fontSize;
+    color: $blue;
+}
+.container {
+    margin: 20px;
+}
+
+.fakeSelect, .focusedSelect {
+    border: 2px solid $light-beige-gray;
+    border-radius: 3px;
+    width: 100px;
+    padding: 6px;
+    transition: 100ms linear;
+
+    &>div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.focusedSelect {
+    border: 2px solid $blue;
+}
+
+.upArrow, .downArrow {
+    width: 8px;
+    height: 8px;
+    border: solid $blue;
+    border-width: 2px 2px 0 0;
+    transform: rotate(-45deg);
+    transition: 100ms linear;
+}
+.downArrow {
+    transform: rotate(135deg);
+    border-color: $light-beige-gray;
+}
+
+.accordeon, .hiddenAccordeon {
+    display: none;
+    position: absolute;
+    width: 100px;
+    top: 161px;
+}
+
+.accordeon {
+    display: block;
+    background: white;
+    border: 1px solid $middle-gray;
+    box-shadow: 2px 2px 12px 3px $soft-blue;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &>div {
+        padding: 6px;
+        transition: 100ms linear;
+        span {
+            transition: inherit;
+        }
+        
+        &:hover {
+            background: $soft-blue;
+            span {
+                display: inline-block;
+                transform: scale(1.05);
+
+            }
+        }
+    }
+}

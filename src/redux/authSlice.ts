@@ -121,7 +121,6 @@ const authSlice = createSlice({
                 state.loginData.data = null;
             })
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.loginData.status = LoadingStatusEnum.loaded;
                 state.loginData.data = action.payload;
             })

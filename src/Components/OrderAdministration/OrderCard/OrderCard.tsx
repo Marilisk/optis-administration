@@ -6,6 +6,7 @@ import { OrderConditionsType } from "../../../types/types";
 import { determinateDate } from "../OrderRows/functions";
 import { OrderUser } from "../OrderRows/OrderUser/OrderUser";
 import { Manager } from "./Manager/Manager";
+import { ManagerNote } from "./ManagerNote/ManagerNote";
 import c from './OrderCard.module.scss'
 import { OrderNavBar } from "./OrderNavBar/OrderNavBar";
 import { StatusChange } from "./StatusChange/StatusChange";
@@ -72,7 +73,7 @@ export const OrderCard: FC = () => {
                 activeTab === 'notes'
                 &&
                 <div>
-                    примечания
+                    <ManagerNote note={order.additionalInfo} />
                 </div>
             }
 

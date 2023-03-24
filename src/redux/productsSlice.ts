@@ -17,7 +17,6 @@ export const fetchProd = createAsyncThunk('products/fetchProd', async (id: strin
 
 export const fetchDeleteProd = createAsyncThunk('products/fetchDeleteProd', async (id: string) => {
     const data = await instance.delete(`/products/` + id);
-    console.log(data);
     return { data: data.data, id };
 });
 
@@ -25,8 +24,6 @@ export const fetchSearch = createAsyncThunk('products/fetchSearch', async (query
     const response = await instance.post(`/products/search`, { query });
     return response.data;
 });
-
-
 
 
 const initialState: ProdInitialStateType = {
@@ -42,7 +39,13 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
-    currentCartWithSums: {
+    alarmWindow: {
+        isShown: false,
+        text: '',
+        confirmed: false,
+    },
+
+    /* currentCartWithSums: {
         items: [],
         status: LoadingStatusEnum.loaded,
     },
@@ -52,7 +55,7 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
-    cartInLSLength: 0,
+    cartInLSLength: 0, */
 
 }
 
@@ -70,19 +73,15 @@ const productsSlice = createSlice({
             state.currentProduct.status = action.payload
         },
 
-        /* clearSearchResults(state) {
-            state.searchResult.items = [];
-            state.searchResult.status = LoadingStatusEnum.loaded;
-        }, */
+        showAlarmWindow(state, action) {
+            state.alarmWindow.text = action.payload.text
+            state.alarmWindow.isShown = action.payload.isShown
+        },
 
-        /* setProcessedOrder(state, action) {
-            state.processedOrder.order = action.payload
-            state.processedOrder.status = LoadingStatusEnum.loaded
-        }, */
+        confirmDelete(state) {
+            state.alarmWindow.confirmed = true
+        }
 
-        /* setCartInLSLength(state, action) {
-            state.cartInLSLength = action.payload
-        }, */
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
@@ -115,7 +114,6 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProd.fulfilled, (state, action) => {
                 state.currentProduct.item = action.payload;
-                //state.currentProduct.item.size = defineSize(state.currentProduct.item.frameWidth);
                 state.currentProduct.status = LoadingStatusEnum.loaded;
             })
             .addCase(fetchProd.rejected, (state) => {
@@ -141,10 +139,9 @@ const productsSlice = createSlice({
 
 export const {
     setCurrentProd,
-    setLoadingStatus,/* 
-    clearSearchResults,
-    setProcessedOrder,
-    setCartInLSLength, */
+    setLoadingStatus,
+    showAlarmWindow,
+    confirmDelete,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

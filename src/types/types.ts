@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export type ILData = {
     data?: IUser | null
     status: LoadingStatusEnum
@@ -129,9 +127,11 @@ export type ProdInitialStateType = {
     currentProduct: CurrentProductType 
     searchResult: SearchResultType
     tags: object
-    currentCartWithSums: CartItemWithSumType
-    processedOrder: ProcessedOrderType
-    cartInLSLength: number
+    alarmWindow: {
+        isShown: boolean
+        text: string
+        confirmed: boolean
+    }
 }
 export type CurrentProductType = {
     item: IProduct | null
@@ -139,14 +139,6 @@ export type CurrentProductType = {
 }
 type SearchResultType = {
     items: IProduct[]
-    status: LoadingStatusEnum
-}
-type CartItemWithSumType = {
-    items: ICartItemWithSum[]
-    status: LoadingStatusEnum
-}
-type ProcessedOrderType = {
-    order: IOrder | null
     status: LoadingStatusEnum
 }
 
@@ -167,19 +159,6 @@ export interface IFileFromList {
     name: string
     owner?: IProduct[] | ILensProduct[] | null
 }
-
-/* export enum OrderConditionsEnum {
-    created = 'created',
-    confirmed = 'confirmed',
-    assemblied = 'assemblied',
-    manufacturing = 'manufacturing',
-    sendToManufactory = 'send to manufactory',
-    processedManufactory = 'processed manufactory',
-    readyForCourier = 'ready for courier',
-    inDelivery = 'in delivery',
-    deleted = 'deleted',
-    delivered = 'delivered',
-} */
 
 export type OrderConditionsType = 'created' | 'confirmed' | 'assemblied' | 'manufacturing' | 'send to manufactory' |
 'processed manufactory' | 'ready for courier' | 'in delivery' | 'deleted' | 'delivered';
@@ -205,4 +184,28 @@ export type AdminRequestValuesType = {
     email: string
     fullName: string
     role: string
+}
+
+type SortTagType = {
+    id: number 
+    label: string
+    name: string
+}
+type SortType = {
+    tags: SortTagType[]
+    chosenTagId: number
+}
+type FilterType = {
+    id: number
+    name: string
+}
+export type FeaturesInitialStateType = {
+    filters:  {
+        options: FilterType[]
+        chosenOption: FilterType 
+    }
+    sortTags: SortType
+    /* status: string
+    filteredProducts: IProduct[]
+    goodsAmount: number */
 }

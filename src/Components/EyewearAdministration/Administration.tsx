@@ -76,6 +76,7 @@ const Administration: FC = () => {
                         const genderArr = []
                         genderArr.push(values.gender)
                         actions.setFieldValue('gender', genderArr)
+                        console.log(values)
                         try {
                             dispatch(setLoadingStatus(LoadingStatusEnum.loading))
                             const { data } = editMode ?
@@ -84,7 +85,7 @@ const Administration: FC = () => {
                             const id = data._id;
                             setSuccessMsg(id);
                             if (params.id && data.success === true) {
-                                window.location.replace(`${CLIENT_URL}/product/${params.id}`);
+                                window.open(`${CLIENT_URL}/product/${params.id}`, '_blank');
                             }
                             dispatch(setLoadingStatus(LoadingStatusEnum.loaded))
                         } catch (error) {
@@ -169,7 +170,7 @@ const Administration: FC = () => {
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
-                                        <FieldLine label='минимальные диоптрии' name='prescriptionMin' type='number' />
+                                        <FieldLine error={props.errors.prescriptionMin} label='минимальные диоптрии' name='prescriptionMin' type='number' />
                                         <FieldLine label='максимальные диоптрии' name='prescriptionMax' type='number' />
                                     </div>
                                 </div>

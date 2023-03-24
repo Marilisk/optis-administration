@@ -1,0 +1,41 @@
+@use './../../../../vars.scss' as *;
+
+
+.wrap {
+    color: $blue;
+    form {
+        border: 1px solid blueviolet;
+
+    }
+    label {
+        font-size: $small-fontSize;
+        margin: 20px;
+        display: block;
+
+    }
+
+    textarea, button {
+        padding: .5em;
+        background: white;
+        border: 2px solid $soft-blue;
+        border-radius: 3px;
+        color: inherit;
+        display: block;
+
+    }
+    textarea {
+        color: $activeBlue;
+        width: 100%;
+        resize: none;
+        padding: 1em;
+        height: 10em; 
+    }
+    button {
+        margin: 0 auto;
+
+        :disabled {
+            opacity: 0;
+        }
+
+    }
+}

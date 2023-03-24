@@ -24,12 +24,22 @@ export const LoginForm: FC<ILoginForm> = ({ isLoading }: ILoginForm) => {
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
             await dispatch(fetchAuth(payload));
-        }}
-    >
+        }}>
 
         {({ errors, touched }) => (
             <Form>
                 <div className={c.wrap}>
+                    <div className={c.demoData}>
+                        <p>
+                            Для демо версии
+                        </p>
+                        <p>
+                            логин - admin@ya.ru
+                        </p>
+                        <p>
+                            пароль - password
+                        </p>
+                    </div>
 
                     <Field id='email' name='email' placeholder='email' validate={validateEmail}
                         style={errors.email && { borderColor: '#FF0000' }} />

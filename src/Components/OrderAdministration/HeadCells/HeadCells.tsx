@@ -1,29 +1,18 @@
-import c from './../Orders.module.scss';
-import { useEffect, FC } from 'react';
-interface IHeadCellsProps {
-    
-}
+import { FC } from 'react';
 
-export const HeadCells: FC<IHeadCellsProps> = ({  }: IHeadCellsProps) => {
-    
+export const HeadCells: FC = () => {
 
-    
-    const cells = [
-        { label: 'стадия', name: 'condition' },
-        { label: 'дата создания', name: 'date' },
-        { label: 'клиент', name: 'user' },
-        { label: 'сумма', name: 'sum' },
-        /* { label: 'Insurance hedge', name: 'hedge' }, */]
-        .map(elem => {
-          return <th key={elem.name}>
-           {elem.label}
-            
-          </th>
-        });
-    
+  const cells = [
+    { label: 'стадия', name: 'condition' },
+    { label: 'дата создания', name: 'date' },
+    { label: 'клиент', name: 'user' },
+    { label: 'сумма', name: 'sum' },]
+    .map(elem => {
+      return <th key={elem.name}>
+        {elem.label}
 
-    return <tr>{cells}</tr>
+      </th>
+    });
 
-
-
+  return <tr>{cells}</tr>
 }

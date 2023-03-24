@@ -13,7 +13,7 @@ export const validateField = (value: string | number ) => {
     let error;
     if (typeof value === "string" && !value) {
         error = 'заполните поле';
-    } else if (typeof value === "number" && value < 0) {
+    } else if (typeof value === "number" && !value.toString() ) {
         error = 'заполните поле';
     }
     return error;

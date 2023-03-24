@@ -18,14 +18,25 @@ $middle-gray: #D9D9D9;
 .line {
     min-height: 100px;
     height: max-content;
-    border-bottom: 1px solid $middle-gray;
+    border-bottom: 1px solid $light-beige-gray;
     display: flex;
     align-items: center;
     font-size: $small-fontSize;
     color: $blue;
     width: 100%;
+    transition: 100ms linear;
+    cursor: pointer;
+    &:hover {
+        .nameWrapper, .priceWrapper {
+            color: $activeBlue;
+        }
+        img {
+            transform: scale(1.05);
+        }
+    }
     a {
-        width: 100%;
+        width: 24%;
+        display: block;
     }
 }
 
@@ -37,11 +48,11 @@ $middle-gray: #D9D9D9;
     align-items: center;
 }
 .dotsWrap {
+    width: 100px;
     svg {
         fill: $blue;
         height: 30px;
         width: 30px;
-        //border: 1px solid fuchsia;
     }
 }
 
@@ -49,31 +60,20 @@ $middle-gray: #D9D9D9;
     display: flex;
     font-weight: 600;
     color: inherit;
-    width: 20%;
     align-items: center;
-
+    transition: 100ms linear;
     img {
         width: 100px;
         display: block;
         margin-right: 20px;
+        transition: 100ms linear;
     }
 }
 
 .priceWrapper {
     width: 15%;
+    transition: 100ms linear;
 }
-
-
-/* .ok, .ok a {
-    color: white;
-    font-size: $small-fontSize;
-    cursor: pointer;
-}
-.ok {
-    padding: .5em;
-    border-radius: 3px;
-    background: $green;
-} */
 
 .error {
     color: red;
@@ -96,23 +96,20 @@ $middle-gray: #D9D9D9;
     }
 }
 
-.showBtn, .hiddenBtn {
+/* .showBtn, .hiddenBtn {
     margin: 0 60px;
 }
 
 
 .delBtn {
-    
     &:hover {
         background: red;
     }
-}
+} */
 
-.hiddenBtn {
+/* .hiddenBtn {
     opacity: 0;
     pointer-events: none;
-}
-
-
+} */
 
 

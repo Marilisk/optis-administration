@@ -1,0 +1,49 @@
+@use './../../../vars.scss' as *;
+
+
+.line {
+    min-height: 100px;
+    height: max-content;
+    border-bottom: 1px solid $light-beige-gray;
+    display: flex;
+    align-items: center;
+    font-size: $small-fontSize;
+    color: $blue;
+    width: 100%;
+}
+
+.flexContainer {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: 800;
+    text-align: left;
+    &>div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+.nameWrapper {
+    color: inherit;
+    width: 24%;
+    padding-left: 10px;
+    //border: 1px solid hotpink;
+}
+
+.priceWrapper {
+    width: 15%;
+    padding-left: 20px;
+}
+
+.quantityWrapper {
+    padding-left: 20px;
+}
+
+
+
+
+

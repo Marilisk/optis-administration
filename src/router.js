@@ -17,12 +17,14 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Orders />,
+        element: <Eyewears />,
       },
+      
       {
         path: "/orders/:step",
         element: <Orders />,
       },
+
       {
         path: "/order/:id",
         element: <OrderCard />,
@@ -65,10 +67,10 @@ export const router = createBrowserRouter([
         element: <Eyewears />,
       },
 
-      {
+      /* {
         path: "goods/lenses",
         element: <Eyewears />,
-      },
+      }, */
 
       {
         path: "/noadminerror",
