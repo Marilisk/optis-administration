@@ -57,10 +57,10 @@ export const Navigation: FC = () => {
             <span>Завершённые</span>
         </NavLink>
 
-        <div className={c.btnsHeader}>
+        {/* <div className={c.btnsHeader}>
             <ClientsIcon fill={'#475B73'} />
             <span>Клиенты</span>
-        </div>
+        </div> */}
 
         {/* <NavLink to={'/goods/lenses'} className={({ isActive }) =>
             isActive ? c.activeItem : c.item}>

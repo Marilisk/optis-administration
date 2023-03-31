@@ -16,7 +16,7 @@ export const LoginPage: FC = () => {
 
     useEffect(() => {
         if (isAuth) {
-            navigate(-2);
+            navigate('/');
         }
     })
 

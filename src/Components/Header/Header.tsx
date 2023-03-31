@@ -32,7 +32,6 @@ export const Header = () => {
                 <NameEditor name={name} editWindowShown={editWindowShown} setEditWindowShown={setEditWindowShown} />
 
                 <div className={c.iconWrapper} onClick={() => dispatch(fetchLogout())}>
-
                     <div>
                         <LogoutIcon fill={'#475B73'} />
                     </div>

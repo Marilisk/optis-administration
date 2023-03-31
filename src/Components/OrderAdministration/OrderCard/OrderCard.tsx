@@ -1,30 +1,35 @@
 import { FC, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchEditOrder } from "../../../redux/ordersSlice";
 import { OrderConditionsType } from "../../../types/types";
 import { determinateDate } from "../OrderRows/functions";
 import { OrderUser } from "../OrderRows/OrderUser/OrderUser";
+import { DeliveryDate } from "./DeliveryDate/DeliveryDate";
 import { Manager } from "./Manager/Manager";
-import { ManagerNote } from "./ManagerNote/ManagerNote";
+import { Note } from "./ManagerNote/ManagerNote";
 import c from './OrderCard.module.scss'
 import { OrderNavBar } from "./OrderNavBar/OrderNavBar";
 import { StatusChange } from "./StatusChange/StatusChange";
 
-export type OrderTabType = 'user' | 'status' | 'updateDate' | 'notes' | 'responsibleManager' | 
-    'deliveryDate' | 'courierNote'
+export type OrderTabType = 'user' | 'status' | 'updateDate' | 'notes' | 'responsibleManager' |
+    'deliveryDate'
 
-export const OrderCard: FC = () => {
+
+interface IOrderCardProps {
+    orderId: string
+    setCurrentOrderId: (arg: null) => void
+}
+
+export const OrderCard: FC<IOrderCardProps> = ({ orderId, setCurrentOrderId }: IOrderCardProps) => {
     const dispatch = useAppDispatch()
-    const params = useParams()
-    const orderId = params.id
     const navigate = useNavigate()
     const order = useAppSelector(s => s.orders.orders.items.find(el => el._id === orderId))
     const [activeTab, setActiveTab] = useState<OrderTabType>('user')
 
     useEffect(() => {
         if (!order) {
-            navigate('/')
+            navigate('/orders/processed')
         }
     })
 
@@ -38,11 +43,21 @@ export const OrderCard: FC = () => {
     const updateDate = order.updatedAt ? determinateDate(order.updatedAt) : ''
 
     return <>
-        <div className={c.darkBack} onClick={() => navigate('/')} />
+        <div className={c.darkBack} onClick={() => {
+            dispatch(fetchEditOrder(order))
+            setCurrentOrderId(null)
+        }} />
 
         <div className={c.window}>
 
-            <h2>Заказ создан {determinateDate(order.createdAt)}</h2>
+            <div className={c.header}>
+                <h2>Заказ от: {determinateDate(order.createdAt)}</h2>
+                <p>способ оплаты - {order.paymentWay === 'cash' ? 'наличные' : 'безналично'},
+                    {order.paymentMade ?
+                        <span className={c.ok}> оплачен</span> :
+                        <span className={c.error}> не оплачен</span>}
+                </p>
+            </div>
 
             <OrderNavBar activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -73,7 +88,7 @@ export const OrderCard: FC = () => {
                 activeTab === 'notes'
                 &&
                 <div>
-                    <ManagerNote note={order.additionalInfo} />
+                    <Note order={order} />
                 </div>
             }
 
@@ -81,28 +96,18 @@ export const OrderCard: FC = () => {
                 activeTab === 'responsibleManager'
                 &&
                 <div>
-                    <Manager manager={order.manager} />
+                    <Manager order={order} />
                 </div>
             }
-
 
             {
                 activeTab === 'deliveryDate'
                 &&
                 <div>
-                    планируемая дата доставки
-                </div>
-            }
-
-            {
-                activeTab === 'courierNote'
-                &&
-                <div>
-                    примечание для курьера
+                    <DeliveryDate createdAt={order.createdAt} />
                 </div>
             }
 
         </div>
     </>
-
 }

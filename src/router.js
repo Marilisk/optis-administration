@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { App } from './App';
+import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 import Administration from "./Components/EyewearAdministration/Administration";
 import { Eyewears } from "./Components/Goods/Eyewears";
 import { LensesAdministration } from "./Components/LensesAdministration/LensesAdministration";
 import { LoginPage } from "./Components/LoginPage/LoginPage";
 import { NoAdminPage } from "./Components/NoAdminPage/NoAdminPage";
-import { OrderCard } from "./Components/OrderAdministration/OrderCard/OrderCard";
 import { Orders } from "./Components/OrderAdministration/Orders";
 import { Photos } from "./Components/Photos/Photos";
 
@@ -14,6 +14,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
@@ -23,11 +24,6 @@ export const router = createBrowserRouter([
       {
         path: "/orders/:step",
         element: <Orders />,
-      },
-
-      {
-        path: "/order/:id",
-        element: <OrderCard />,
       },
 
       {

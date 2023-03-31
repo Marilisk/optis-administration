@@ -16,10 +16,8 @@ export const fetchImgOwner = createAsyncThunk('photos/fetchImgOwner', async (nam
     return { name, product: response.data }
 })
 
-
 export const fetchDeletePhoto = createAsyncThunk('photos/fetchDeletePhoto', async (name: string) => {
-    const response = await instance.delete(`/photos/${name}`)
-    //console.log(response);
+    await instance.delete(`/photos/${name}`)
     return name
 });
 
@@ -60,7 +58,6 @@ const photosSlice = createSlice({
                 state.imgs.status = LoadingStatusEnum.error;
             })
 
-
             .addCase(fetchImgOwner.pending, (state) => {
                 state.imgs.status = LoadingStatusEnum.loading;
             })
@@ -76,7 +73,6 @@ const photosSlice = createSlice({
                 state.imgs.status = LoadingStatusEnum.error;
             })
 
-
             .addCase(fetchDeletePhoto.pending, (state) => {
                 state.imgs.status = LoadingStatusEnum.loading;
             })
@@ -90,14 +86,8 @@ const photosSlice = createSlice({
                 state.deleteImgMessage = 'Ошибка удаления'
             })
 
-
-
-
     },
 })
 
-export const {
-
-} = photosSlice.actions;
 
 export default photosSlice.reducer;

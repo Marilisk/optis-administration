@@ -1,23 +1,18 @@
 import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AdminRequestValuesType, AuthInitStateType, LoadingStatusEnum } from '../types/types';
+import { AdminRequestValuesType, AuthInitStateType, AuthValuesType, LoadingStatusEnum, RegisterValuesType } from '../types/types';
 import instance, { API_URL } from './API/api';
 
-export type AuthValuesType = {
-    email: string
-    password: string
-}
-export type RegisterValuesType = {
-    email: string
-    password: string
-    fullName: string
-}
+
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params: AuthValuesType) => {
     let response = await instance.post('/auth/login', params);
-    localStorage.setItem('token', response.data.accessToken)
-    return response.data.user;
+    //console.log(response)
+    if (response.data.accessToken) {
+        localStorage.setItem('token', response.data.accessToken)
+    }
+    return response.data;
 })
 
 export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
@@ -27,19 +22,15 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 })
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
-    try {
         const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
-    } catch (error) {
-        console.log(error)
-    }
 })
 
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: RegisterValuesType) => {
     let response = await instance.post('/auth/register', params);
     localStorage.setItem('token', response.data.accessToken)
-    return response.data.user;
+    return response.data;
 })
 
 export const fetchAdminRequest = createAsyncThunk('auth/fetchAdminRequest',
@@ -66,6 +57,7 @@ const initialState: AuthInitStateType = {
         data: null,
         status: LoadingStatusEnum.loaded,
         serverMessage: '',
+        adminReqServerMessage: '',
     },
 }
 
@@ -79,9 +71,10 @@ const authSlice = createSlice({
         builder.addCase(fetchAuth.pending, (state) => {
             state.loginData.status = LoadingStatusEnum.loading
         })
-            .addCase(fetchAuth.fulfilled, (state, action/* :PayloadAction<string[]> */) => {
+            .addCase(fetchAuth.fulfilled, (state, action) => {
+                console.log(action.payload)
                 state.loginData.status = LoadingStatusEnum.loaded;
-                state.loginData.data = action.payload;
+                state.loginData.data = action.payload.user;
             })
             .addCase(fetchAuth.rejected, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.error;
@@ -122,10 +115,15 @@ const authSlice = createSlice({
             })
             .addCase(fetchRegister.fulfilled, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.loaded;
-                state.loginData.data = action.payload;
+                state.loginData.data = action.payload.user;
             })
-            .addCase(fetchRegister.rejected, (state) => {
+            .addCase(fetchRegister.rejected, (state, action) => {
                 state.loginData.status = LoadingStatusEnum.error;
+                if (action.error.message === 'Request failed with status code 400') {
+                    state.loginData.serverMessage = 'Пользователь с таким email уже зарегистрирован';
+                } else {
+                    state.loginData.serverMessage = 'сервис недоступен';
+                }
                 state.loginData.data = null;
             })
 
@@ -135,7 +133,7 @@ const authSlice = createSlice({
             .addCase(fetchAdminRequest.fulfilled, (state, action) => {
                 console.log(action.payload)
                 state.loginData.status = LoadingStatusEnum.loaded;
-                state.loginData.serverMessage = 'Запрос направлен.'
+                state.loginData.adminReqServerMessage = 'Запрос направлен.'
             })
             .addCase(fetchAdminRequest.rejected, (state) => {
                 state.loginData.status = LoadingStatusEnum.error;
@@ -175,6 +173,4 @@ export const selectIsAuth = (state: RootState) => Boolean(state.auth.loginData.d
 export const selectIsManager = (state: RootState) => Boolean(state.auth.loginData.data?.role === 'ADMIN');
 
 
-
-export const { } = authSlice.actions;
 export default authSlice.reducer;

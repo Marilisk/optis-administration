@@ -5,9 +5,10 @@ import { OrderRow } from "./OrderRow";
 
 interface IOrderRowsProps {
     orders: IOrder[]
+    setCurrentOrderId: (arg: string) => void
 }
 
-export const OrderRows: FC<IOrderRowsProps> = ({ orders }: IOrderRowsProps) => {
+export const OrderRows: FC<IOrderRowsProps> = ({ orders, setCurrentOrderId }: IOrderRowsProps) => {
 
     return <>
         {
@@ -21,9 +22,9 @@ export const OrderRows: FC<IOrderRowsProps> = ({ orders }: IOrderRowsProps) => {
                     date={date}
                     condition={condition}
                     sum={sum}
-                    userId={order.userId}
                     phone={order.phoneNumber}
-                    orderId={order._id} />
+                    orderId={order._id}
+                    setCurrentOrderId={setCurrentOrderId} />
             })
         }
     </>

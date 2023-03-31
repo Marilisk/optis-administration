@@ -13,34 +13,32 @@ export const PhotoItem: FC<IPhotoItem> = ({ photo, loading }: IPhotoItem) => {
     const dispatch = useAppDispatch()
     const [isHovered, setIsHovered] = useState(false)
 
-    return <div className={c.line} 
-        onMouseEnter={() => setIsHovered(true)} 
+    return <div className={c.box}
+        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)} >
-        <div className={c.flexContainer}>
+        <div className={c.flexContainer}
+            onClick={() => dispatch(fetchImgOwner(photo.name))}>
+            <div className={c.imgContainer} >
+                <img src={`${API_URL}/uploads/${photo.name}`} alt='' />
+            </div>
+        </div>
 
-            <img src={`${API_URL}/uploads/${photo.name}`} alt='' />
-
-            <button disabled={loading} 
-                className={isHovered ? c.showBtn : c.hiddenBtn}
-                type='button' onClick={() => dispatch(fetchImgOwner(photo.name))}>
-                показать товар
-            </button>
+        <div className={isHovered ? c.showBtn : c.hiddenBtn}>
 
             {photo.owner ?
                 <div className={c.ok}>
                     <a target={"_blank"} rel="noreferrer"
                         href={`${CLIENT_URL}/${photo.owner[0].category === "eyewear" ? `product` : `lenses`}/${photo.owner[0]._id}`} >
                         <span>артикул </span>
-                        {photo.owner[0].code} 
+                        {photo.owner[0].code}
                     </a>
-
                 </div>
                 :
                 <div className={c.error}>
                     {photo.owner === null
                         &&
                         <div>
-                            <p>ФОТО НЕ ПРИКРЕПЛЕНО!!!</p>
+                            <p>не прикреплено</p>
                             <button disabled={loading}
                                 className={c.delBtn}
                                 type='button'

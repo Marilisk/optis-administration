@@ -27,9 +27,16 @@ $soft-blue: #EAEEF6;
     font-weight: 400;
     span {
         margin-left: 12px;
+        transition: 100ms linear;
     }
     img {
         width: 16px;
+    }
+    &:hover {
+        span {
+            color: $activeBlue;
+            transform: scale(1.05);
+        }
     }
 }
 

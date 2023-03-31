@@ -62,13 +62,14 @@
 
     label {
         background: $activeBlue;
-        border-color: $activeBlue;
+        background: $grayGreen;
+        border-color: $grayGreen;
         font-weight: 600;
     }
 
     .arrow {
-        border-color: $activeBlue;
-        background: $activeBlue;
+        border-color: $grayGreen;
+        background: $grayGreen;
     }
 
 }

@@ -1,39 +1,26 @@
 import c from './NoAdminPage.module.scss';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { AdminRequestForm } from './AdminRequestForm/AdminRequestForm';
 import { useAppSelector } from '../../redux/hooks';
-import { selectIsManager } from '../../redux/authSlice';
-import { useNavigate } from 'react-router-dom';
 
 
 export const NoAdminPage: FC = () => {
 
-    const isManager = useAppSelector(selectIsManager)
-    const serverMessage = useAppSelector(s => s.auth.loginData.serverMessage)
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (isManager) {
-            navigate('/')
-        }
-    }, [isManager, navigate])
-
+    const adminReqServerMessage = useAppSelector(s => s.auth.loginData.adminReqServerMessage)
 
     return <div className={c.wrap}>
 
         <div className={c.container}>
 
-            {serverMessage ?
-                <div>{serverMessage}</div>
-                :
-                <>
-                    <div>
-                        Обратитесь к администратору для получения прав доступа:
-                    </div>
-                    <AdminRequestForm />
-                </>
+            {adminReqServerMessage &&
+                <div>{adminReqServerMessage}</div>}
 
-            }
+            <div>
+                <h2>Для просмотра большей части контента и его редактирования нужны полномочия</h2>
+                <span>Обратитесь к администратору для получения прав доступа:</span>
+            </div>
+            <AdminRequestForm />
+
         </div>
     </div>
 

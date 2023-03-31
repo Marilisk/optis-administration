@@ -16,7 +16,6 @@ export const determinateDate = (createdAt: Date) => {
 }
 
 
-
 export const determinateCondition = (ordercondition: string) => {
     let condition = '';
     switch (ordercondition) {

@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IOrder, LoadingStatusEnum } from "../types/types";
+import { FilterType, IOrder, LoadingStatusEnum } from "../types/types";
 import instance from "./API/api";
+
+type OrderProperties = keyof IOrder
+export interface EditActionI {
+    id: string
+    property: OrderProperties
+    value: string
+}
 
 export const fetchAllOrders = createAsyncThunk('orders/fetchAllOrders', async () => {
     const response = await instance.get<IOrder[]>('/orders')
@@ -23,14 +30,16 @@ export const fetchEditOrder = createAsyncThunk('auth/fetchEditOrder',
         return response.data;
     })
 
-
-
 export interface IOrdersInitialState {
     orders: {
         items: IOrder[],
         status: LoadingStatusEnum
     }
     deleteOrderMessage: string
+    filters: {
+        options: FilterType[]
+        chosenOption: FilterType
+    }
 }
 
 const initialState: IOrdersInitialState = {
@@ -39,14 +48,24 @@ const initialState: IOrdersInitialState = {
         status: LoadingStatusEnum.loaded,
     },
     deleteOrderMessage: '',
+    filters: {
+        options: [
+            { id: 1, name: 'все' }, { id: 2, name: 'за месяц' }, { id: 3, name: 'за неделю' }, { id: 4, name: 'сегодняшние' }],
+        chosenOption: { id: 1, name: 'все' },
+    },
 }
 
 const ordersSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
-
-
+        localEditOrder(state, action) {
+            let index = state.orders.items.findIndex(order => order._id === action.payload._id)
+            state.orders.items.splice(index, 1, action.payload)
+        },
+        selectFilter(state, action) {
+            state.filters.chosenOption = action.payload
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllOrders.pending, (state) => {
@@ -101,16 +120,12 @@ const ordersSlice = createSlice({
                 state.orders.status = LoadingStatusEnum.error;
                 state.deleteOrderMessage = 'Ошибка изменения статуса'
             })
-
-
-
-
-
     },
 })
 
 export const {
-
+    localEditOrder,
+    selectFilter,
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

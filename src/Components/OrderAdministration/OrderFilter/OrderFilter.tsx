@@ -1,16 +1,17 @@
-import { FC, useState } from 'react';
-import { selectFilter } from '../../../redux/featuresSlice';
+import { FC, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
-import c from './Filters.module.scss'
+import { selectFilter } from '../../../redux/ordersSlice'
+import c from './../../Goods/Filters/Filters.module.scss'
 
 
-export const Filters: FC = () => {
-    const filters = useAppSelector(s => s.filters.filters)
+export const OrderFilter: FC = () => {
     const dispatch = useAppDispatch()
+    const filters = useAppSelector(s => s.orders.filters)
 
     const [isSelectFocused, setIsSelectFocused] = useState(false)
 
     return <div className={c.wrap}>
+        
         <div className={isSelectFocused ? c.focusedSelect : c.fakeSelect}
             onClick={() => setIsSelectFocused(!isSelectFocused)}>
             <div>

@@ -2,6 +2,7 @@ export type ILData = {
     data?: IUser | null
     status: LoadingStatusEnum
     serverMessage: string
+    adminReqServerMessage: string
 } 
 export type ISubscribeData = {
     email: string
@@ -195,7 +196,7 @@ type SortType = {
     tags: SortTagType[]
     chosenTagId: number
 }
-type FilterType = {
+export type FilterType = {
     id: number
     name: string
 }
@@ -205,7 +206,13 @@ export type FeaturesInitialStateType = {
         chosenOption: FilterType 
     }
     sortTags: SortType
-    /* status: string
-    filteredProducts: IProduct[]
-    goodsAmount: number */
+}
+export type AuthValuesType = {
+    email: string
+    password: string
+}
+export type RegisterValuesType = {
+    email: string
+    password: string
+    fullName: string
 }

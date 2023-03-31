@@ -21,19 +21,22 @@ export const Photos = () => {
         return <LoadingDotsPreloader />
     }
 
-    const photos = imgsArray.map((el, i) => (
-        <div key={i}>
-            <PhotoItem photo={el} loading={loading} />
-        </div>
-    ))
 
-    return <div className={c.wrap}>
-
+    return <>
         <div className={c.container}>
             <h3>Фотографии всех товаров</h3>
-            {photos}
-        </div>
+            <div className={c.grid}>
 
-    </div>
+                {imgsArray.map((el, i) => (
+                    <div key={i}>
+                        <div>
+                            <PhotoItem photo={el} loading={loading} />
+                        </div>
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    </>
 
 }

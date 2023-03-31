@@ -4,9 +4,9 @@ import { validateEmail, validatePassword, validateFullName } from '../LoginForm/
 import snowFlake from './icons/snowflake.png';
 import errorInput from './icons/errorInput.png';
 import check from './icons/check.png';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { LoadingStatusEnum } from '../../types/types';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchRegister } from '../../redux/authSlice';
 import { CustomCheckbox } from '../assets/CustomCheckbox/CustomCheckbox';
 
@@ -16,7 +16,7 @@ interface IRegisterForm {
 }
 export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegisterForm) => {
     
-    const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState<string | null>(null)
+    const serverMsg = useAppSelector(s => s.auth.loginData.serverMessage)
     const dispatch = useAppDispatch()
 
     return <Formik initialValues={{
@@ -27,18 +27,7 @@ export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegist
     }}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
-            const response = await dispatch(fetchRegister(payload))
-            if (response.meta.requestStatus === 'rejected' /* === "Request failed with status code 400" */) {
-                console.log('response', response)
-                setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
-                actions.resetForm();
-            } else if (response.payload && 'email' in response.payload) {
-                if (values.rememberMe) { localStorage.setItem('email', values.email) }
-                actions.resetForm();
-                navigate(-1)
-            } else {
-                console.log(response);
-            }
+            await dispatch(fetchRegister(payload))
         }}
     >
 
@@ -72,7 +61,7 @@ export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegist
                             touched.password ? check : snowFlake}
                         className={c.passwordIcon} />
 
-                    {alreadyRegisteredMsg && <p className={c.alreadyRegisteredMsg}>{alreadyRegisteredMsg}</p>}
+                    {serverMsg && <p className={c.alreadyRegisteredMsg}>{serverMsg}</p>}
 
                     <button type='submit'
                         className={(errors.fullName || errors.email || errors.password || isLoading === LoadingStatusEnum.loading) ?

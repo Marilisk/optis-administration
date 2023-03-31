@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { CourierNote } from "../../../assets/order_icons/CourierNote";
 import { DeliveryIcon } from "../../../assets/order_icons/DeliveryIcon";
 import { ManagerIcon } from "../../../assets/order_icons/ManagerIcon";
 import { NoteIcon } from "../../../assets/order_icons/NoteIcon";
@@ -33,12 +32,14 @@ export const OrderNavBar: FC<IOrderNavBarProps> = ({activeTab, setActiveTab}:IOr
                     обновлён
                 </div>
 
-                <div className={activeTab === 'notes' ? c.activeTab : c.tab} onClick={() => setActiveTab('notes')}>
+                <div className={activeTab === 'notes' ? c.activeTab : c.tab} 
+                    onClick={() => setActiveTab('notes')}>
                     <NoteIcon />
                     примечания
                 </div>
 
-                <div className={activeTab === 'responsibleManager' ? c.activeTab : c.tab} onClick={() => setActiveTab('responsibleManager')}>
+                <div className={activeTab === 'responsibleManager' ? c.activeTab : c.tab} 
+                    onClick={() => setActiveTab('responsibleManager') }>
                     <ManagerIcon />
                     менеджер
                 </div>
@@ -46,11 +47,6 @@ export const OrderNavBar: FC<IOrderNavBarProps> = ({activeTab, setActiveTab}:IOr
                 <div className={activeTab === 'deliveryDate' ? c.activeTab : c.tab} onClick={() => setActiveTab('deliveryDate')}>
                     <DeliveryIcon />
                     доставка
-                </div>
-
-                <div className={activeTab === 'courierNote' ? c.activeTab : c.tab} onClick={() => setActiveTab('courierNote')}>
-                    <CourierNote />
-                    курьеру
                 </div>
 
             </div>

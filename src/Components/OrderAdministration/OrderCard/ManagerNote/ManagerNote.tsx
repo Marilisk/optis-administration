@@ -1,39 +1,24 @@
-import { Field, Form, Formik } from "formik";
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { localEditOrder } from "../../../../redux/ordersSlice";
+import { IOrder } from "../../../../types/types";
 import c from './ManagerNote.module.scss'
 
-interface IManagerProps {
-    note?: string
+interface INoteProps {
+    order: IOrder
 }
 
-export const ManagerNote: FC<IManagerProps> = ({note}: IManagerProps) => {
+export const Note: FC<INoteProps> = ({ order }: INoteProps) => {
+    const dispatch = useAppDispatch()
 
-
-    const initialValues = {
-        text: note || '',
-    }
+    const [text, setText] = useState(order.additionalInfo)
 
     return <div className={c.wrap}>
-
-        <Formik initialValues={initialValues}
-            onSubmit={async (values) => {
-                console.log(values)
-            }}>
-
-            {props => (
-                <Form>
-                    <label>
-                        <span>текст</span>
-                        <Field name='text' component='textarea' />
-                    </label>
-
-                    <button type="submit" 
-                        disabled={props.values.text.length < 1}>
-                        изменить
-                    </button>
-                </Form>
-            )}
-        </Formik>
+        <textarea value={text} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+            setText(e.currentTarget.value)
+            let currentOrder = { ...order, additionalInfo: e.currentTarget.value }
+            dispatch(localEditOrder(currentOrder))
+        }}
+        />
     </div>
-
 }

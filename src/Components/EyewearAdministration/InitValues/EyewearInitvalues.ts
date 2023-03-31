@@ -36,7 +36,7 @@ export const initValues = ({ currentProduct, images}:IinitValues) => {
     } else {
         return {
             category: 'eyewear',
-            name: 'Occasion',
+            name: '',
             code: 125954,
             description: 'new',
             price: 0,

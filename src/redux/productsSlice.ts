@@ -96,7 +96,6 @@ const productsSlice = createSlice({
                 state.products.status = LoadingStatusEnum.error;
             })
 
-
             .addCase(fetchDeleteProd.pending, (state) => {
                 state.products.status = LoadingStatusEnum.loading;
             })
@@ -107,7 +106,6 @@ const productsSlice = createSlice({
             .addCase(fetchDeleteProd.rejected, (state) => {
                 state.products.status = LoadingStatusEnum.error;
             })
-
 
             .addCase(fetchProd.pending, (state) => {
                 state.currentProduct.status = LoadingStatusEnum.loading;
@@ -132,7 +130,6 @@ const productsSlice = createSlice({
                 state.products.status = LoadingStatusEnum.error;
 
             })
-
 
     },
 })
