@@ -34,7 +34,7 @@ export const LoginForm: FC<ILoginForm> = ({ isLoading }: ILoginForm) => {
                             Для демо версии
                         </p>
                         <p>
-                            логин - admin@ya.ru
+                            логин - admin@monstersys.ru
                         </p>
                         <p>
                             пароль - password
