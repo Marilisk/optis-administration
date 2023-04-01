@@ -61,7 +61,6 @@ export const LoginForm: FC<ILoginForm> = ({ isLoading }: ILoginForm) => {
                     <div className={c.underBtn}>
                         <Field type='checkbox' name='rememberMe' component={CustomCheckbox} />
                         <label htmlFor='rememberMe'>запомнить меня</label>
-                        <span>забыли пароль?</span>
                     </div>
 
                 </div>

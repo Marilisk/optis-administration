@@ -46,18 +46,7 @@
 
 .underBtn {
     margin-bottom: 1.3em;
-
-    span {
-        font-style: italic;
-        color: $blue;
-        font-size: 18px;
-        text-align: end;
-        padding-left: 3.3em;
-    }
-    label {
-        margin: 0px auto auto 0px;
-        height: 2em;
-    }
+    display: flex;
 }
 
 .error, .errorPassword {
