@@ -17,14 +17,16 @@ export const Orders: FC = () => {
     const [currentOrderId, setCurrentOrderId] = useState<string | null>(null)
     const { step } = useParams()
     const filteredOrders = useFilterOrders(orders, step)
+    filteredOrders.sort((o1, o2) => new Date(o2.createdAt).getTime() - new Date(o1.createdAt).getTime())
 
     useEffect(() => {
         dispatch(fetchAllOrders())
     }, [dispatch])
 
-    if (!orders) {
+    if (!orders.length) {
         return <LoadingDotsPreloader />
     }
+
 
     return <div className={c.wrapper}>
         <div className={c.header}>

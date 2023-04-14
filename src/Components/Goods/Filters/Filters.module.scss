@@ -12,7 +12,7 @@
 .fakeSelect, .focusedSelect {
     border: 2px solid $light-beige-gray;
     border-radius: 3px;
-    width: 100px;
+    width: 120px;
     padding: 6px;
     transition: 100ms linear;
 
@@ -64,11 +64,6 @@
         
         &:hover {
             background: $soft-blue;
-            span {
-                display: inline-block;
-                transform: scale(1.05);
-
-            }
         }
     }
 }
