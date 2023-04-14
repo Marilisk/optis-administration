@@ -50,5 +50,6 @@ export const determinateCondition = (ordercondition: string) => {
             condition = 'доставлен клиенту';
             break;
     }
+
     return condition
 }

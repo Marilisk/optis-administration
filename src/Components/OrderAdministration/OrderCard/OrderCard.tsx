@@ -104,7 +104,7 @@ export const OrderCard: FC<IOrderCardProps> = ({ orderId, setCurrentOrderId }: I
                 activeTab === 'deliveryDate'
                 &&
                 <div>
-                    <DeliveryDate createdAt={order.createdAt} />
+                    <DeliveryDate createdAt={order.createdAt} address={order.address} />
                 </div>
             }
 

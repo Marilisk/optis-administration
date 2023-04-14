@@ -5,10 +5,8 @@ import { AdminRequestValuesType, AuthInitStateType, AuthValuesType, LoadingStatu
 import instance, { API_URL } from './API/api';
 
 
-
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params: AuthValuesType) => {
     let response = await instance.post('/auth/login', params);
-    //console.log(response)
     if (response.data.accessToken) {
         localStorage.setItem('token', response.data.accessToken)
     }

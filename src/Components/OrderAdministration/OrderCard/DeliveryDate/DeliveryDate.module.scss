@@ -1,23 +1,8 @@
 @use './../../../../vars.scss' as *;
 
 
-.wrap {
-    //color: $blue;
-    label {
-        font-size: $small-fontSize;
-        margin: 20px;
-        //border: 1px solid blueviolet;
-        display: inline-block;
-
-    }
-
-    input, button {
-        padding: .5em;
-        background: white;
-        border: 2px solid $soft-blue;
-        border-radius: 3px;
-    }
-    input {
-        display: block;
+.delivery {
+    div {
+        margin: 20px 0;
     }
 }

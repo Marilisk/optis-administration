@@ -32,8 +32,7 @@ export const LoginPage: FC = () => {
 
         {isLoginTab ?
             <LoginForm isLoading={authLoading} /> :
-            <RegisterForm navigate={navigate}
-                isLoading={authLoading} />}
+            <RegisterForm isLoading={authLoading} />}
 
     </div>
 

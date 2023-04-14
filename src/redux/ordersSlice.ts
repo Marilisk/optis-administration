@@ -19,11 +19,6 @@ export const fetchDeleteOrder = createAsyncThunk('orders/fetchDeleteOrder', asyn
     return { ...response.data, orderId };
 })
 
-/* export const fetchDeleteAllOrders = createAsyncThunk('orders/fetchDeleteAllOrders', async () => {  
-    const response = await instance.delete(`/orders`);
-    return response.data; 
-}) */
-
 export const fetchEditOrder = createAsyncThunk('auth/fetchEditOrder',
     async (order: IOrder) => {
         const response = await instance.patch(`/adminorder`, order);
@@ -93,28 +88,13 @@ const ordersSlice = createSlice({
                 state.deleteOrderMessage = 'Ошибка удаления'
             })
 
-            /* .addCase(fetchDeleteAllOrders.pending, (state) => {
-                state.orders.status = LoadingStatusEnum.loading;
-            })
-            .addCase(fetchDeleteAllOrders.fulfilled, (state, action) => {
-                state.orders.items = []
-                state.orders.status = LoadingStatusEnum.loaded;
-            })
-            .addCase(fetchDeleteAllOrders.rejected, (state) => {
-                state.orders.status = LoadingStatusEnum.error;
-                state.deleteOrderMessage = 'Ошибка удаления'
-            }) */
-
-
             .addCase(fetchEditOrder.pending, (state) => {
                 state.orders.status = LoadingStatusEnum.loading;
             })
             .addCase(fetchEditOrder.fulfilled, (state, action) => {
-                let editedItem = state.orders.items.find(el => el._id === action.payload._id)
-                if (editedItem) {
-                    editedItem = action.payload
-                }
-                state.orders.status = LoadingStatusEnum.loaded;
+                const editibleIndex = state.orders.items.findIndex(el => el._id === action.payload._id)
+                state.orders.items[editibleIndex] = action.payload
+                state.orders.status = LoadingStatusEnum.loaded
             })
             .addCase(fetchEditOrder.rejected, (state) => {
                 state.orders.status = LoadingStatusEnum.error;

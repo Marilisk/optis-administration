@@ -2,7 +2,6 @@ import { FC } from 'react';
 import c from './Navigation.module.scss';
 import { BarCodeIcon } from '../assets/navigation_icons/BarCodeIcon';
 import { NavLink } from 'react-router-dom';
-import { ClientsIcon } from '../assets/navigation_icons/ClientsIcon';
 import { CartIcon } from '../assets/navigation_icons/CartIcon';
 import { OrderIcon } from '../assets/navigation_icons/OrderIcon';
 import { AdminIcon } from '../assets/navigation_icons/AdminIcon';

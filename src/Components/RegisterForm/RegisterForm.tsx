@@ -12,9 +12,8 @@ import { CustomCheckbox } from '../assets/CustomCheckbox/CustomCheckbox';
 
 interface IRegisterForm {
     isLoading: LoadingStatusEnum
-    navigate: (arg: number) => void
 }
-export const RegisterForm: FC<IRegisterForm> = ({ isLoading, navigate }: IRegisterForm) => {
+export const RegisterForm: FC<IRegisterForm> = ({ isLoading }: IRegisterForm) => {
     
     const serverMsg = useAppSelector(s => s.auth.loginData.serverMessage)
     const dispatch = useAppDispatch()
