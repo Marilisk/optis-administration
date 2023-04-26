@@ -30,9 +30,10 @@ export const Eyewears = () => {
     return <div className={c.wrap}>
 
         <div className={c.container}>
+
             <div className={c.header}>
                 <h3>Оправы</h3>
-                <Filters  />
+                <Filters />
             </div>
 
             <CatalogHead />
