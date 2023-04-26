@@ -1,18 +1,4 @@
-$green: #11A834;
-$thin-gray-border: 1px solid #F1F3F7;
-$light-beige-gray: #F1F3F7;
-$dark-fontcolor: #333333;
-$gray-fontcolor: #666666;
-$small-fontSize: 14px;
-$light-background: #FAFAFA;
-$lightBorderColor: #ececec;
-$black: #121212;
-$orderColor: #1F1F1F;
-$commonBorderRadius: 12px;
-$activeBlue: #2953A4;
-$blue: #475B73;
-$soft-blue: #EAEEF6;
-$middle-gray: #D9D9D9;
+@use './../../vars.scss' as*;
 
 .container {
     max-width: 100%;
@@ -57,7 +43,7 @@ $middle-gray: #D9D9D9;
 
     label {
         display: flex;
-        justify-content: space-between;
+        //justify-content: space-between;
         align-items: center;
         color: #666666;
         font-size: 14px;
@@ -69,14 +55,16 @@ $middle-gray: #D9D9D9;
         margin-right: 20px;
     }
 
-    input, textarea {
+    input,
+    textarea {
         height: 3em;
         display: inline-block;
         font-weight: 500;
         color: inherit;
         border: 1px solid $middle-gray;
-        padding: 0px 14px;
+        padding: 0px 10px;
         border-radius: 3px;
+
         &:focus {
             outline: none;
             border-color: $blue;
@@ -86,33 +74,38 @@ $middle-gray: #D9D9D9;
 
 .longInputsTwoColFlex {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+
     .inputWrapper {
-        width: 42%;
+        label {
+            justify-content: flex-start;
+            div {
+                width: 110px;
+                text-align: right;
+                margin-right: 10px;
+                //border: 1px solid rebeccapurple;
+
+            }
+        }
     }
-    input {
-        width: 68%;
-    }
-    span {
-        width: 32%;
-    }
+
 }
 
 .descriptionInputWrapper {
-    width: 84%;
-    margin: 0 auto;
-    div {
-        width: 32%;
-    }
+    display: flex;
+
     label {
-        width: 100%;
-        max-width: none;
+        div {
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+        }
     }
 
     textarea {
         height: 5em;
-        width: 68%;
-        padding: 4px 14px;
+        width: 100%;
+        padding: 4px 10px;
         resize: none;
 
         &:focus {

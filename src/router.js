@@ -63,11 +63,6 @@ export const router = createBrowserRouter([
         element: <Eyewears />,
       },
 
-      /* {
-        path: "goods/lenses",
-        element: <Eyewears />,
-      }, */
-
       {
         path: "/noadminerror",
         element: <NoAdminPage />,

@@ -1,31 +1,15 @@
-$green: #11A834;
-$thin-gray-border: 1px solid #F1F3F7;
-$light-beige-gray: #F1F3F7;
-$dark-fontcolor: #333333;
-$gray-fontcolor: #666666;
-$small-fontSize: 14px;
-$light-background: #FAFAFA;
-$lightBorderColor: #ececec;
-$black: #121212;
-$orderColor: #1F1F1F;
-$commonBorderRadius: 12px;
-$activeBlue: #2953A4;
-$blue: #475B73;
-$soft-blue: #EAEEF6;
-$middle-gray: #D9D9D9;
+@use './../../../vars.scss' as *;
 
 
 .genderEdit {
-    width: 40%;
+    width: 260px;
     margin: 30px auto 30px 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 40px;
     background: white;
     color: $gray-fontcolor;
-    span {
-        padding-top: 8px;
-    }
 
     h3 {
         display: block;
@@ -34,7 +18,7 @@ $middle-gray: #D9D9D9;
     label {
         width: 24%;
         position: relative;
-        display: inline-block;        
+        display: inline-block;   
     }
     input {
         display: inline-block;
@@ -52,8 +36,9 @@ $middle-gray: #D9D9D9;
     cursor: pointer;
     text-align: center;
     border: 1px solid $middle-gray;
-    height: 38px;
     position: absolute;
+    bottom: -10px;
+    left: -2px;
     background: white;
     border-radius: 10px;
     padding: 9px 4px;

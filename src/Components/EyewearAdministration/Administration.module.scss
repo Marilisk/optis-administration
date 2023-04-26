@@ -47,13 +47,13 @@
     label {
         display: flex;
         justify-content: space-between;
+        justify-content: flex-start;
+        align-items: center;
         color: #666666;
         font-size: 14px;
         width: 100%;
     }
-    span {
-        padding-top: 8px;
-    }
+  
     .arrayLabel {
         display: inline-block;
         margin-right: 20px;
@@ -77,17 +77,16 @@
 
 .inputsTwoColFlex {
     display: flex;
-    .inputWrapper {
-        width: 50%;
-    }
+    align-items: center;
+   
     label {
-        width: 70%;
-        margin: 0 auto;
         span {
-            width: 68%;
+            width: 106px;
+            padding: 0;
         }
         input {
             width: 32%;
+            width: auto;
         }
     }
     @media screen and (max-width: 1024px) {
@@ -115,24 +114,19 @@
         }
     }
 }
-.longInputsTwoColFlex {
-    display: flex;
-    
-    .inputWrapper {
-        width: 50%;
-    }
-    input {
-        width: 68%;
-    }
-   
-}
+
 .descriptionInputWrapper {
+
     .inputWrapper {
-        max-width: none;
         width: 100%;
+        label {
+            span {
+                width: 106px;
+            }
+        }
     }
     input {
-        width: 90%;
+        width: 80%;
     }
 }
 

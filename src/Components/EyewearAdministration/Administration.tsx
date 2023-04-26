@@ -105,7 +105,7 @@ const Administration: FC = () => {
 
                                 <div className={c.inputGroup}>
 
-                                    <div className={c.longInputsTwoColFlex}>
+                                    <div className={c.inputsTwoColFlex}>
                                         <FieldLine error={props.errors.name} label={'наименование'} name={'name'} />
                                         <FieldLine error={props.errors.category} label={'категория'} name={'category'} />
                                     </div>
@@ -117,7 +117,6 @@ const Administration: FC = () => {
                                     <div className={c.inputsTwoColFlex}>
                                         <FieldLine error={props.errors.code} label={'артикул'} name={'code'} />
                                         <FieldLine error={props.errors.price} label={'цена'} name={'price'} />
-                                        
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
@@ -137,7 +136,7 @@ const Administration: FC = () => {
 
                                 <CreateFieldArray name='options'
                                     array={props.values.options}
-                                    title={'Опции'} />
+                                    title={'Опции'} /> 
 
                                 <ChecksGroup name='shape'
                                     array={props.values.shape}
@@ -156,23 +155,21 @@ const Administration: FC = () => {
                                     <div className={c.inputsTwoColFlex}>
                                         <FieldLine label='расстояние между зрачками' name='pupillaryDistance' type='pupillaryDistance' />
                                         <FieldLine label='ширина оправы, мм' name='frameWidth' type='number' />
-                                    </div>
-
-                                    <div className={c.inputsTwoColFlex}>
                                         <FieldLine label='ширина переносицы, мм' name='bridge' type='number' />
-                                        <FieldLine label='длина дужки, мм' name='templeLength' type='number' />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
+                                        <FieldLine label='длина дужки, мм' name='templeLength' type='number' />
                                         <FieldLine label='высота линзы, мм' name='lensHeight' type='number' />
                                         <FieldLine label='вес, грамм' name='weight' type='number' />
-                                        <FieldLine label='ширина линзы, мм' name='lensWidth' type='number' />
                                     </div>
 
                                     <div className={c.inputsTwoColFlex}>
+                                        <FieldLine label='ширина линзы, мм' name='lensWidth' type='number' />
                                         <FieldLine error={props.errors.prescriptionMin} label='минимальные диоптрии' name='prescriptionMin' type='number' />
                                         <FieldLine label='максимальные диоптрии' name='prescriptionMax' type='number' />
                                     </div>
+
                                 </div>
 
                                 <ChecksGroup name='material'
