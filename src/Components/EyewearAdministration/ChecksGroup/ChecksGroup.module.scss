@@ -9,11 +9,9 @@
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
-    grid-template-rows: auto;
-    gap: 10px;
     margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .cell,
@@ -22,10 +20,11 @@
     border: 1px solid $middle-gray;
     background: white;
     border-radius: 10px;
-    transition: 100ms;
+    transition: all 100ms linear;
     width: fit-content;
     display: flex;
     align-items: center;
+    margin: 4px;
 
     label {
         display: flex;
@@ -33,7 +32,7 @@
         margin: 0 4px;
         cursor: pointer;
         span {
-            margin: 8px auto;
+            margin: 4px auto;
             width: fit-content;
         }
     }
@@ -43,8 +42,7 @@
     }
     
     &:hover {
-        transform: scale(1.03);
-        color: $activeBlue;
+        transform: scale(1.01);
     }
 }
 

@@ -10,6 +10,9 @@
     height: 40px;
     background: white;
     color: $gray-fontcolor;
+    span {
+        color: $gray-label-color;
+    }
 
     h3 {
         display: block;

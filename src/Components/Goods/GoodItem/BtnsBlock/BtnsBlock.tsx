@@ -14,13 +14,13 @@ export const BtnsBlock: FC<IBtnsBlockProps> = ({ productId, loading }: IBtnsBloc
     const dispatch = useAppDispatch()
     const confirm = useAppSelector(s => s.products.alarmWindow.confirmed)
 
-
     const deleteProduct = () => {
         dispatch(showAlarmWindow({ isShown: true, text: 'Вы уверены, что хотите удалить товар?' }))
         if (confirm) {
             dispatch(fetchDeleteProd(productId))
         }
     }
+
     return <div className={c.btnsBlock}>
 
         <button type='button' disabled={loading}
@@ -33,5 +33,4 @@ export const BtnsBlock: FC<IBtnsBlockProps> = ({ productId, loading }: IBtnsBloc
         </button>
 
     </div>
-
 }

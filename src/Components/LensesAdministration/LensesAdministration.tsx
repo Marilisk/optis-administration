@@ -14,6 +14,7 @@ import { LoadingDotsPreloader } from '../assets/Preloader/LoadingDots/LoadingDot
 import SubmitButton from '../EyewearAdministration/SubmitButton/SubmitButton';
 import SuccessMsg from '../EyewearAdministration/SuccessMsg/SuccessMsg';
 
+
 export const LensesAdministration: FC = () => {
     const params = useParams();
     const [successmsg, setSuccessMsg] = useState(null);
@@ -23,7 +24,6 @@ export const LensesAdministration: FC = () => {
     const fetch = useCallback( async () => {
         if (params.id) {
             const response = await dispatch(fetchLens(params.id));
-            console.log(response)
             if (response.payload.imageUrl) {
                 setImages(response.payload.imageUrl)
             }
@@ -85,7 +85,7 @@ export const LensesAdministration: FC = () => {
                                         <LensFieldLine error={props.errors.manufacturerCountry} label='страна' name={'manufacturerCountry'} />
                                         <LensFieldLine error={props.errors.code} label='артикул' name='code' />
                                         <LensFieldLine error={props.errors.price} label='цена' name='price' />
-                                        <LensFieldLine error={props.errors.inStockQuantity} label='цена' name='inStockQuantity' />
+                                        <LensFieldLine error={props.errors.inStockQuantity} label='в наличии' name='inStockQuantity' />
                                     </div>
 
                                     <div className={c.descriptionInputWrapper}>

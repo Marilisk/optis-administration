@@ -63,8 +63,11 @@
         border-radius: 3px;
         text-align: right;
         cursor: pointer;
-        border: 1px solid $blue;
+        border: 1px solid $soft-blue;
         text-align: left;
+        &:focus {
+            border: 1px solid $blue;
+        }
     }
 }
 
