@@ -109,7 +109,6 @@ export const LensesAdministration: FC = () => {
                                 <CreateLenFieldArray name='CYL'
                                     array={props.values.CYL}
                                     title={'CYL'} />
-
                                 <CreateLenFieldArray name='AX'
                                     array={props.values.AX}
                                     title={'AX'} />
